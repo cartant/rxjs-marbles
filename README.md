@@ -12,7 +12,7 @@
 
 It can be used with [Jasmine](https://github.com/jasmine/jasmine), [Mocha](https://github.com/mochajs/mocha) or [Tape](https://github.com/substack/tape) in the browser or in Node and it supports CommonJS and ES module bundlers.
 
-### Why might I need it?
+### Why might you need it?
 
 I created this package because I wanted to use RxJS marble tests in a number of projects and those projects used different test frameworks.
 
