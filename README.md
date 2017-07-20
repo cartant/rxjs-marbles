@@ -117,7 +117,7 @@ it("should map the values", marbles((m) => {
     const subs =            "^-------!";
     const expected = m.cold("--b-c-d-|", values);
 
-    const destination = source.map((value: number) => value + 1);
+    const destination = source.map((value) => value + 1);
     m.expect(destination).toBeObservable(expected);
     m.expect(source).toHaveSubscriptions(subs);
 }));
@@ -152,7 +152,7 @@ tape("it should map the values", marbles<tape.Test>((m, t) => {
     const subs =            "^-------!";
     const expected = m.cold("--b-c-d-|", values);
 
-    const destination = source.map((value: number) => value + 1);
+    const destination = source.map((value) => value + 1);
     m.expect(destination).toBeObservable(expected);
     m.expect(source).toHaveSubscriptions(subs);
 }));
@@ -192,7 +192,7 @@ tape("it should map the values", tapeMarbles((m, t) => {
     const subs =            "^-------!";
     const expected = m.cold("--b-c-d-|", values);
 
-    const destination = source.map((value: number) => value + 1);
+    const destination = source.map((value) => value + 1);
     m.expect(destination).toBeObservable(expected);
     m.expect(source).toHaveSubscriptions(subs);
 }));
@@ -201,7 +201,7 @@ tape("it should map the values", tapeMarbles((m, t) => {
 Also, if the BDD syntax is something you really don't like, there are some alternative methods on the `Context` that are more Tape-ish:
 
 ```ts
-const destination = source.map((value: number) => value + 1);
+const destination = source.map((value) => value + 1);
 m.equal(destination, expected);
 m.has(source, subs);
 ```
