@@ -16,7 +16,7 @@ It can be used with [Jasmine](https://github.com/jasmine/jasmine), [Mocha](https
 
 I created this package because I wanted to use RxJS marble tests in a number of projects and those projects used different test frameworks.
 
-There are a number of marble testing packages available, including the Mocha-based implementation in RxJS itself - although much of that implementation is not part of the RxJS distribution - but I wanted something that was simple, didn't involve messing with globals and `beforeEach`/`afterEach` functions and was consistent across test frameworks.
+There are a number of marble testing packages available - including the Mocha-based implementation in RxJS itself; although, much of that implementation is not part of the RxJS distribution - but I wanted something that was simple, didn't involve messing with globals and `beforeEach`/`afterEach` functions and was consistent across test frameworks.
 
 If you are looking for something similar, this might suit.
 
