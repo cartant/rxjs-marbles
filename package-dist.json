@@ -1,0 +1,10 @@
+{
+  "devDependencies": {},
+  "jsnext:main": "./index.js",
+  "main": "./bundles/rxjs-marbles.umd.js",
+  "module": "./index.js",
+  "private": false,
+  "scripts": {},
+  "typings": "./index.d.ts",
+  "unpkg": "./bundles/rxjs-marbles.umd.js"
+}

@@ -1,0 +1,6 @@
+{
+  "compilerOptions": {
+    "types": ["node", "tape"]
+  },
+  "extends": "../tsconfig.json"
+}
