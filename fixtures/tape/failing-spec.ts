@@ -27,7 +27,7 @@ tape("rxjs-marbles failing test", marbles<tape.Test>((m, t) => {
     const subs =            "^-------!";
     const expected = m.cold("--b-c-d-|", values);
 
-    const destination = source.map((value: number) => value + 1);
+    const destination = source.map((value) => value + 1);
 
     t.plan(1);
     m.expect(destination).toBeObservable(source);

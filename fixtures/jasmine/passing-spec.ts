@@ -23,7 +23,7 @@ describe("rxjs-marbles", () => {
         const subs =            "^-------!";
         const expected = m.cold("--b-c-d-|", values);
 
-        const destination = source.map((value: number) => value + 1);
+        const destination = source.map((value) => value + 1);
 
         m.expect(destination).toBeObservable(expected);
         m.expect(source).toHaveSubscriptions(subs);

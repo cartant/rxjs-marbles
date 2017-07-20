@@ -18,7 +18,7 @@ export class Context {
 
     constructor(public testScheduler: TestScheduler) {}
 
-    cold<T = any>(marbles: string, values?: any, error?: any): ColdObservable<T> {
+    cold<T = any>(marbles: string, values?: { [key: string]: T }, error?: any): ColdObservable<T> {
 
         const { testScheduler } = this;
         const observable = testScheduler.createColdObservable<T>(marbles, values, error);
@@ -51,7 +51,7 @@ export class Context {
         testScheduler.expectSubscriptions((actual as any).subscriptions).toBe(expected);
     }
 
-    hot<T = any>(marbles: string, values?: any, error?: any): HotObservable<T> {
+    hot<T = any>(marbles: string, values?: { [key: string]: T }, error?: any): HotObservable<T> {
 
         const { testScheduler } = this;
         const observable = testScheduler.createHotObservable<T>(marbles, values, error);

@@ -28,7 +28,7 @@ tape("rxjs-marbles test with inline boilerplate", marbles<tape.Test>((m, t) => {
     const subs =            "^-------!";
     const expected = m.cold("--b-c-d-|", values);
 
-    const destination = source.map((value: number) => value + 1);
+    const destination = source.map((value) => value + 1);
 
     m.expect(destination).toBeObservable(expected);
     m.expect(source).toHaveSubscriptions(subs);
@@ -49,7 +49,7 @@ tape("rxjs-marbles test without inline boilerplate", boilerplate((m, t) => {
     const subs =            "^-------!";
     const expected = m.cold("--b-c-d-|", values);
 
-    const destination = source.map((value: number) => value + 1);
+    const destination = source.map((value) => value + 1);
 
     m.expect(destination).toBeObservable(expected);
     m.expect(source).toHaveSubscriptions(subs);
@@ -70,7 +70,7 @@ tape("rxjs-marbles test with Tape-ish methods", boilerplate((m, t) => {
     const subs =            "^-------!";
     const expected = m.cold("--b-c-d-|", values);
 
-    const destination = source.map((value: number) => value + 1);
+    const destination = source.map((value) => value + 1);
 
     m.equal(destination, expected);
     m.has(source, subs);
