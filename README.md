@@ -60,9 +60,11 @@ interface Configuration {
 function configure(options: Configuration): void;
 ```
 
-The `configure` method can be used to specify the assertion functions that are to be used.
+The `configure` method can be used to specify the assertion functions that are to be used. Calling it is optional; it's only necessary if particular assertion functions are to be used.
 
-The default implementations simply perform the assertion and throw an error for failed assertions. If using Tape and its `plan` method, it's necessary to configure appropriate functions so that Tape's assertion count is updated.
+The default implementations simply perform the assertion and throw an error for failed assertions.
+
+If using Tape and its `plan` method, it's necessary to configure appropriate functions so that Tape's assertion count is updated.
 
 <a name="marbles"></a>
 
@@ -97,7 +99,7 @@ interface Expect<T> {
 
 ## Usage with Jasmine and Mocha
 
-Instead of passing your test function directly to `it`, pass it to the library's `marbles` function, like so:
+Instead of passing your test function directly to `it`, pass it to the library's `marbles` function, like this:
 
 ```ts
 import { marbles } from "rxjs-marbles";
@@ -123,9 +125,9 @@ it("should map the values", marbles((m) => {
 
 ## Usage with Tape
 
-As with Jasmine and Mocha, instead of passing your test function directly to Tape, pass it to the library's `marbles` function. The `marbles` function will concatenate an additional arguments it receives.
+As with Jasmine and Mocha, instead of passing your test function directly to Tape, pass it to the library's `marbles` function. The `marbles` function will concatenate the additional `Test` argument it receives from Tape.
 
-The `marbles` function is generic and the types can be specified so that the additional arguments will have type information, like so:
+The `marbles` function is generic and the `Test` type can be specified so that its type information is used, like this:
 
 ```ts
 import * as tape from "tape";
