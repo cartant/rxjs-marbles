@@ -42,7 +42,7 @@ const { marbles } = require("rxjs-marbles");
 
 ## API
 
-The `rxjs-marbles` API is comprised to two functions:
+The `rxjs-marbles` API is comprised of two functions:
 
 * [configure](#configure)
 * [marbles](#marbles)
