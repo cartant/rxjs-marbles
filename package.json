@@ -76,5 +76,5 @@
   },
   "typings": "./dist/index.d.ts",
   "unpkg": "./bundles/rxjs-marbles.min.umd.js",
-  "version": "0.0.0"
+  "version": "0.0.1-rc.0"
 }
