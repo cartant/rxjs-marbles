@@ -20,7 +20,7 @@ export class Expect<T> {
         testScheduler.expectObservable(actual).toBe(marbles, values, error);
     }
 
-    toHaveSubscriptions(expected: string): void {
+    toHaveSubscriptions(expected: string | string[]): void {
 
         const { actual, testScheduler } = this;
         testScheduler.expectSubscriptions(actual.subscriptions).toBe(expected);

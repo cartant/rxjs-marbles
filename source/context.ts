@@ -26,6 +26,13 @@ export class Context {
         return observable;
     }
 
+    equal<T = any>(actual: Observable<T>, expected: Observable<T>): void {
+
+        const { testScheduler } = this;
+        const { error, marbles, values } = expected[argsSymbol];
+        testScheduler.expectObservable(actual).toBe(marbles, values, error);
+    }
+
     expect<T = any>(actual: Observable<T>): Expect<T> {
 
         const { testScheduler } = this;
@@ -36,6 +43,12 @@ export class Context {
 
         const { testScheduler } = this;
         testScheduler.flush();
+    }
+
+    has<T = any>(actual: Observable<T>, expected: string | string[]): void {
+
+        const { testScheduler } = this;
+        testScheduler.expectSubscriptions((actual as any).subscriptions).toBe(expected);
     }
 
     hot<T = any>(marbles: string, values?: any, error?: any): HotObservable<T> {
