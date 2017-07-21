@@ -12,18 +12,11 @@ describe("rxjs-marbles", () => {
 
     it("should support marble tests", marbles((m) => {
 
-        const values = {
-            a: 1,
-            b: 2,
-            c: 3,
-            d: 4
-        };
-
-        const source =  m.hot("--^-a-b-c-|", values);
+        const source =  m.hot("--^-a-b-c-|");
         const subs =            "^-------!";
-        const expected = m.cold("--b-c-d-|", values);
+        const expected = m.cold("--a-b-c-|");
 
-        const destination = source.map((value) => value + 1);
+        const destination = source;
 
         m.expect(destination).toBeObservable(expected);
         m.expect(source).toHaveSubscriptions(subs);
