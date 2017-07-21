@@ -88,6 +88,7 @@ interface Context {
     flush(): void;
     has<T = any>(actual: Observable<T>, expected: string | string[]): void;
     hot<T = any>(marbles: string, values?: any, error?: any): HotObservable<T>;
+    readonly scheduler: TestScheduler;
     time(marbles: string): number;
 }
 

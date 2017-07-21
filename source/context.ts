@@ -59,6 +59,12 @@ export class Context {
         return observable;
     }
 
+    get scheduler(): TestScheduler {
+
+        const { testScheduler } = this;
+        return testScheduler;
+    }
+
     time(marbles: string): number {
 
         const { testScheduler } = this;
