@@ -1,3 +1,10 @@
+<a name="1.3.0"></a>
+## [1.3.0](https://github.com/cartant/rxjs-marbles/compare/v1.2.0...v1.3.0) (2017-07-22)
+
+### Feature
+
+* **Tape**: Distribute Tape boilerplate in `rxjs-marbles/tape`. ([95580f3](https://github.com/cartant/rxjs-marbles/commit/95580f3))
+
 <a name="1.2.0"></a>
 ## [1.2.0](https://github.com/cartant/rxjs-marbles/compare/v1.1.0...v1.2.0) (2017-07-22)
 
