@@ -134,6 +134,8 @@ import { marbles } from "rxjs-marbles/tape";
 
 tape("it should map the values", marbles((m, t) => {
 
+    t.plan(2);
+
     const values = {
         a: 1,
         b: 2,
