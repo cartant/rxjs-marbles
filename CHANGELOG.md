@@ -1,3 +1,10 @@
+<a name="1.3.2"></a>
+## [1.3.2](https://github.com/cartant/rxjs-marbles/compare/v1.3.1...v1.3.2) (2017-07-23)
+
+### Documentation
+
+* Minor documentation changes.
+
 <a name="1.3.1"></a>
 ## [1.3.1](https://github.com/cartant/rxjs-marbles/compare/v1.3.0...v1.3.1) (2017-07-22)
 
