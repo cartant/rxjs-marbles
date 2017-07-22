@@ -5,16 +5,11 @@
  */
 
 import * as tape from "tape";
-import { Context, marbles } from "../../dist";
+import { marbles } from "../../dist/tape";
 
 import "rxjs/add/operator/map";
 
-tape("rxjs-marbles failing test", marbles<tape.Test>((m, t) => {
-
-    m.configure({
-        assert: t.ok.bind(t),
-        assertDeepEqual: t.deepEqual.bind(t)
-    });
+tape("rxjs-marbles failing test", marbles((m, t) => {
 
     const values = {
         a: 1,

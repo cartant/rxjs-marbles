@@ -64,8 +64,6 @@ The `configure` method can be used to specify the assertion functions that are t
 
 The default implementations simply perform the assertion and throw an error for failed assertions.
 
-If using Tape and its `plan` method, it's necessary to configure appropriate functions so that Tape's assertion count is updated.
-
 <a name="marbles"></a>
 
 ### marbles
@@ -128,19 +126,13 @@ it("should map the values", marbles((m) => {
 
 As with Jasmine and Mocha, instead of passing your test function directly to Tape, pass it to the library's `marbles` function. The `marbles` function will concatenate the additional `Test` argument it receives from Tape.
 
-The `marbles` function is generic and the `Test` type can be specified so that its type information is used, like this:
+There is a `/tape` directory in the package that includes wrapper that will correctly type additional argument and will call `configure` - passing Tape's assertion methods to ensure marble assertions will be counted towards Tape's `plan` - so be sure to specify `rxjs-marbles/tape` in the `import` statement or `require` call:
 
 ```ts
 import * as tape from "tape";
-import { marbles } from "rxjs-marbles";
+import { marbles } from "rxjs-marbles/tape";
 
-tape("it should map the values", marbles<tape.Test>((m, t) => {
-
-    m.configure({
-        assert: t.ok.bind(t),
-        assertDeepEqual: t.deepEqual.bind(t)
-    });
-    t.plan(2);
+tape("it should map the values", marbles((m, t) => {
 
     const values = {
         a: 1,
@@ -159,47 +151,7 @@ tape("it should map the values", marbles<tape.Test>((m, t) => {
 }));
 ```
 
-Note that if Tape's `plan` method is used, `configure` must be called so that Tape is informed of the assertions performed. Each call to `toBeObservable` or `toHaveSubscriptions` counts towards the number of expected assertions passed to `plan`.
-
-The `configure` call and the generic type leads to some boilerplate that can be extracted to a reusable function:
-
-```ts
-import * as tape from "tape";
-import { marbles } from "rxjs-marbles";
-
-function tapeMarbles(func: (m: Context, t: tape.Test) => void): any {
-
-    return marbles<tape.Test>((m, t) => {
-        m.configure({
-            assert: t.ok.bind(t),
-            assertDeepEqual: t.deepEqual.bind(t)
-        });
-        func(m, t);
-    });
-}
-
-tape("it should map the values", tapeMarbles((m, t) => {
-
-    t.plan(2);
-
-    const values = {
-        a: 1,
-        b: 2,
-        c: 3,
-        d: 4
-    };
-
-    const source =  m.hot("--^-a-b-c-|", values);
-    const subs =            "^-------!";
-    const expected = m.cold("--b-c-d-|", values);
-
-    const destination = source.map((value) => value + 1);
-    m.expect(destination).toBeObservable(expected);
-    m.expect(source).toHaveSubscriptions(subs);
-}));
-```
-
-Also, if the BDD syntax is something you really don't like, there are some alternative methods on the `Context` that are more Tape-ish:
+If the BDD syntax is something you really don't like, there are some alternative methods on the `Context` that are more Tape-ish:
 
 ```ts
 const destination = source.map((value) => value + 1);
