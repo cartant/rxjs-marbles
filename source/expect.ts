@@ -8,12 +8,15 @@ import { ColdObservable } from "rxjs/testing/ColdObservable";
 import { HotObservable } from "rxjs/testing/HotObservable";
 import { TestScheduler } from "rxjs/testing/TestScheduler";
 import { argsSymbol } from "./args";
+import { assertArgs, assertSubscriptions } from "./assert";
 
 export class Expect<T> {
 
     constructor(private actual: ColdObservable<T> | HotObservable<T>, private testScheduler: TestScheduler) {}
 
     toBeObservable(expected: ColdObservable<T> | HotObservable<T>): void {
+
+        assertArgs(expected);
 
         const { actual, testScheduler } = this;
         const { error, marbles, values } = expected[argsSymbol];
@@ -23,6 +26,7 @@ export class Expect<T> {
     toHaveSubscriptions(expected: string | string[]): void {
 
         const { actual, testScheduler } = this;
+        assertSubscriptions(actual);
         testScheduler.expectSubscriptions(actual.subscriptions).toBe(expected);
     }
 }

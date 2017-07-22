@@ -9,6 +9,7 @@ import { ColdObservable } from "rxjs/testing/ColdObservable";
 import { HotObservable } from "rxjs/testing/HotObservable";
 import { TestScheduler } from "rxjs/testing/TestScheduler";
 import { argsSymbol } from "./args";
+import { assertArgs, assertSubscriptions } from "./assert";
 import { configure } from "./configuration";
 import { Expect } from "./expect";
 
@@ -28,6 +29,8 @@ export class Context {
 
     equal<T = any>(actual: Observable<T>, expected: Observable<T>): void {
 
+        assertArgs(expected);
+
         const { testScheduler } = this;
         const { error, marbles, values } = expected[argsSymbol];
         testScheduler.expectObservable(actual).toBe(marbles, values, error);
@@ -46,6 +49,8 @@ export class Context {
     }
 
     has<T = any>(actual: Observable<T>, expected: string | string[]): void {
+
+        assertSubscriptions(actual);
 
         const { testScheduler } = this;
         testScheduler.expectSubscriptions((actual as any).subscriptions).toBe(expected);
