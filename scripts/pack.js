@@ -14,3 +14,4 @@ const content = Object.assign(
     JSON.parse(fs.readFileSync("./package-dist.json"))
 );
 fs.writeFileSync("./dist/package.json", JSON.stringify(content, null, 2));
+fs.writeFileSync("./dist/tape/package.json", fs.readFileSync("./source/tape/package.json"));

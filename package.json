@@ -61,7 +61,7 @@
     "dist": "npm run lint && npm run dist:build && npm run dist:copy",
     "dist:build": "npm run dist:clean && tsc -p tsconfig.json && rollup -c rollup-config.js && rollup -c rollup-config-tape.js",
     "dist:clean": "rimraf dist",
-    "dist:copy": "node scripts/pack.js && cpy CHANGELOG.md LICENSE README.md dist/ && cpy **/package.json ../dist/ --cwd=source --parents",
+    "dist:copy": "node scripts/pack.js && cpy CHANGELOG.md LICENSE README.md dist/",
     "lint": "tslint --project tsconfig.json --type-check source/**/*.ts",
     "pack": "node scripts/pack.js",
     "prepublishOnly": "npm run test",
