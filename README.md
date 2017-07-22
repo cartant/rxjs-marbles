@@ -40,6 +40,73 @@ Or `require` the module for use with Node or a CommonJS bundler:
 const { marbles } = require("rxjs-marbles");
 ```
 
+## Usage
+
+### With Jasmine and Mocha
+
+Instead of passing your test function directly to `it`, pass it to the library's `marbles` function, like this:
+
+```ts
+import { marbles } from "rxjs-marbles";
+
+it("should map the values", marbles((m) => {
+
+    const values = {
+        a: 1,
+        b: 2,
+        c: 3,
+        d: 4
+    };
+
+    const source =  m.hot("--^-a-b-c-|", values);
+    const subs =            "^-------!";
+    const expected = m.cold("--b-c-d-|", values);
+
+    const destination = source.map((value) => value + 1);
+    m.expect(destination).toBeObservable(expected);
+    m.expect(source).toHaveSubscriptions(subs);
+}));
+```
+
+### With Tape
+
+As with Jasmine and Mocha, instead of passing your test function directly to Tape, pass it to the library's `marbles` function. The `marbles` function will concatenate the additional `Test` argument it receives from Tape.
+
+There is a `/tape` directory in the package that includes a wrapper that will correctly type additional argument and will call `configure` - passing Tape's assertion methods to ensure marble assertions will be counted towards Tape's `plan` - so be sure to specify `rxjs-marbles/tape` in the `import` statement or `require` call:
+
+```ts
+import * as tape from "tape";
+import { marbles } from "rxjs-marbles/tape";
+
+tape("it should map the values", marbles((m, t) => {
+
+    t.plan(2);
+
+    const values = {
+        a: 1,
+        b: 2,
+        c: 3,
+        d: 4
+    };
+
+    const source =  m.hot("--^-a-b-c-|", values);
+    const subs =            "^-------!";
+    const expected = m.cold("--b-c-d-|", values);
+
+    const destination = source.map((value) => value + 1);
+    m.expect(destination).toBeObservable(expected);
+    m.expect(source).toHaveSubscriptions(subs);
+}));
+```
+
+If the BDD syntax is something you really don't like, there are some alternative methods on the `Context` that are more Tape-ish:
+
+```ts
+const destination = source.map((value) => value + 1);
+m.equal(destination, expected);
+m.has(source, subs);
+```
+
 ## API
 
 The `rxjs-marbles` API is comprised of two functions:
@@ -94,69 +161,4 @@ interface Expect<T> {
     toBeObservable(expected: ColdObservable<T> | HotObservable<T>): void;
     toHaveSubscriptions(expected: string | string[]): void;
 }
-```
-
-## Usage with Jasmine and Mocha
-
-Instead of passing your test function directly to `it`, pass it to the library's `marbles` function, like this:
-
-```ts
-import { marbles } from "rxjs-marbles";
-
-it("should map the values", marbles((m) => {
-
-    const values = {
-        a: 1,
-        b: 2,
-        c: 3,
-        d: 4
-    };
-
-    const source =  m.hot("--^-a-b-c-|", values);
-    const subs =            "^-------!";
-    const expected = m.cold("--b-c-d-|", values);
-
-    const destination = source.map((value) => value + 1);
-    m.expect(destination).toBeObservable(expected);
-    m.expect(source).toHaveSubscriptions(subs);
-}));
-```
-
-## Usage with Tape
-
-As with Jasmine and Mocha, instead of passing your test function directly to Tape, pass it to the library's `marbles` function. The `marbles` function will concatenate the additional `Test` argument it receives from Tape.
-
-There is a `/tape` directory in the package that includes a wrapper that will correctly type additional argument and will call `configure` - passing Tape's assertion methods to ensure marble assertions will be counted towards Tape's `plan` - so be sure to specify `rxjs-marbles/tape` in the `import` statement or `require` call:
-
-```ts
-import * as tape from "tape";
-import { marbles } from "rxjs-marbles/tape";
-
-tape("it should map the values", marbles((m, t) => {
-
-    t.plan(2);
-
-    const values = {
-        a: 1,
-        b: 2,
-        c: 3,
-        d: 4
-    };
-
-    const source =  m.hot("--^-a-b-c-|", values);
-    const subs =            "^-------!";
-    const expected = m.cold("--b-c-d-|", values);
-
-    const destination = source.map((value) => value + 1);
-    m.expect(destination).toBeObservable(expected);
-    m.expect(source).toHaveSubscriptions(subs);
-}));
-```
-
-If the BDD syntax is something you really don't like, there are some alternative methods on the `Context` that are more Tape-ish:
-
-```ts
-const destination = source.map((value) => value + 1);
-m.equal(destination, expected);
-m.has(source, subs);
 ```
