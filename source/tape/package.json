@@ -1,4 +1,4 @@
 {
   "main": "../bundles/rxjs-marbles-tape.umd.js",
-  "typings": "../tape/index.d.ts"
+  "typings": "./index.d.ts"
 }
