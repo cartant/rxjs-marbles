@@ -1,3 +1,10 @@
+<a name="1.2.0"></a>
+## [1.2.0](https://github.com/cartant/rxjs-marbles/compare/v1.1.0...v1.2.0) (2017-07-22)
+
+### Feature
+
+* **context**: Assert test observable args and subscriptions. ([024cc16](https://github.com/cartant/rxjs-marbles/commit/024cc16))
+
 <a name="1.1.0"></a>
 ## [1.1.0](https://github.com/cartant/rxjs-marbles/compare/v1.0.2...v1.1.0) (2017-07-21)
 
