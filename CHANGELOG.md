@@ -1,3 +1,10 @@
+<a name="1.3.1"></a>
+## [1.3.1](https://github.com/cartant/rxjs-marbles/compare/v1.3.0...v1.3.1) (2017-07-22)
+
+### Documentation
+
+* Correct missing `plan` call in Tape example. ([7400890](https://github.com/cartant/rxjs-marbles/commit/7400890))
+
 <a name="1.3.0"></a>
 ## [1.3.0](https://github.com/cartant/rxjs-marbles/compare/v1.2.0...v1.3.0) (2017-07-22)
 
