@@ -1,5 +1,7 @@
 {
+  "ava": {},
   "devDependencies": {},
+  "jest": {},
   "jsnext:main": "./index.js",
   "main": "./bundles/rxjs-marbles.umd.js",
   "module": "./index.js",
