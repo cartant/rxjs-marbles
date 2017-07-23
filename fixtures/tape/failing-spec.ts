@@ -9,7 +9,7 @@ import { marbles } from "../../dist/tape";
 
 import "rxjs/add/operator/map";
 
-tape("rxjs-marbles failing test", marbles((m, t) => {
+tape("it should fail", marbles((m, t) => {
 
     const values = {
         a: 1,

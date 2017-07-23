@@ -39,7 +39,7 @@ import { marbles } from "rxjs-marbles";
 
 describe("rxjs-marbles", () => {
 
-    it("should map the values", marbles((m) => {
+    it("should support marble tests", marbles((m) => {
 
         const values = {
             a: 1,
@@ -66,8 +66,6 @@ As with Jasmine and Mocha, instead of passing your test function directly to Jes
 ```ts
 import { marbles } from "rxjs-marbles";
 
-import "rxjs/add/operator/map";
-
 test("it should support marble tests", marbles((m) => {
 
     const values = {
@@ -82,7 +80,6 @@ test("it should support marble tests", marbles((m) => {
     const expected = m.cold("--b-c-d-|", values);
 
     const destination = source.map((value) => value + 1);
-
     m.expect(destination).toBeObservable(expected);
     m.expect(source).toHaveSubscriptions(subs);
 }));
@@ -97,8 +94,6 @@ There is an `/ava` directory in the package that includes a wrapper that will co
 ```ts
 import { test } from "ava";
 import { marbles } from "rxjs-marbles/ava";
-
-import "rxjs/add/operator/map";
 
 test("it should support marble tests", marbles((m, t) => {
 
@@ -116,7 +111,6 @@ test("it should support marble tests", marbles((m, t) => {
     const expected = m.cold("--b-c-d-|", values);
 
     const destination = source.map((value) => value + 1);
-
     m.expect(destination).toBeObservable(expected);
     m.expect(source).toHaveSubscriptions(subs);
 }));
@@ -133,7 +127,7 @@ There is a `/tape` directory in the package that includes a wrapper that will co
 import * as tape from "tape";
 import { marbles } from "rxjs-marbles/tape";
 
-tape("it should map the values", marbles((m, t) => {
+tape("it should support marble tests", marbles((m, t) => {
 
     t.plan(2);
 

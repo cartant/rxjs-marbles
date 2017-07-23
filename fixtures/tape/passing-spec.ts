@@ -9,7 +9,7 @@ import { marbles } from "../../dist/tape";
 
 import "rxjs/add/operator/map";
 
-tape("rxjs-marbles test with BDD methods", marbles((m, t) => {
+tape("it should support marble tests", marbles((m, t) => {
 
     t.plan(2);
 
@@ -30,7 +30,7 @@ tape("rxjs-marbles test with BDD methods", marbles((m, t) => {
     m.expect(source).toHaveSubscriptions(subs);
 }));
 
-tape("rxjs-marbles test with Tape-ish methods", marbles((m, t) => {
+tape("it should support marble tests with terse assertions", marbles((m, t) => {
 
     t.plan(2);
 
