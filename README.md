@@ -37,23 +37,26 @@ Instead of passing your test function directly to `it`, pass it to the library's
 ```ts
 import { marbles } from "rxjs-marbles";
 
-it("should map the values", marbles((m) => {
+describe("rxjs-marbles", () => {
 
-    const values = {
-        a: 1,
-        b: 2,
-        c: 3,
-        d: 4
-    };
+    it("should map the values", marbles((m) => {
 
-    const source =  m.hot("--^-a-b-c-|", values);
-    const subs =            "^-------!";
-    const expected = m.cold("--b-c-d-|", values);
+        const values = {
+            a: 1,
+            b: 2,
+            c: 3,
+            d: 4
+        };
 
-    const destination = source.map((value) => value + 1);
-    m.expect(destination).toBeObservable(expected);
-    m.expect(source).toHaveSubscriptions(subs);
-}));
+        const source =  m.hot("--^-a-b-c-|", values);
+        const subs =            "^-------!";
+        const expected = m.cold("--b-c-d-|", values);
+
+        const destination = source.map((value) => value + 1);
+        m.expect(destination).toBeObservable(expected);
+        m.expect(source).toHaveSubscriptions(subs);
+    }));
+});
 ```
 
 ### With Jest
