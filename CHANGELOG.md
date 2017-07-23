@@ -1,3 +1,10 @@
+<a name="1.4.0"></a>
+## [1.4.0](https://github.com/cartant/rxjs-marbles/compare/v1.3.2...v1.4.0) (2017-07-23)
+
+### Features
+
+* **AVA and Jest**: Add support for AVA and Jest. ([abcf069](https://github.com/cartant/rxjs-marbles/commit/abcf069))
+
 <a name="1.3.2"></a>
 ## [1.3.2](https://github.com/cartant/rxjs-marbles/compare/v1.3.1...v1.3.2) (2017-07-23)
 
