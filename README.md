@@ -153,6 +153,10 @@ tape("it should support marble tests", marbles((m, t) => {
 If the BDD syntax is something you really don't like, there are some alternative methods on the `Context` that are more terse:
 
 ```ts
+const source =  m.hot("--^-a-b-c-|", values);
+const subs =            "^-------!";
+const expected = m.cold("--b-c-d-|", values);
+
 const destination = source.map((value) => value + 1);
 m.equal(destination, expected);
 m.has(source, subs);
