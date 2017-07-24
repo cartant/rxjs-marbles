@@ -27,13 +27,23 @@ export class Context {
         return observable;
     }
 
-    equal<T = any>(actual: Observable<T>, expected: Observable<T>): void {
-
-        assertArgs(expected);
+    equal<T = any>(actual: Observable<T>, expected: Observable<T>): void;
+    equal<T = any>(actual: Observable<T>, expected: string, values?: { [key: string]: T }, error?: any): void;
+    equal<T = any>(actual: Observable<T>, expected: Observable<T> | string, values?: { [key: string]: T }, error?: any): void {
 
         const { testScheduler } = this;
-        const { error, marbles, values } = expected[argsSymbol];
-        testScheduler.expectObservable(actual).toBe(marbles, values, error);
+
+        if (typeof expected === "string") {
+
+            testScheduler.expectObservable(actual).toBe(expected, values, error);
+
+        } else {
+
+            assertArgs(expected);
+
+            const { error, marbles, values } = expected[argsSymbol];
+            testScheduler.expectObservable(actual).toBe(marbles, values, error);
+        }
     }
 
     expect<T = any>(actual: Observable<T>): Expect<T> {

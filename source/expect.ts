@@ -14,13 +14,23 @@ export class Expect<T> {
 
     constructor(private actual: ColdObservable<T> | HotObservable<T>, private testScheduler: TestScheduler) {}
 
-    toBeObservable(expected: ColdObservable<T> | HotObservable<T>): void {
-
-        assertArgs(expected);
+    toBeObservable(expected: ColdObservable<T> | HotObservable<T>): void;
+    toBeObservable(expected: string, values?: { [key: string]: T }, error?: any): void;
+    toBeObservable(expected: ColdObservable<T> | HotObservable<T> | string, values?: { [key: string]: T }, error?: any): void {
 
         const { actual, testScheduler } = this;
-        const { error, marbles, values } = expected[argsSymbol];
-        testScheduler.expectObservable(actual).toBe(marbles, values, error);
+
+        if (typeof expected === "string") {
+
+            testScheduler.expectObservable(actual).toBe(expected, values, error);
+
+        } else {
+
+            assertArgs(expected);
+
+            const { error, marbles, values } = expected[argsSymbol];
+            testScheduler.expectObservable(actual).toBe(marbles, values, error);
+        }
     }
 
     toHaveSubscriptions(expected: string | string[]): void {

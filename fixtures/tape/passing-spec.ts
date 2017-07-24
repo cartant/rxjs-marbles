@@ -50,3 +50,24 @@ tape("it should support marble tests with terse assertions", marbles((m, t) => {
     m.equal(destination, expected);
     m.has(source, subs);
 }));
+
+tape("it should support string-based assertions", marbles((m, t) => {
+
+    t.plan(2);
+
+    const values = {
+        a: 1,
+        b: 2,
+        c: 3,
+        d: 4
+    };
+
+    const source =  m.hot("--^-a-b-c-|", values);
+    const subs =            "^-------!";
+    const expected =        "--b-c-d-|";
+
+    const destination = source.map((value) => value + 1);
+
+    m.equal(destination, expected, values);
+    m.has(source, subs);
+}));

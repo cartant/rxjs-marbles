@@ -71,4 +71,23 @@ describe("rxjs-marbles", () => {
         m.expect(destination).toBeObservable(expected);
         m.expect(source).toHaveSubscriptions(subs);
     }));
+
+    it("should support string-based assertions", marbles((m) => {
+
+        const values = {
+            a: 1,
+            b: 2,
+            c: 3,
+            d: 4
+        };
+
+        const source =  m.hot("--^-a-b-c-|", values);
+        const subs =            "^-------!";
+        const expected =        "--b-c-d-|";
+
+        const destination = source.map((value) => value + 1);
+
+        m.expect(destination).toBeObservable(expected, values);
+        m.expect(source).toHaveSubscriptions(subs);
+    }));
 });
