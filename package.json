@@ -98,5 +98,5 @@
   },
   "typings": "./dist/index.d.ts",
   "unpkg": "./bundles/rxjs-marbles.min.umd.js",
-  "version": "1.4.0"
+  "version": "1.5.0"
 }
