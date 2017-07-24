@@ -1,3 +1,10 @@
+<a name="1.5.1"></a>
+## [1.5.1](https://github.com/cartant/rxjs-marbles/compare/v1.5.0...v1.5.1) (2017-07-24)
+
+### Documentation
+
+* Updated interfaces in README.
+
 <a name="1.5.0"></a>
 ## [1.5.0](https://github.com/cartant/rxjs-marbles/compare/v1.4.0...v1.5.0) (2017-07-24)
 
