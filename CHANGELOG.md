@@ -1,3 +1,10 @@
+<a name="1.5.0"></a>
+## [1.5.0](https://github.com/cartant/rxjs-marbles/compare/v1.4.0...v1.5.0) (2017-07-24)
+
+### Features
+
+* **string expectations**: Expectations can be passed as marble strings or hot/cold observables. ([99fc0df](https://github.com/cartant/rxjs-marbles/commit/99fc0df))
+
 <a name="1.4.0"></a>
 ## [1.4.0](https://github.com/cartant/rxjs-marbles/compare/v1.3.2...v1.4.0) (2017-07-23)
 
