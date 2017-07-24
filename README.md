@@ -204,6 +204,7 @@ interface Context {
     cold<T = any>(marbles: string, values?: any, error?: any): ColdObservable<T>;
     configure(options: Configuration): void;
     equal<T = any>(actual: Observable<T>, expected: Observable<T>): void;
+    equal<T = any>(actual: Observable<T>, expected: string, values?: { [key: string]: T }, error?: any): void;
     expect<T = any>(actual: Observable<T>): Expect<T>;
     flush(): void;
     has<T = any>(actual: Observable<T>, expected: string | string[]): void;
@@ -214,6 +215,7 @@ interface Context {
 
 interface Expect<T> {
     toBeObservable(expected: ColdObservable<T> | HotObservable<T>): void;
+    toBeObservable(expected: string, values?: { [key: string]: T }, error?: any): void;
     toHaveSubscriptions(expected: string | string[]): void;
 }
 ```
