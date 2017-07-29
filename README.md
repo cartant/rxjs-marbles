@@ -28,6 +28,10 @@ Install the package using NPM:
 npm install rxjs-marbles --save-dev
 ```
 
+## Getting started
+
+If you're just getting started with marble testing, you might be interested in how I wasted some of my time by not carefully reading the manual: [RxJS Marble Testing: RTFM](https://medium.com/@cartant/rxjs-marble-testing-rtfm-a9a6cd3db758).
+
 ## Usage
 
 ### With Jasmine and Mocha
