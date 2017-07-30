@@ -33,7 +33,7 @@ describe("rxjs-marbles", () => {
 
 ### With Jest
 
-As with Jasmine and Mocha, instead of passing your test function directly to Jest, pass it to the library's `marbles` function:
+Instead of passing your test function directly to Jest, pass it to the library's `marbles` function:
 
 ```ts
 import { marbles } from "rxjs-marbles";
@@ -59,7 +59,7 @@ test("it should support marble tests", marbles((m) => {
 
 ### With AVA
 
-As with Jasmine and Mocha, instead of passing your test function directly to AVA, pass it to the library's `marbles` function. The `marbles` function will concatenate the additional `TestContext` argument it receives from AVA.
+Instead of passing your test function directly to AVA, pass it to the library's `marbles` function. The `marbles` function will concatenate the additional `TestContext` argument it receives from AVA.
 
 There is an `/ava` directory in the package that includes a wrapper that will correctly type additional argument and will call `configure` - passing AVA's assertion methods to ensure marble assertions will be counted towards AVA's `plan` - so be sure to specify `rxjs-marbles/ava` in the `import` statement or `require` call:
 
@@ -91,7 +91,7 @@ test("it should support marble tests", marbles((m, t) => {
 
 ### With Tape
 
-As with Jasmine and Mocha, instead of passing your test function directly to Tape, pass it to the library's `marbles` function. The `marbles` function will concatenate the additional `Test` argument it receives from Tape.
+Instead of passing your test function directly to Tape, pass it to the library's `marbles` function. The `marbles` function will concatenate the additional `Test` argument it receives from Tape.
 
 There is a `/tape` directory in the package that includes a wrapper that will correctly type additional argument and will call `configure` - passing Tape's assertion methods to ensure marble assertions will be counted towards Tape's `plan` - so be sure to specify `rxjs-marbles/tape` in the `import` statement or `require` call:
 
