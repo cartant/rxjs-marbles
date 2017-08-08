@@ -1,3 +1,10 @@
+<a name="1.6.0"></a>
+## [1.6.0](https://github.com/cartant/rxjs-marbles/compare/v1.5.2...v1.6.0) (2017-08-08)
+
+### Features
+
+* **expect**: Add support for unsubscription strings. ([a9a839d](https://github.com/cartant/rxjs-marbles/commit/a9a839d))
+
 <a name="1.5.2"></a>
 ## [1.5.2](https://github.com/cartant/rxjs-marbles/compare/v1.5.1...v1.5.2) (2017-07-29)
 
