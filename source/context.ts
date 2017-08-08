@@ -29,27 +29,41 @@ export class Context {
 
     equal<T = any>(actual: Observable<T>, expected: Observable<T>): void;
     equal<T = any>(actual: Observable<T>, expected: string, values?: { [key: string]: T }, error?: any): void;
-    equal<T = any>(actual: Observable<T>, expected: Observable<T> | string, values?: { [key: string]: T }, error?: any): void {
+    equal<T = any>(actual: Observable<T>, unsubscription: string, expected: Observable<T>): void;
+    equal<T = any>(actual: Observable<T>, unsubscription: string, expected: string, values?: { [key: string]: T }, error?: any): void;
+    equal<T = any>(actual: Observable<T>, ...args: any[]): void {
 
         const { testScheduler } = this;
+        const [a0, a1, a2, a3] = args;
 
-        if (typeof expected === "string") {
+        if (a1 && (typeof a1 === "string")) {
 
-            testScheduler.expectObservable(actual).toBe(expected, values, error);
+            testScheduler.expectObservable(actual, a0).toBe(a1, a2, a3);
+
+        } else if (a1 && a1[argsSymbol]) {
+
+            assertArgs(a1);
+
+            const { error, marbles, values } = a1[argsSymbol];
+            testScheduler.expectObservable(actual, a0).toBe(marbles, values, error);
+
+        } else if (typeof a0 === "string") {
+
+            testScheduler.expectObservable(actual).toBe(a0, a1, a2);
 
         } else {
 
-            assertArgs(expected);
+            assertArgs(a0);
 
-            const { error, marbles, values } = expected[argsSymbol];
+            const { error, marbles, values } = a0[argsSymbol];
             testScheduler.expectObservable(actual).toBe(marbles, values, error);
         }
     }
 
-    expect<T = any>(actual: Observable<T>): Expect<T> {
+    expect<T = any>(actual: Observable<T>, unsubscription?: string): Expect<T> {
 
         const { testScheduler } = this;
-        return new Expect(actual as any, testScheduler);
+        return new Expect(actual as any, testScheduler, unsubscription);
     }
 
     flush(): void {

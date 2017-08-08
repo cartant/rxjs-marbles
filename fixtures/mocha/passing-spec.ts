@@ -90,4 +90,70 @@ describe("rxjs-marbles", () => {
         m.expect(destination).toBeObservable(expected, values);
         m.expect(source).toHaveSubscriptions(subs);
     }));
+
+    it("should support unsubscriptions", marbles((m) => {
+
+        const source =  m.hot("--^-a-b-c-|");
+        const subs =            "^----!";
+        const unsubs =          "-----!";
+        const expected = m.cold("--a-b-");
+
+        const destination = source;
+
+        m.expect(destination, unsubs).toBeObservable(expected);
+        m.expect(source).toHaveSubscriptions(subs);
+    }));
+
+    it("should support unsubscriptions with values", marbles((m) => {
+
+        const values = {
+            a: 1,
+            b: 2,
+            c: 3,
+            d: 4
+        };
+
+        const source =  m.hot("--^-a-b-c-|", values);
+        const subs =            "^----!";
+        const unsubs =          "-----!";
+        const expected = m.cold("--b-c-", values);
+
+        const destination = source.map((value) => value + 1);
+
+        m.expect(destination, unsubs).toBeObservable(expected);
+        m.expect(source).toHaveSubscriptions(subs);
+    }));
+
+    it("should support string-based assertions with unsubscriptions", marbles((m) => {
+
+        const source =  m.hot("--^-a-b-c-|");
+        const subs =            "^----!";
+        const unsubs =          "-----!";
+        const expected =        "--a-b-";
+
+        const destination = source;
+
+        m.expect(destination, unsubs).toBeObservable(expected);
+        m.expect(source).toHaveSubscriptions(subs);
+    }));
+
+    it("should support string-based assertions with unsubscriptions and values", marbles((m) => {
+
+        const values = {
+            a: 1,
+            b: 2,
+            c: 3,
+            d: 4
+        };
+
+        const source =  m.hot("--^-a-b-c-|", values);
+        const subs =            "^----!";
+        const unsubs =          "-----!";
+        const expected =        "--b-c-";
+
+        const destination = source.map((value) => value + 1);
+
+        m.expect(destination, unsubs).toBeObservable(expected, values);
+        m.expect(source).toHaveSubscriptions(subs);
+    }));
 });

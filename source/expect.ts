@@ -12,24 +12,24 @@ import { assertArgs, assertSubscriptions } from "./assert";
 
 export class Expect<T> {
 
-    constructor(private actual: ColdObservable<T> | HotObservable<T>, private testScheduler: TestScheduler) {}
+    constructor(private actual: ColdObservable<T> | HotObservable<T>, private testScheduler: TestScheduler, private unsubscription?: string) {}
 
     toBeObservable(expected: ColdObservable<T> | HotObservable<T>): void;
     toBeObservable(expected: string, values?: { [key: string]: T }, error?: any): void;
     toBeObservable(expected: ColdObservable<T> | HotObservable<T> | string, values?: { [key: string]: T }, error?: any): void {
 
-        const { actual, testScheduler } = this;
+        const { actual, testScheduler, unsubscription } = this;
 
         if (typeof expected === "string") {
 
-            testScheduler.expectObservable(actual).toBe(expected, values, error);
+            testScheduler.expectObservable(actual, unsubscription).toBe(expected, values, error);
 
         } else {
 
             assertArgs(expected);
 
             const { error, marbles, values } = expected[argsSymbol];
-            testScheduler.expectObservable(actual).toBe(marbles, values, error);
+            testScheduler.expectObservable(actual, unsubscription).toBe(marbles, values, error);
         }
     }
 

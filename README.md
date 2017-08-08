@@ -209,7 +209,9 @@ interface Context {
     configure(options: Configuration): void;
     equal<T = any>(actual: Observable<T>, expected: Observable<T>): void;
     equal<T = any>(actual: Observable<T>, expected: string, values?: { [key: string]: T }, error?: any): void;
-    expect<T = any>(actual: Observable<T>): Expect<T>;
+    equal<T = any>(actual: Observable<T>, unsubscription: string, expected: Observable<T>): void;
+    equal<T = any>(actual: Observable<T>, unsubscription: string, expected: string, values?: { [key: string]: T }, error?: any): void;
+    expect<T = any>(actual: Observable<T>, unsubscription?: string): Expect<T>;
     flush(): void;
     has<T = any>(actual: Observable<T>, expected: string | string[]): void;
     hot<T = any>(marbles: string, values?: any, error?: any): HotObservable<T>;
