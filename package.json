@@ -34,7 +34,7 @@
     "ts-mocha": "^1.0.3",
     "ts-node": "^3.2.0",
     "tslint": "^5.5.0",
-    "typescript": "^2.4.1"
+    "typescript": "^2.4.1 <2.5.0"
   },
   "homepage": "https://github.com/cartant/rxjs-marbles",
   "jest": {
