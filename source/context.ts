@@ -18,12 +18,12 @@ export class Context {
     public autoFlush = true;
     public configure = configure;
 
-    constructor(public testScheduler: TestScheduler) {}
+    constructor(public readonly scheduler: TestScheduler) {}
 
     cold<T = any>(marbles: string, values?: { [key: string]: T }, error?: any): ColdObservable<T> {
 
-        const { testScheduler } = this;
-        const observable = testScheduler.createColdObservable<T>(marbles, values, error);
+        const { scheduler } = this;
+        const observable = scheduler.createColdObservable<T>(marbles, values, error);
         observable[argsSymbol] = { error, marbles, values };
         return observable;
     }
@@ -34,70 +34,64 @@ export class Context {
     equal<T = any>(actual: Observable<T>, unsubscription: string, expected: string, values?: { [key: string]: T }, error?: any): void;
     equal<T = any>(actual: Observable<T>, ...args: any[]): void {
 
-        const { testScheduler } = this;
+        const { scheduler } = this;
         const [a0, a1, a2, a3] = args;
 
         if (a1 && (typeof a1 === "string")) {
 
-            testScheduler.expectObservable(actual, a0).toBe(a1, a2, a3);
+            scheduler.expectObservable(actual, a0).toBe(a1, a2, a3);
 
         } else if (a1 && a1[argsSymbol]) {
 
             assertArgs(a1);
 
             const { error, marbles, values } = a1[argsSymbol];
-            testScheduler.expectObservable(actual, a0).toBe(marbles, values, error);
+            scheduler.expectObservable(actual, a0).toBe(marbles, values, error);
 
         } else if (typeof a0 === "string") {
 
-            testScheduler.expectObservable(actual).toBe(a0, a1, a2);
+            scheduler.expectObservable(actual).toBe(a0, a1, a2);
 
         } else {
 
             assertArgs(a0);
 
             const { error, marbles, values } = a0[argsSymbol];
-            testScheduler.expectObservable(actual).toBe(marbles, values, error);
+            scheduler.expectObservable(actual).toBe(marbles, values, error);
         }
     }
 
     expect<T = any>(actual: Observable<T>, unsubscription?: string): Expect<T> {
 
-        const { testScheduler } = this;
-        return new Expect(actual as any, testScheduler, unsubscription);
+        const { scheduler } = this;
+        return new Expect(actual as any, scheduler, unsubscription);
     }
 
     flush(): void {
 
-        const { testScheduler } = this;
-        testScheduler.flush();
+        const { scheduler } = this;
+        scheduler.flush();
     }
 
     has<T = any>(actual: Observable<T>, expected: string | string[]): void {
 
         assertSubscriptions(actual);
 
-        const { testScheduler } = this;
-        testScheduler.expectSubscriptions((actual as any).subscriptions).toBe(expected);
+        const { scheduler } = this;
+        scheduler.expectSubscriptions((actual as any).subscriptions).toBe(expected);
     }
 
     hot<T = any>(marbles: string, values?: { [key: string]: T }, error?: any): HotObservable<T> {
 
-        const { testScheduler } = this;
-        const observable = testScheduler.createHotObservable<T>(marbles, values, error);
+        const { scheduler } = this;
+        const observable = scheduler.createHotObservable<T>(marbles, values, error);
         observable[argsSymbol] = { error, marbles, values };
         return observable;
     }
 
-    get scheduler(): TestScheduler {
-
-        const { testScheduler } = this;
-        return testScheduler;
-    }
-
     time(marbles: string): number {
 
-        const { testScheduler } = this;
-        return testScheduler.createTime(marbles);
+        const { scheduler } = this;
+        return scheduler.createTime(marbles);
     }
 }

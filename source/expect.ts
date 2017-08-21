@@ -12,31 +12,31 @@ import { assertArgs, assertSubscriptions } from "./assert";
 
 export class Expect<T> {
 
-    constructor(private actual: ColdObservable<T> | HotObservable<T>, private testScheduler: TestScheduler, private unsubscription?: string) {}
+    constructor(private actual: ColdObservable<T> | HotObservable<T>, private scheduler: TestScheduler, private unsubscription?: string) {}
 
     toBeObservable(expected: ColdObservable<T> | HotObservable<T>): void;
     toBeObservable(expected: string, values?: { [key: string]: T }, error?: any): void;
     toBeObservable(expected: ColdObservable<T> | HotObservable<T> | string, values?: { [key: string]: T }, error?: any): void {
 
-        const { actual, testScheduler, unsubscription } = this;
+        const { actual, scheduler, unsubscription } = this;
 
         if (typeof expected === "string") {
 
-            testScheduler.expectObservable(actual, unsubscription).toBe(expected, values, error);
+            scheduler.expectObservable(actual, unsubscription).toBe(expected, values, error);
 
         } else {
 
             assertArgs(expected);
 
             const { error, marbles, values } = expected[argsSymbol];
-            testScheduler.expectObservable(actual, unsubscription).toBe(marbles, values, error);
+            scheduler.expectObservable(actual, unsubscription).toBe(marbles, values, error);
         }
     }
 
     toHaveSubscriptions(expected: string | string[]): void {
 
-        const { actual, testScheduler } = this;
+        const { actual, scheduler } = this;
         assertSubscriptions(actual);
-        testScheduler.expectSubscriptions(actual.subscriptions).toBe(expected);
+        scheduler.expectSubscriptions(actual.subscriptions).toBe(expected);
     }
 }

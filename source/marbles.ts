@@ -17,11 +17,11 @@ export function marbles(test: (context: Context, ...args: any[]) => any): (...ar
 
     return (...args: any[]) => {
 
-        const testScheduler = new TestScheduler((a, b) => observableMatcher(a, b, get("assert"), get("assertDeepEqual")));
-        const context = new Context(testScheduler);
+        const scheduler = new TestScheduler((a, b) => observableMatcher(a, b, get("assert"), get("assertDeepEqual")));
+        const context = new Context(scheduler);
         test.apply(null, [context].concat(args));
         if (context.autoFlush) {
-            testScheduler.flush();
+            scheduler.flush();
         }
     };
 }
