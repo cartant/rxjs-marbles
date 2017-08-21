@@ -205,6 +205,7 @@ function marbles<T1, T2, T3>(test: (context: Context, t1: T1, t2: T2, t3: T3) =>
 
 ```ts
 interface Context {
+    autoFlush: boolean;
     cold<T = any>(marbles: string, values?: any, error?: any): ColdObservable<T>;
     configure(options: Configuration): void;
     equal<T = any>(actual: Observable<T>, expected: Observable<T>): void;
