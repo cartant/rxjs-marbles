@@ -15,6 +15,7 @@ import { Expect } from "./expect";
 
 export class Context {
 
+    public autoFlush = true;
     public configure = configure;
 
     constructor(public testScheduler: TestScheduler) {}

@@ -20,6 +20,8 @@ export function marbles(test: (context: Context, ...args: any[]) => any): (...ar
         const testScheduler = new TestScheduler((a, b) => observableMatcher(a, b, get("assert"), get("assertDeepEqual")));
         const context = new Context(testScheduler);
         test.apply(null, [context].concat(args));
-        testScheduler.flush();
+        if (context.autoFlush) {
+            testScheduler.flush();
+        }
     };
 }
