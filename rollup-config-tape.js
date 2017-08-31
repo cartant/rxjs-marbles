@@ -1,8 +1,8 @@
 import config from "./rollup-config";
 
 export default Object.assign({}, config, {
-    dest: "dist/bundles/rxjs-marbles-tape.umd.js",
-    entry: "dist/tape/index.js",
     external: [...config.external, "tape"],
-    moduleName: "rxjsMarblesTape"
+    input: "dist/tape/index.js",
+    name: "rxjsMarblesTape",
+    output: Object.assign({}, config.output, { file: "dist/bundles/rxjs-marbles-tape.umd.js" })
 });
