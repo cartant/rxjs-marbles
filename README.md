@@ -6,8 +6,6 @@
 [![devDependency Status](https://img.shields.io/david/dev/cartant/rxjs-marbles.svg)](https://david-dm.org/cartant/rxjs-marbles#info=devDependencies)
 [![peerDependency Status](https://img.shields.io/david/peer/cartant/rxjs-marbles.svg)](https://david-dm.org/cartant/rxjs-marbles#info=peerDependencies)
 
-<a target='_blank' rel='nofollow' href='https://app.codesponsor.io/link/jZB4ja6SvwGUN4ibgYVgUVYV/cartant/rxjs-marbles'>  <img alt='Sponsor' width='888' height='68' src='https://app.codesponsor.io/embed/jZB4ja6SvwGUN4ibgYVgUVYV/cartant/rxjs-marbles.svg' /></a>
-
 ### What is it?
 
 `rxjs-marbles` is an RxJS [marble testing](https://github.com/ReactiveX/rxjs/blob/master/doc/writing-marble-tests.md) library that should be compatible with any test framework. It wraps the RxJS [`TestScheduler`](https://github.com/ReactiveX/rxjs/blob/5.4.2/src/testing/TestScheduler.ts) and provides methods similar to the [basic methods](https://github.com/ReactiveX/rxjs/blob/master/doc/writing-marble-tests.md#basic-methods) used in RxJS's marble tests.
@@ -228,3 +226,5 @@ interface Expect<T> {
     toHaveSubscriptions(expected: string | string[]): void;
 }
 ```
+
+<a target='_blank' rel='nofollow' href='https://app.codesponsor.io/link/jZB4ja6SvwGUN4ibgYVgUVYV/cartant/rxjs-marbles'>  <img alt='Sponsor' width='888' height='68' src='https://app.codesponsor.io/embed/jZB4ja6SvwGUN4ibgYVgUVYV/cartant/rxjs-marbles.svg' /></a>
