@@ -1,3 +1,18 @@
+<a name="2.0.0"></a>
+## [2.0.0](https://github.com/cartant/rxjs-marbles/compare/v1.6.0...v2.0.0) (2017-09-11)
+
+### Breaking changes
+
+* **context**: Remove the unintended public `testScheduler` property (it was an alias for the public `scheduler` property).  ([83032e9](https://github.com/cartant/rxjs-marbles/commit/83032e9))
+
+### Features
+
+* **context**: Add support for preventing the automatic flushing of the test scheduler. ([5f9ff6a](https://github.com/cartant/rxjs-marbles/commit/5f9ff6a))
+
+### Build
+
+* Update dependencies.
+
 <a name="1.6.0"></a>
 ## [1.6.0](https://github.com/cartant/rxjs-marbles/compare/v1.5.2...v1.6.0) (2017-08-08)
 
