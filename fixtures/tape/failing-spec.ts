@@ -9,21 +9,24 @@ import { marbles } from "../../dist/tape";
 
 import "rxjs/add/operator/map";
 
-tape("it should fail", marbles((m, t) => {
+if (process.env.FAILING !== "0") {
 
-    const values = {
-        a: 1,
-        b: 2,
-        c: 3,
-        d: 4
-    };
+    tape("it should fail", marbles((m, t) => {
 
-    const source =  m.hot("--^-a-b-c-|", values);
-    const subs =            "^-------!";
-    const expected = m.cold("--a-a-a-|", values);
+        const values = {
+            a: 1,
+            b: 2,
+            c: 3,
+            d: 4
+        };
 
-    const destination = source.map((value) => value + 1);
+        const source =  m.hot("--^-a-b-c-|", values);
+        const subs =            "^-------!";
+        const expected = m.cold("--a-a-a-|", values);
 
-    t.plan(1);
-    m.expect(destination).toBeObservable(expected);
-}));
+        const destination = source.map((value) => value + 1);
+
+        t.plan(1);
+        m.expect(destination).toBeObservable(expected);
+    }));
+}
