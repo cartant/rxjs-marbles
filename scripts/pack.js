@@ -14,5 +14,4 @@ const content = Object.assign(
     JSON.parse(fs.readFileSync("./package-dist.json"))
 );
 fs.writeFileSync("./dist/package.json", JSON.stringify(content, null, 2));
-fs.writeFileSync("./dist/ava/package.json", fs.readFileSync("./source/ava/package.json"));
-fs.writeFileSync("./dist/tape/package.json", fs.readFileSync("./source/tape/package.json"));
+["ava", "jasmine", "jest", "mocha", "tape"].forEach((name) => fs.writeFileSync(`./dist/${name}/package.json`, fs.readFileSync(`./source/${name}/package.json`)));

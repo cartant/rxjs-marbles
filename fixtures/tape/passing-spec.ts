@@ -3,9 +3,10 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://github.com/cartant/rxjs-marbles
  */
+/*tslint:disable:object-literal-sort-keys*/
 
 import * as tape from "tape";
-import { marbles } from "../../dist/tape";
+import { cases, marbles } from "../../dist/tape";
 
 import "rxjs/add/operator/map";
 
@@ -145,3 +146,30 @@ tape("should support string-based assertions with unsubscriptions and values", m
     m.equal(destination, unsubs, expected, values);
     m.has(source, subs);
 }));
+
+cases("should support cases", (m, c, t) => {
+
+    t.plan(1);
+
+    const values = {
+        a: 1,
+        b: 2,
+        c: 3,
+        d: 4
+    };
+
+    const source =  m.hot(c.s, values);
+    const expected = m.cold(c.e, values);
+    const destination = source.map((value) => value + 1);
+
+    m.expect(destination).toBeObservable(expected);
+}, {
+    "non-empty": {
+        s: "-a-b-c-|",
+        e: "-b-c-d-|"
+    },
+    "empty": {
+        s: "-|",
+        e: "-|"
+    }
+});

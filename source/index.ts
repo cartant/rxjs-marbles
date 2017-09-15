@@ -5,6 +5,7 @@
  */
 
 export { configure } from "./configuration";
+export * from "./cases";
 export * from "./context";
 export * from "./expect";
 export * from "./marbles";

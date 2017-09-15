@@ -4,7 +4,7 @@
  * found in the LICENSE file at https://github.com/cartant/rxjs-marbles
  */
 
-import { marbles } from "../../dist";
+import { marbles } from "../../dist/jasmine";
 
 import "rxjs/add/operator/map";
 

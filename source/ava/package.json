@@ -1,4 +1,5 @@
 {
   "main": "../bundles/rxjs-marbles-ava.umd.js",
+  "module": "./index.js",
   "typings": "./index.d.ts"
 }

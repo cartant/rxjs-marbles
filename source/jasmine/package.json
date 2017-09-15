@@ -1,5 +1,5 @@
 {
-  "main": "../bundles/rxjs-marbles-tape.umd.js",
+  "main": "../bundles/rxjs-marbles-jasmine.umd.js",
   "module": "./index.js",
   "typings": "./index.d.ts"
 }

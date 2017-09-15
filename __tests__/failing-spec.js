@@ -5,11 +5,11 @@
  */
 
 import { test } from "ava";
-import { marbles } from "../../dist/ava";
+import { marbles } from "../dist/ava";
 
 import "rxjs/add/operator/map";
 
-test("it should support marble tests", marbles((m, t) => {
+test("it should fail", marbles((m, t) => {
 
     t.plan(2);
 
@@ -22,7 +22,7 @@ test("it should support marble tests", marbles((m, t) => {
 
     const source =  m.hot("--^-a-b-c-|", values);
     const subs =            "^-------!";
-    const expected = m.cold("--b-c-d-|", values);
+    const expected = m.cold("--a-a-a-|", values);
 
     const destination = source.map((value) => value + 1);
 

@@ -3,8 +3,9 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://github.com/cartant/rxjs-marbles
  */
+/*tslint:disable:object-literal-sort-keys*/
 
-import { marbles } from "../../dist";
+import { cases, marbles } from "../../dist/jasmine";
 
 import "rxjs/add/operator/map";
 
@@ -28,4 +29,29 @@ describe("rxjs-marbles", () => {
         m.expect(destination).toBeObservable(expected);
         m.expect(source).toHaveSubscriptions(subs);
     }));
+
+    cases("should support cases", (m, c) => {
+
+        const values = {
+            a: 1,
+            b: 2,
+            c: 3,
+            d: 4
+        };
+
+        const source =  m.hot(c.s, values);
+        const expected = m.cold(c.e, values);
+        const destination = source.map((value) => value + 1);
+
+        m.expect(destination).toBeObservable(expected);
+    }, {
+        "non-empty": {
+            s: "-a-b-c-|",
+            e: "-b-c-d-|"
+        },
+        "empty": {
+            s: "-|",
+            e: "-|"
+        }
+    });
 });
