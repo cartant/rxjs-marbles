@@ -54,4 +54,16 @@ describe("rxjs-marbles", () => {
             e: "-|"
         }
     });
+
+    it("should pass callbacks to marbles", marbles(((m: any, callback: any) => {
+        expect(typeof callback).toEqual("function");
+        callback();
+    }) as any));
+
+    cases("should pass callbacks to cases", ((m: any, c: any, callback: any) => {
+        expect(typeof callback).toEqual("function");
+        callback();
+    }) as any, {
+        "unused": {}
+    });
 });

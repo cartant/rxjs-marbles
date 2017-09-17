@@ -25,7 +25,11 @@ export function cases(name: string, func: any, cases: any): void {
     describe(name, () => {
         _cases((c) => {
             const t = c.only ? fit : c.skip ? xit : it;
-            t(c.name, marbles((m) => func(m, c)));
+            if (func.length > 2) {
+                t(c.name, marbles((m: any, second: any, ...rest: any[]) => func(m, c, second, ...rest)));
+            } else {
+                t(c.name, marbles((m, ...rest: any[]) => func(m, c, ...rest)));
+            }
         }, cases);
     });
 }
