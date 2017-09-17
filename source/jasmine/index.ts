@@ -18,8 +18,8 @@ declare const fit: Function;
 declare const it: Function;
 declare const xit: Function;
 
-export function cases<T extends UnnamedCase>(name: string, func: (context: Context, options: T) => void, cases: { [key: string]: T }): void;
-export function cases<T extends NamedCase>(name: string, func: (context: Context, options: T) => void, cases: T[]): void;
+export function cases<T extends UnnamedCase>(name: string, func: (context: Context, _case: T) => void, cases: { [key: string]: T }): void;
+export function cases<T extends NamedCase>(name: string, func: (context: Context, _case: T) => void, cases: T[]): void;
 export function cases(name: string, func: any, cases: any): void {
 
     describe(name, () => {

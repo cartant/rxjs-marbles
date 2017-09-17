@@ -13,8 +13,8 @@ export { configure } from "../configuration";
 export * from "../context";
 export * from "../expect";
 
-export function cases<T extends UnnamedCase>(name: string, func: (context: Context, options: T, t: tape.Test) => void, cases: { [key: string]: T }): void;
-export function cases<T extends NamedCase>(name: string, func: (context: Context, options: T, t: tape.Test) => void, cases: T[]): void;
+export function cases<T extends UnnamedCase>(name: string, func: (context: Context, _case: T, t: tape.Test) => void, cases: { [key: string]: T }): void;
+export function cases<T extends NamedCase>(name: string, func: (context: Context, _case: T, t: tape.Test) => void, cases: T[]): void;
 export function cases(name: string, func: any, cases: any): void {
 
     _cases((c) => {
