@@ -5,6 +5,7 @@
 [![dependency status](https://img.shields.io/david/cartant/rxjs-marbles.svg)](https://david-dm.org/cartant/rxjs-marbles)
 [![devDependency Status](https://img.shields.io/david/dev/cartant/rxjs-marbles.svg)](https://david-dm.org/cartant/rxjs-marbles#info=devDependencies)
 [![peerDependency Status](https://img.shields.io/david/peer/cartant/rxjs-marbles.svg)](https://david-dm.org/cartant/rxjs-marbles#info=peerDependencies)
+[![Greenkeeper badge](https://badges.greenkeeper.io/cartant/rxjs-marbles.svg)](https://greenkeeper.io/)
 
 ### What is it?
 
