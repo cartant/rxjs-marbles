@@ -29,7 +29,7 @@
     "rollup-plugin-commonjs": "^8.0.2",
     "rollup-plugin-node-resolve": "^3.0.0",
     "rxjs": "^5.4.2",
-    "rxjs-tslint-rules": "^2.0.0",
+    "rxjs-tslint-rules": "^3.0.0",
     "tape": "^4.7.0",
     "ts-jest": "^21.0.0",
     "ts-mocha": "^1.0.3",
