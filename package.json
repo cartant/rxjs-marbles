@@ -22,7 +22,7 @@
     "jasmine": "^2.6.0",
     "jest": "^21.0.0",
     "mkdirp": "^0.5.1",
-    "mocha": "^3.2.0",
+    "mocha": "^4.0.0",
     "rimraf": "^2.6.1",
     "rollup": "^0.50.0",
     "rollup-plugin-babel": "^3.0.0",
