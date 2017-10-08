@@ -1,3 +1,10 @@
+<a name="2.1.0"></a>
+## [2.1.0](https://github.com/cartant/rxjs-marbles/compare/v2.0.0...v2.1.0) (2017-10-08)
+
+### Features
+
+* **cases**: Add support for a [`jest-in-case`](https://github.com/Thinkmill/jest-in-case)-style `cases` function. ([4d3559e](https://github.com/cartant/rxjs-marbles/commit/4d3559e))
+
 <a name="2.0.0"></a>
 ## [2.0.0](https://github.com/cartant/rxjs-marbles/compare/v1.6.0...v2.0.0) (2017-09-11)
 
