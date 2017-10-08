@@ -46,12 +46,7 @@ describe("rxjs-marbles", () => {
 
     it("should support marble tests", marbles((m) => {
 
-        const values = {
-            a: 1,
-            b: 2,
-            c: 3,
-            d: 4
-        };
+        const values = { a: 1, b: 2, c: 3, d: 4 };
 
         const source =  m.hot("--^-a-b-c-|", values);
         const subs =            "^-------!";
@@ -73,12 +68,7 @@ import { marbles } from "rxjs-marbles";
 
 test("it should support marble tests", marbles((m) => {
 
-    const values = {
-        a: 1,
-        b: 2,
-        c: 3,
-        d: 4
-    };
+    const values = { a: 1, b: 2, c: 3, d: 4 };
 
     const source =  m.hot("--^-a-b-c-|", values);
     const subs =            "^-------!";
@@ -104,12 +94,7 @@ test("it should support marble tests", marbles((m, t) => {
 
     t.plan(2);
 
-    const values = {
-        a: 1,
-        b: 2,
-        c: 3,
-        d: 4
-    };
+    const values = { a: 1, b: 2, c: 3, d: 4 };
 
     const source =  m.hot("--^-a-b-c-|", values);
     const subs =            "^-------!";
@@ -136,12 +121,7 @@ tape("it should support marble tests", marbles((m, t) => {
 
     t.plan(2);
 
-    const values = {
-        a: 1,
-        b: 2,
-        c: 3,
-        d: 4
-    };
+    const values = { a: 1, b: 2, c: 3, d: 4 };
 
     const source =  m.hot("--^-a-b-c-|", values);
     const subs =            "^-------!";
@@ -165,6 +145,65 @@ const expected = m.cold("--b-c-d-|", values);
 const destination = source.map((value) => value + 1);
 m.equal(destination, expected);
 m.has(source, subs);
+```
+
+### Using cases for test variations
+
+In addition to the `marbles` function, the library exports a `cases` function that can be used to reduce test boilerplate by specifying multiple cases for variations of a single test. The API is based on that of [`jest-in-case`](https://github.com/Thinkmill/jest-in-case), but also includes the marbles context.
+
+The `cases` implementation is framework-specific, so the import should specify the framework. For example, with Jasmine, you would import `cases` and use it instead of the `it` function, like this:
+
+```ts
+import { cases } from "rxjs-marbles/jasmine";
+
+describe("rxjs-marbles", () => {
+
+    cases("should support cases", (m, c) => {
+
+        const values = { a: 1, b: 2, c: 3, d: 4 };
+        const source =  m.hot(c.s, values);
+        const expected = m.cold(c.e, values);
+        const destination = source.map((value) => value + 1);
+        m.expect(destination).toBeObservable(expected);
+
+    }, {
+        "non-empty": {
+            s: "-a-b-c-|",
+            e: "-b-c-d-|"
+        },
+        "empty": {
+            s: "-|",
+            e: "-|"
+        }
+    });
+});
+```
+
+With AVA and Tape, the `cases` function also receives the test context. For example, with AVA, you would import `cases` and use it instead of the `test` function, like this:
+
+```ts
+import { cases } from "rxjs-marbles/ava";
+
+cases("should support cases", (m, c, t) => {
+
+    t.plan(1);
+
+    const values = { a: 1, b: 2, c: 3, d: 4 };
+    const source =  m.hot(c.s, values);
+    const expected = m.cold(c.e, values);
+    const destination = source.map((value) => value + 1);
+    m.expect(destination).toBeObservable(expected);
+
+}, {
+    "non-empty": {
+        s: "-a-b-c-|",
+        e: "-b-c-d-|"
+    },
+    "empty": {
+        s: "-|",
+        e: "-|"
+    }
+});
 ```
 
 ## API
