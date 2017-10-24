@@ -13,7 +13,7 @@
     "@types/jest": "^21.1.0",
     "@types/mocha": "^2.2.41",
     "@types/tape": "^4.2.30",
-    "ava": "^0.22.0",
+    "ava": "^0.23.0",
     "babel-preset-es2015-rollup": "^3.0.0",
     "babel-preset-es2016": "^6.24.0",
     "babel-preset-es2017": "^6.24.0",
