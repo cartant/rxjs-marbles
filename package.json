@@ -83,7 +83,7 @@
     "dist:clean": "rimraf dist",
     "dist:copy": "node scripts/pack.js && cpy CHANGELOG.md LICENSE README.md dist/",
     "dist:rollup": "rollup -c rollup-config.js && rollup -c rollup-config-ava.js && rollup -c rollup-config-jasmine.js && rollup -c rollup-config-jest.js && rollup -c rollup-config-mocha.js && rollup -c rollup-config-tape.js",
-    "lint": "tslint --project tsconfig.json --type-check source/**/*.ts",
+    "lint": "tslint --project tsconfig.json source/**/*.ts",
     "pack": "node scripts/pack.js",
     "prepublishOnly": "npm run test",
     "test": "npm run dist && cross-env FAILING=0 npm run test-ava && cross-env FAILING=0 npm run test-jasmine && cross-env FAILING=0 npm run test-jest && cross-env FAILING=0 npm run test-mocha && cross-env FAILING=0 npm run test-tape",
