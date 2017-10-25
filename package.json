@@ -32,8 +32,6 @@
     "rxjs-tslint-rules": "^3.0.0",
     "tape": "^4.7.0",
     "ts-jest": "^21.0.0",
-    "ts-mocha": "^1.0.3",
-    "ts-node": "^3.2.0",
     "tslint": "^5.5.0",
     "typescript": "~2.5.2"
   },
@@ -88,10 +86,10 @@
     "prepublishOnly": "yarn run test",
     "test": "yarn run dist && cross-env FAILING=0 yarn run test-ava && cross-env FAILING=0 yarn run test-jasmine && cross-env FAILING=0 yarn run test-jest && cross-env FAILING=0 yarn run test-mocha && cross-env FAILING=0 yarn run test-tape",
     "test-ava": "ava --verbose",
-    "test-jasmine": "ts-node -P ./fixtures/jasmine/tsconfig.json node_modules/jasmine/bin/jasmine ./fixtures/jasmine/*-spec.ts",
+    "test-jasmine": "tsc -p ./fixtures/jasmine/tsconfig.json && jasmine ./fixtures/jasmine/*-spec.js",
     "test-jest": "jest",
-    "test-mocha": "ts-mocha -p ./fixtures/mocha/ ./fixtures/mocha/*-spec.ts",
-    "test-tape": "ts-node -P ./fixtures/tape/tsconfig.json node_modules/tape/bin/tape ./fixtures/tape/*-spec.ts"
+    "test-mocha": "tsc -p ./fixtures/mocha/tsconfig.json && mocha ./fixtures/mocha/*-spec.js",
+    "test-tape": "tsc -p ./fixtures/tape/tsconfig.json && tape ./fixtures/tape/*-spec.js"
   },
   "typings": "./dist/index.d.ts",
   "unpkg": "./bundles/rxjs-marbles.min.umd.js",
