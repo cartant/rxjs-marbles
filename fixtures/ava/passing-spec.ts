@@ -5,7 +5,7 @@
  */
 
 import { test } from "ava";
-import { cases, marbles } from "../dist/ava";
+import { cases, marbles } from "../../dist/ava";
 
 import "rxjs/add/operator/map";
 

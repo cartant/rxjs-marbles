@@ -1,0 +1,7 @@
+{
+  "compilerOptions": {
+    "outDir": "../../__tests__",
+    "types": ["ava", "node"]
+  },
+  "extends": "../tsconfig.json"
+}
