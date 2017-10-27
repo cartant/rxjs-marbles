@@ -31,19 +31,14 @@
     "rxjs": "^5.4.2",
     "rxjs-tslint-rules": "^3.0.0",
     "tape": "^4.7.0",
-    "ts-jest": "^21.0.0",
     "tslint": "^5.5.0",
     "typescript": "~2.5.2"
   },
   "homepage": "https://github.com/cartant/rxjs-marbles",
   "jest": {
-    "transform": {
-      "^.+\\.tsx?$": "./node_modules/ts-jest/preprocessor.js"
-    },
-    "testRegex": "(fixtures/jest/.*-spec)\\.(tsx?|jsx?)$",
+    "testRegex": "(fixtures/jest/.*-spec)\\.jsx?$",
+    "transform": {},
     "moduleFileExtensions": [
-      "ts",
-      "tsx",
       "js",
       "json",
       "jsx"
@@ -87,7 +82,7 @@
     "test": "yarn run dist && cross-env FAILING=0 yarn run test-ava && cross-env FAILING=0 yarn run test-jasmine && cross-env FAILING=0 yarn run test-jest && cross-env FAILING=0 yarn run test-mocha && cross-env FAILING=0 yarn run test-tape",
     "test-ava": "ava --verbose",
     "test-jasmine": "tsc -p ./fixtures/jasmine/tsconfig.json && jasmine ./fixtures/jasmine/*-spec.js",
-    "test-jest": "jest",
+    "test-jest": "tsc -p ./fixtures/jest/tsconfig.json && jest",
     "test-mocha": "tsc -p ./fixtures/mocha/tsconfig.json && mocha ./fixtures/mocha/*-spec.js",
     "test-tape": "tsc -p ./fixtures/tape/tsconfig.json && tape ./fixtures/tape/*-spec.js"
   },
