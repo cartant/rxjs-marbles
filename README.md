@@ -192,7 +192,7 @@ cases("should support cases", (m, c, t) => {
     const source =  m.hot(c.s, values);
     const expected = m.cold(c.e, values);
     const destination = source.map((value) => value + 1);
-    m.expect(destination).toBeObservable(expected);
+    m.equal(destination, expected);
 
 }, {
     "non-empty": {
