@@ -266,5 +266,3 @@ interface Expect<T> {
     toHaveSubscriptions(expected: string | string[]): void;
 }
 ```
-
-<a target='_blank' rel='nofollow' href='https://app.codesponsor.io/link/jZB4ja6SvwGUN4ibgYVgUVYV/cartant/rxjs-marbles'>  <img alt='Sponsor' width='888' height='68' src='https://app.codesponsor.io/embed/jZB4ja6SvwGUN4ibgYVgUVYV/cartant/rxjs-marbles.svg' /></a>
