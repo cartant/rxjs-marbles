@@ -22,9 +22,7 @@ export function marbles(func: (context: Context, ...rest: any[]) => any): (...re
             const scheduler = new TestScheduler((a, b) => observableMatcher(a, b, get("assert"), get("assertDeepEqual")));
             const context = new Context(scheduler);
             func(context, first, ...rest);
-            if (context.autoFlush) {
-                scheduler.flush();
-            }
+            context.teardown();
         };
     }
     return (...rest: any[]) => {
@@ -32,8 +30,6 @@ export function marbles(func: (context: Context, ...rest: any[]) => any): (...re
         const scheduler = new TestScheduler((a, b) => observableMatcher(a, b, get("assert"), get("assertDeepEqual")));
         const context = new Context(scheduler);
         func(context, ...rest);
-        if (context.autoFlush) {
-            scheduler.flush();
-        }
+        context.teardown();
     };
 }

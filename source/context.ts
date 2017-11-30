@@ -5,6 +5,11 @@
  */
 
 import { Observable } from "rxjs/Observable";
+import { IScheduler } from "rxjs/Scheduler";
+import { animationFrame } from "rxjs/scheduler/animationFrame";
+import { asap } from "rxjs/scheduler/asap";
+import { async } from "rxjs/scheduler/async";
+import { queue } from "rxjs/scheduler/queue";
 import { ColdObservable } from "rxjs/testing/ColdObservable";
 import { HotObservable } from "rxjs/testing/HotObservable";
 import { TestScheduler } from "rxjs/testing/TestScheduler";
@@ -18,7 +23,31 @@ export class Context {
     public autoFlush = true;
     public configure = configure;
 
+    private bindings_: {
+        instance: IScheduler,
+        now?: IScheduler["now"],
+        schedule?: IScheduler["schedule"]
+    }[] = [];
+
     constructor(public readonly scheduler: TestScheduler) {}
+
+    bind(...schedulers: IScheduler[]): void {
+
+        if (this.bindings_.length !== 0) {
+            throw new Error("Schedulers already bound.");
+        }
+        if (schedulers.length === 0) {
+            schedulers = [animationFrame, asap, async, queue];
+        }
+
+        this.bindings_ = schedulers.map(instance => {
+            const now = instance.hasOwnProperty("now") ? instance.now : undefined;
+            instance.now = () => this.scheduler.now();
+            const schedule = instance.hasOwnProperty("schedule") ? instance.schedule : undefined;
+            instance.schedule = (work, delay, state) => this.scheduler.schedule(work, delay, state);
+            return { instance, now, schedule };
+        });
+    }
 
     cold<T = any>(marbles: string, values?: { [key: string]: T }, error?: any): ColdObservable<T> {
 
@@ -87,6 +116,26 @@ export class Context {
         const observable = scheduler.createHotObservable<T>(marbles, values, error);
         observable[argsSymbol] = { error, marbles, values };
         return observable;
+    }
+
+    teardown(): void {
+
+        if (this.autoFlush) {
+            this.scheduler.flush();
+        }
+
+        this.bindings_.forEach(({ instance, now, schedule }) => {
+            if (now) {
+                instance.now = now;
+            } else {
+                delete instance.now;
+            }
+            if (schedule) {
+                instance.schedule = schedule;
+            } else {
+                delete instance.schedule;
+            }
+        });
     }
 
     time(marbles: string): number {

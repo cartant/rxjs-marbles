@@ -7,6 +7,7 @@
 
 import { cases, marbles } from "../../dist/mocha";
 
+import "rxjs/add/operator/delay";
 import "rxjs/add/operator/map";
 
 describe("rxjs-marbles", () => {
@@ -155,6 +156,20 @@ describe("rxjs-marbles", () => {
         const destination = source.map((value) => value + 1);
 
         m.expect(destination, unsubs).toBeObservable(expected, values);
+        m.expect(source).toHaveSubscriptions(subs);
+    }));
+
+    it("should support binding non-test schedulers", marbles((m) => {
+
+        m.bind();
+
+        const source =  m.hot("--^-a-b-c-|");
+        const subs =            "^--------!";
+        const expected =        "---a-b-c-|";
+
+        const destination = source.delay(m.time("-|"));
+
+        m.expect(destination).toBeObservable(expected);
         m.expect(source).toHaveSubscriptions(subs);
     }));
 

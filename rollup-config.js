@@ -6,12 +6,22 @@ export default {
     banner: "/*MIT license https://github.com/cartant/rxjs-marbles/blob/master/LICENSE*/",
     external: [
         "rxjs/Observable",
+        "rxjs/Scheduler",
+        "rxjs/scheduler/animationFrame",
+        "rxjs/scheduler/asap",
+        "rxjs/scheduler/async",
+        "rxjs/scheduler/queue",
         "rxjs/testing/ColdObservable",
         "rxjs/testing/HotObservable",
         "rxjs/testing/TestScheduler"
     ],
     globals: {
         "rxjs/Observable": "Rx",
+        "rxjs/Scheduler": "Rx",
+        "rxjs/scheduler/animationFrame": "Rx.Scheduler",
+        "rxjs/scheduler/asap": "Rx.Scheduler",
+        "rxjs/scheduler/async": "Rx.Scheduler",
+        "rxjs/scheduler/queue": "Rx.Scheduler",
         "rxjs/testing/TestScheduler": "Rx"
     },
     input: "dist/index.js",
