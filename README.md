@@ -206,6 +206,30 @@ cases("should support cases", (m, c, t) => {
 });
 ```
 
+### Dealing with deeply-nested schedulers
+
+Sometimes, passing the `TestScheduler` instance to the code under test can be tedious. The context includes a `bind` method that can be used to bind a scheduler's `now` and `schedule` methods to those of the context's `TestScheduler`.
+
+`bind` can be passed specific scheduler instances or can be called with no arguments to bind RxJS's `animationFrame`, `asap`, `async` and `queue` schedulers to the context's `TestScheduler`.
+
+For example:
+
+```ts
+it("should support binding non-test schedulers", marbles((m) => {
+
+    m.bind();
+
+    const source =  m.hot("--^-a-b-c-|");
+    const subs =            "^--------!";
+    const expected =        "---a-b-c-|";
+
+    // Note that delay is not passed a scheduler:
+    const destination = source.delay(m.time("-|"));
+    m.expect(destination).toBeObservable(expected);
+    m.expect(source).toHaveSubscriptions(subs);
+}));
+```
+
 ## API
 
 The `rxjs-marbles` API is comprised of two functions:
@@ -246,6 +270,7 @@ function marbles<T1, T2, T3>(test: (context: Context, t1: T1, t2: T2, t3: T3) =>
 ```ts
 interface Context {
     autoFlush: boolean;
+    bind(...schedulers: IScheduler[]): void;
     cold<T = any>(marbles: string, values?: any, error?: any): ColdObservable<T>;
     configure(options: Configuration): void;
     equal<T = any>(actual: Observable<T>, expected: Observable<T>): void;
@@ -257,6 +282,7 @@ interface Context {
     has<T = any>(actual: Observable<T>, expected: string | string[]): void;
     hot<T = any>(marbles: string, values?: any, error?: any): HotObservable<T>;
     readonly scheduler: TestScheduler;
+    teardown(): void;
     time(marbles: string): number;
 }
 
