@@ -3,7 +3,7 @@
 
 ### Features
 
-* **bind**: Add a `'bind` method for binding non-test schedulers to the context's `TestScheduler`. ([3a7963c](https://github.com/cartant/rxjs-marbles/commit/3a7963c))
+* **bind**: Add a `bind` method for binding non-test schedulers to the context's `TestScheduler`. ([3a7963c](https://github.com/cartant/rxjs-marbles/commit/3a7963c))
 
 <a name="2.1.0"></a>
 ## [2.1.0](https://github.com/cartant/rxjs-marbles/compare/v2.0.0...v2.1.0) (2017-10-08)
