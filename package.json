@@ -89,5 +89,5 @@
   },
   "typings": "./dist/index.d.ts",
   "unpkg": "./bundles/rxjs-marbles.min.umd.js",
-  "version": "2.1.0"
+  "version": "2.2.0"
 }
