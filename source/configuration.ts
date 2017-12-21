@@ -9,11 +9,13 @@ import isEqual from "lodash-es/isEqual";
 export interface Configuration {
     assert?: (value: any, message: string) => void;
     assertDeepEqual?: (a: any, b: any) => void;
+    frameworkMatcher?: boolean;
 }
 
 let configuration: Configuration = {
     assert: defaultAssert,
-    assertDeepEqual: defaultAssertDeepEqual
+    assertDeepEqual: defaultAssertDeepEqual,
+    frameworkMatcher: false
 };
 
 export function configure(options: Configuration): void {

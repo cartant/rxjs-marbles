@@ -43,24 +43,29 @@ function deleteErrorNotificationStack(marble: any): any {
   return marble;
 }
 
-export function observableMatcher(actual: any, expected: any, assert: any, assertDeepEqual: any): any {
+export function observableMatcher(actual: any, expected: any, assert: any, assertDeepEqual: any, frameworkMatcher: any): any {
 
   if (Array.isArray(actual) && Array.isArray(expected)) {
     actual = actual.map(deleteErrorNotificationStack);
     expected = expected.map(deleteErrorNotificationStack);
-    const passed = isEqual(actual, expected);
-    if (passed) {
-      assert(true, "");
-      return;
+
+    if (frameworkMatcher) {
+      assertDeepEqual(actual, expected);
+    } else {
+      const passed = isEqual(actual, expected);
+      if (passed) {
+        assert(true, "");
+        return;
+      }
+
+      let message = '\nExpected \n';
+      actual.forEach((x: any) => message += `\t${stringify(x)}\n`);
+
+      message += '\t\nto deep equal \n';
+      expected.forEach((x: any) => message += `\t${stringify(x)}\n`);
+
+      assert(passed, message);
     }
-
-    let message = '\nExpected \n';
-    actual.forEach((x: any) => message += `\t${stringify(x)}\n`);
-
-    message += '\t\nto deep equal \n';
-    expected.forEach((x: any) => message += `\t${stringify(x)}\n`);
-
-    assert(passed, message);
   } else {
     assertDeepEqual(actual, expected);
   }

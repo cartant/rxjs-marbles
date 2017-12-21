@@ -19,7 +19,11 @@ export function marbles(func: (context: Context, ...rest: any[]) => any): (...re
     if (func.length > 1) {
         return (first: any, ...rest: any[]) => {
 
-            const scheduler = new TestScheduler((a, b) => observableMatcher(a, b, get("assert"), get("assertDeepEqual")));
+            const scheduler = new TestScheduler((a, b) => observableMatcher(a, b,
+                get("assert"),
+                get("assertDeepEqual"),
+                get("frameworkMatcher")
+            ));
             const context = new Context(scheduler);
             func(context, first, ...rest);
             context.teardown();
@@ -27,7 +31,11 @@ export function marbles(func: (context: Context, ...rest: any[]) => any): (...re
     }
     return (...rest: any[]) => {
 
-        const scheduler = new TestScheduler((a, b) => observableMatcher(a, b, get("assert"), get("assertDeepEqual")));
+        const scheduler = new TestScheduler((a, b) => observableMatcher(a, b,
+            get("assert"),
+            get("assertDeepEqual"),
+            get("frameworkMatcher")
+        ));
         const context = new Context(scheduler);
         func(context, ...rest);
         context.teardown();
