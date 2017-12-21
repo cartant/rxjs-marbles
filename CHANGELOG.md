@@ -1,3 +1,10 @@
+<a name="2.3.0"></a>
+## [2.3.0](https://github.com/cartant/rxjs-marbles/compare/v2.2.0...v2.3.0) (2017-12-21)
+
+### Features
+
+* **Jest**: Use Jest's matcher for the marbles assertion. ([3721847](https://github.com/cartant/rxjs-marbles/commit/3721847))
+
 <a name="2.2.0"></a>
 ## [2.2.0](https://github.com/cartant/rxjs-marbles/compare/v2.1.0...v2.2.0) (2017-11-30)
 
