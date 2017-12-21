@@ -245,6 +245,7 @@ The `rxjs-marbles` API is comprised of two functions:
 interface Configuration {
     assert?: (value: any, message: string) => void;
     assertDeepEqual?: (a: any, b: any) => void;
+    frameworkMatcher?: boolean;
 }
 
 function configure(options: Configuration): void;
