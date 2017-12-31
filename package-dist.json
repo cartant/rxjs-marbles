@@ -7,6 +7,6 @@
   "module": "./index.js",
   "private": false,
   "scripts": {},
-  "typings": "./index.d.ts",
+  "types": "./index.d.ts",
   "unpkg": "./bundles/rxjs-marbles.umd.js"
 }

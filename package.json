@@ -87,7 +87,7 @@
     "test-mocha": "tsc -p ./fixtures/mocha/tsconfig.json && mocha ./fixtures/mocha/*-spec.js",
     "test-tape": "tsc -p ./fixtures/tape/tsconfig.json && tape ./fixtures/tape/*-spec.js"
   },
-  "typings": "./dist/index.d.ts",
+  "types": "./dist/index.d.ts",
   "unpkg": "./bundles/rxjs-marbles.min.umd.js",
   "version": "2.3.0"
 }
