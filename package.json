@@ -10,7 +10,7 @@
   "description": "An RxJS marble testing library for any test framework",
   "devDependencies": {
     "@types/jasmine": "^2.5.53",
-    "@types/jest": "^21.1.0",
+    "@types/jest": "^22.0.0",
     "@types/mocha": "^2.2.41",
     "@types/tape": "^4.2.30",
     "ava": "^0.24.0",
