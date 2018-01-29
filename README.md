@@ -1,5 +1,6 @@
 # rxjs-marbles
 
+[![GitHub License](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/cartant/rxjs-marbles/blob/master/LICENSE)
 [![NPM version](https://img.shields.io/npm/v/rxjs-marbles.svg)](https://www.npmjs.com/package/rxjs-marbles)
 [![Downloads](http://img.shields.io/npm/dm/rxjs-marbles.svg)](https://npmjs.org/package/rxjs-marbles)
 [![Build status](https://img.shields.io/travis/cartant/rxjs-marbles.svg)](http://travis-ci.org/cartant/rxjs-marbles)
