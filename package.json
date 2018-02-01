@@ -33,7 +33,7 @@
     "rxjs-tslint-rules": "^3.0.0",
     "tape": "^4.7.0",
     "tslint": "^5.5.0",
-    "typescript": "~2.6.1"
+    "typescript": "~2.7.1"
   },
   "homepage": "https://github.com/cartant/rxjs-marbles",
   "jest": {
