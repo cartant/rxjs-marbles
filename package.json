@@ -20,7 +20,7 @@
     "babel-preset-es2017": "^6.24.0",
     "cpy-cli": "^1.0.1",
     "cross-env": "^5.0.5",
-    "jasmine": "^2.6.0",
+    "jasmine": "^3.0.0",
     "jest": "^22.0.0",
     "mkdirp": "^0.5.1",
     "mocha": "^5.0.0",
