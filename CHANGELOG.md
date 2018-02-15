@@ -1,3 +1,10 @@
+<a name="2.3.1"></a>
+## [2.3.1](https://github.com/cartant/rxjs-marbles/compare/v2.3.0...v2.3.1) (2018-02-15)
+
+### Bug fixes
+
+* **matcher**: Support `undefined` values in `stringify`. ([f156dab](https://github.com/cartant/rxjs-marbles/commit/f156dab))
+
 <a name="2.3.0"></a>
 ## [2.3.0](https://github.com/cartant/rxjs-marbles/compare/v2.2.0...v2.3.0) (2017-12-21)
 
