@@ -1,3 +1,10 @@
+<a name="2.3.2"></a>
+## [2.3.2](https://github.com/cartant/rxjs-marbles/compare/v2.3.1...v2.3.2) (2018-03-05)
+
+### Bug fixes
+
+* **marbles**: Return whatever the supplied `func` returns. ([dde5031](https://github.com/cartant/rxjs-marbles/commit/dde5031))
+
 <a name="2.3.1"></a>
 ## [2.3.1](https://github.com/cartant/rxjs-marbles/compare/v2.3.0...v2.3.1) (2018-02-15)
 
