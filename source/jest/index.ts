@@ -31,13 +31,13 @@ export function cases(name: string, func: any, cases: any): void {
     });
 }
 
-export function marbles(func: (m: Context, ...rest: any[]) => void): any {
+export function marbles(func: (m: Context, ...rest: any[]) => any): any {
 
     return _marbles((m: Context, ...rest: any[]) => {
         m.configure({
             assertDeepEqual: (a, e) => expect(a).toEqual(e),
             frameworkMatcher: true
         });
-        func(m, ...rest);
+        return func(m, ...rest);
     });
 }

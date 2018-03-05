@@ -4,6 +4,7 @@
  */
 /*tslint:disable:object-literal-sort-keys*/
 
+import { expect } from "chai";
 import { cases, marbles } from "../../dist/mocha";
 
 import "rxjs/add/operator/delay";
@@ -196,4 +197,9 @@ describe("rxjs-marbles", () => {
             e: "-|"
         }
     });
+
+    it("should support promises", marbles((m) => {
+
+        return Promise.resolve().then(() => expect(m).to.be.an("object"));
+    }));
 });

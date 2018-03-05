@@ -22,13 +22,13 @@ export function cases(name: string, func: any, cases: any): void {
     }, cases);
 }
 
-export function marbles(func: (m: Context, t: TestContext) => void): any {
+export function marbles(func: (m: Context, t: TestContext) => any): any {
 
     return _marbles<TestContext>((m, t) => {
         m.configure({
             assert: t.truthy.bind(t),
             assertDeepEqual: t.deepEqual.bind(t)
         });
-        func(m, t);
+        return func(m, t);
     });
 }

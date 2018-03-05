@@ -51,3 +51,8 @@ cases("should support cases", (m, c) => {
         e: "-|"
     }
 });
+
+test("it should support promises", marbles((m) => {
+
+    return Promise.resolve().then(() => expect(typeof m).toEqual("object"));
+}));
