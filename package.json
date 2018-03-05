@@ -29,7 +29,7 @@
     "rimraf": "^2.6.1",
     "rollup": "^0.56.0",
     "rollup-plugin-babel": "^3.0.0",
-    "rollup-plugin-commonjs": "^8.0.2",
+    "rollup-plugin-commonjs": "^9.0.0",
     "rollup-plugin-node-resolve": "^3.0.0",
     "rxjs": "^5.4.2",
     "rxjs-tslint-rules": "^3.0.0",
