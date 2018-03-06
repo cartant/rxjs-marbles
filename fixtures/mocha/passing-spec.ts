@@ -43,6 +43,29 @@ describe("rxjs-marbles", () => {
         m.expect(source).toHaveSubscriptions(subs);
     }));
 
+    it("should support marble tests with class-instance values", marbles((m) => {
+
+        class Thing {
+            constructor(public value: number) {}
+        }
+
+        const values = {
+            a: new Thing(1),
+            b: new Thing(2),
+            c: new Thing(3),
+            d: new Thing(4)
+        };
+
+        const source =  m.hot("--^-a-b-c-|", values);
+        const subs =            "^-------!";
+        const expected = m.cold("--b-c-d-|", values);
+
+        const destination = source.map((thing) => new Thing(thing.value + 1));
+
+        m.expect(destination).toBeObservable(expected);
+        m.expect(source).toHaveSubscriptions(subs);
+    }));
+
     it("should support marble tests with errors", marbles((m) => {
 
         const source =  m.hot("--^-a-b-c-#");
