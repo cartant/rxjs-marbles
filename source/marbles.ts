@@ -26,8 +26,7 @@ export function marbles(func: (context: Context, ...rest: any[]) => any): (...re
             const context = new Context(scheduler);
 
             try {
-                const result = func(context, first, ...rest);
-                return result;
+                return func(context, first, ...rest);
             } finally {
                 context.teardown();
             }
@@ -43,8 +42,7 @@ export function marbles(func: (context: Context, ...rest: any[]) => any): (...re
         const context = new Context(scheduler);
 
         try {
-            const result = func(context, ...rest);
-            return result;
+            return func(context, ...rest);
         } finally {
             context.teardown();
         }
