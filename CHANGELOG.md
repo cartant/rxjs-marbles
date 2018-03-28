@@ -1,3 +1,10 @@
+<a name="2.3.3"></a>
+## [2.3.3](https://github.com/cartant/rxjs-marbles/compare/v2.3.2...v2.3.3) (2018-03-29)
+
+### Bug fixes
+
+* **bind**: Ensure teardown always happens for each `bind`. ([19caa51](https://github.com/cartant/rxjs-marbles/commit/19caa51))
+
 <a name="2.3.2"></a>
 ## [2.3.2](https://github.com/cartant/rxjs-marbles/compare/v2.3.1...v2.3.2) (2018-03-05)
 
