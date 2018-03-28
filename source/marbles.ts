@@ -24,9 +24,13 @@ export function marbles(func: (context: Context, ...rest: any[]) => any): (...re
                 get("frameworkMatcher")
             ));
             const context = new Context(scheduler);
-            const result = func(context, first, ...rest);
-            context.teardown();
-            return result;
+
+            try {
+                const result = func(context, first, ...rest);
+                return result;
+            } finally {
+                context.teardown();
+            }
         };
     }
     return (...rest: any[]) => {
@@ -37,8 +41,12 @@ export function marbles(func: (context: Context, ...rest: any[]) => any): (...re
             get("frameworkMatcher")
         ));
         const context = new Context(scheduler);
-        const result = func(context, ...rest);
-        context.teardown();
-        return result;
+
+        try {
+            const result = func(context, ...rest);
+            return result;
+        } finally {
+            context.teardown();
+        }
     };
 }

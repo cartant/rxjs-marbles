@@ -119,22 +119,28 @@ export class Context {
 
     teardown(): void {
 
-        if (this.autoFlush) {
-            this.scheduler.flush();
+        try {
+
+            if (this.autoFlush) {
+                this.scheduler.flush();
+            }
+
+        } finally {
+
+            this.bindings_.forEach(({ instance, now, schedule }) => {
+                if (now) {
+                    instance.now = now;
+                } else {
+                    delete instance.now;
+                }
+                if (schedule) {
+                    instance.schedule = schedule;
+                } else {
+                    delete instance.schedule;
+                }
+            });
         }
 
-        this.bindings_.forEach(({ instance, now, schedule }) => {
-            if (now) {
-                instance.now = now;
-            } else {
-                delete instance.now;
-            }
-            if (schedule) {
-                instance.schedule = schedule;
-            } else {
-                delete instance.schedule;
-            }
-        });
     }
 
     time(marbles: string): number {
