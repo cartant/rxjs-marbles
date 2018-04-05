@@ -3,7 +3,7 @@
  * can be found in the LICENSE file at https://github.com/cartant/rxjs-marbles
  */
 
-import { TestScheduler } from "rxjs/testing/TestScheduler";
+import { TestScheduler } from "rxjs/testing";
 import { get } from "./configuration";
 import { Context } from "./context";
 import { observableMatcher } from "./matcher";

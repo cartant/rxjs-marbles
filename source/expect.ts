@@ -3,9 +3,9 @@
  * can be found in the LICENSE file at https://github.com/cartant/rxjs-marbles
  */
 
-import { ColdObservable } from "rxjs/testing/ColdObservable";
-import { HotObservable } from "rxjs/testing/HotObservable";
-import { TestScheduler } from "rxjs/testing/TestScheduler";
+import { TestScheduler } from "rxjs/testing";
+import { ColdObservable } from "rxjs/internal/testing/ColdObservable";
+import { HotObservable } from "rxjs/internal/testing/HotObservable";
 import { argsSymbol } from "./args";
 import { assertArgs, assertSubscriptions } from "./assert";
 

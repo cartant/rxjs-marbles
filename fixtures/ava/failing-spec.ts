@@ -4,9 +4,8 @@
  */
 
 import { test } from "ava";
+import { map } from "rxjs/operators";
 import { marbles } from "../../dist/ava";
-
-import "rxjs/add/operator/map";
 
 if (process.env.FAILING !== "0") {
 
@@ -25,7 +24,7 @@ if (process.env.FAILING !== "0") {
         const subs =            "^-------!";
         const expected = m.cold("--a-a-a-|", values);
 
-        const destination = source.map((value) => value + 1);
+        const destination = source.pipe(map((value) => value + 1));
 
         m.expect(destination).toBeObservable(expected);
         m.expect(source).toHaveSubscriptions(subs);

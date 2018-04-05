@@ -5,10 +5,8 @@
 /*tslint:disable:object-literal-sort-keys*/
 
 import { expect } from "chai";
+import { delay, map } from "rxjs/operators";
 import { cases, marbles } from "../../dist/mocha";
-
-import "rxjs/add/operator/delay";
-import "rxjs/add/operator/map";
 
 describe("rxjs-marbles", () => {
 
@@ -37,7 +35,7 @@ describe("rxjs-marbles", () => {
         const subs =            "^-------!";
         const expected = m.cold("--b-c-d-|", values);
 
-        const destination = source.map((value) => value + 1);
+        const destination = source.pipe(map((value) => value + 1));
 
         m.expect(destination).toBeObservable(expected);
         m.expect(source).toHaveSubscriptions(subs);
@@ -60,7 +58,7 @@ describe("rxjs-marbles", () => {
         const subs =            "^-------!";
         const expected = m.cold("--b-c-d-|", values);
 
-        const destination = source.map((thing) => new Thing(thing.value + 1));
+        const destination = source.pipe(map((thing) => new Thing(thing.value + 1)));
 
         m.expect(destination).toBeObservable(expected);
         m.expect(source).toHaveSubscriptions(subs);
@@ -91,7 +89,7 @@ describe("rxjs-marbles", () => {
         const subs =            "^-------!";
         const expected = m.cold("--b-c-d-#", values, new Error("Boom!"));
 
-        const destination = source.map((value) => value + 1);
+        const destination = source.pipe(map((value) => value + 1));
 
         m.expect(destination).toBeObservable(expected);
         m.expect(source).toHaveSubscriptions(subs);
@@ -110,7 +108,7 @@ describe("rxjs-marbles", () => {
         const subs =            "^-------!";
         const expected =        "--b-c-d-|";
 
-        const destination = source.map((value) => value + 1);
+        const destination = source.pipe(map((value) => value + 1));
 
         m.expect(destination).toBeObservable(expected, values);
         m.expect(source).toHaveSubscriptions(subs);
@@ -143,7 +141,7 @@ describe("rxjs-marbles", () => {
         const unsubs =          "-----!";
         const expected = m.cold("--b-c-", values);
 
-        const destination = source.map((value) => value + 1);
+        const destination = source.pipe(map((value) => value + 1));
 
         m.expect(destination, unsubs).toBeObservable(expected);
         m.expect(source).toHaveSubscriptions(subs);
@@ -176,7 +174,7 @@ describe("rxjs-marbles", () => {
         const unsubs =          "-----!";
         const expected =        "--b-c-";
 
-        const destination = source.map((value) => value + 1);
+        const destination = source.pipe(map((value) => value + 1));
 
         m.expect(destination, unsubs).toBeObservable(expected, values);
         m.expect(source).toHaveSubscriptions(subs);
@@ -190,7 +188,7 @@ describe("rxjs-marbles", () => {
         const subs =            "^--------!";
         const expected =        "---a-b-c-|";
 
-        const destination = source.delay(m.time("-|"));
+        const destination = source.pipe(delay(m.time("-|")));
 
         m.expect(destination).toBeObservable(expected);
         m.expect(source).toHaveSubscriptions(subs);
@@ -207,7 +205,7 @@ describe("rxjs-marbles", () => {
 
         const source =  m.hot(c.s, values);
         const expected = m.cold(c.e, values);
-        const destination = source.map((value) => value + 1);
+        const destination = source.pipe(map((value) => value + 1));
 
         m.expect(destination).toBeObservable(expected);
     }, {

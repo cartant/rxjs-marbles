@@ -3,15 +3,17 @@
  * can be found in the LICENSE file at https://github.com/cartant/rxjs-marbles
  */
 
-import { Observable } from "rxjs/Observable";
-import { IScheduler } from "rxjs/Scheduler";
-import { animationFrame } from "rxjs/scheduler/animationFrame";
-import { asap } from "rxjs/scheduler/asap";
-import { async } from "rxjs/scheduler/async";
-import { queue } from "rxjs/scheduler/queue";
-import { ColdObservable } from "rxjs/testing/ColdObservable";
-import { HotObservable } from "rxjs/testing/HotObservable";
-import { TestScheduler } from "rxjs/testing/TestScheduler";
+import {
+    animationFrameScheduler,
+    asapScheduler,
+    asyncScheduler,
+    Observable,
+    queueScheduler,
+    SchedulerLike
+} from "rxjs";
+import { TestScheduler } from "rxjs/testing";
+import { ColdObservable } from "rxjs/internal/testing/ColdObservable";
+import { HotObservable } from "rxjs/internal/testing/HotObservable";
 import { argsSymbol } from "./args";
 import { assertArgs, assertSubscriptions } from "./assert";
 import { configure } from "./configuration";
@@ -23,20 +25,25 @@ export class Context {
     public configure = configure;
 
     private bindings_: {
-        instance: IScheduler,
-        now?: IScheduler["now"],
-        schedule?: IScheduler["schedule"]
+        instance: SchedulerLike,
+        now?: SchedulerLike["now"],
+        schedule?: SchedulerLike["schedule"]
     }[] = [];
 
     constructor(public readonly scheduler: TestScheduler) {}
 
-    bind(...schedulers: IScheduler[]): void {
+    bind(...schedulers: SchedulerLike[]): void {
 
         if (this.bindings_.length !== 0) {
             throw new Error("Schedulers already bound.");
         }
         if (schedulers.length === 0) {
-            schedulers = [animationFrame, asap, async, queue];
+            schedulers = [
+                animationFrameScheduler,
+                asapScheduler,
+                asyncScheduler,
+                queueScheduler
+            ];
         }
 
         this.bindings_ = schedulers.map(instance => {
