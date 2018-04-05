@@ -62,7 +62,7 @@
   "name": "rxjs-marbles",
   "optionalDependencies": {},
   "peerDependencies": {
-    "rxjs": "^5.0.0"
+    "rxjs": "^6.0.0-rc.0"
   },
   "private": true,
   "publishConfig": {
