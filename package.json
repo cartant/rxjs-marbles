@@ -69,6 +69,9 @@
     "rxjs": "^5.0.0"
   },
   "private": true,
+  "publishConfig": {
+    "tag": "rc"
+  },
   "repository": {
     "type": "git",
     "url": "https://github.com/cartant/rxjs-marbles.git"
