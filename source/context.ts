@@ -12,12 +12,11 @@ import {
     SchedulerLike
 } from "rxjs";
 import { TestScheduler } from "rxjs/testing";
-import { ColdObservable } from "rxjs/internal/testing/ColdObservable";
-import { HotObservable } from "rxjs/internal/testing/HotObservable";
 import { argsSymbol } from "./args";
 import { assertArgs, assertSubscriptions } from "./assert";
 import { configure } from "./configuration";
 import { Expect } from "./expect";
+import { TestObservableLike } from "./types";
 
 export class Context {
 
@@ -55,7 +54,7 @@ export class Context {
         });
     }
 
-    cold<T = any>(marbles: string, values?: { [key: string]: T }, error?: any): ColdObservable<T> {
+    cold<T = any>(marbles: string, values?: { [key: string]: T }, error?: any): TestObservableLike<T> {
 
         const { scheduler } = this;
         const observable = scheduler.createColdObservable<T>(marbles, values, error);
@@ -63,9 +62,9 @@ export class Context {
         return observable;
     }
 
-    equal<T = any>(actual: Observable<T>, expected: Observable<T>): void;
+    equal<T = any>(actual: Observable<T>, expected: TestObservableLike<T>): void;
     equal<T = any>(actual: Observable<T>, expected: string, values?: { [key: string]: T }, error?: any): void;
-    equal<T = any>(actual: Observable<T>, unsubscription: string, expected: Observable<T>): void;
+    equal<T = any>(actual: Observable<T>, unsubscription: string, expected: TestObservableLike<T>): void;
     equal<T = any>(actual: Observable<T>, unsubscription: string, expected: string, values?: { [key: string]: T }, error?: any): void;
     equal<T = any>(actual: Observable<T>, ...args: any[]): void {
 
@@ -116,7 +115,7 @@ export class Context {
         scheduler.expectSubscriptions((actual as any).subscriptions).toBe(expected);
     }
 
-    hot<T = any>(marbles: string, values?: { [key: string]: T }, error?: any): HotObservable<T> {
+    hot<T = any>(marbles: string, values?: { [key: string]: T }, error?: any): TestObservableLike<T> {
 
         const { scheduler } = this;
         const observable = scheduler.createHotObservable<T>(marbles, values, error);
