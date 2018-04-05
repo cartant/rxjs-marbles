@@ -1,10 +1,10 @@
 {
   "ava": {},
   "devDependencies": {},
+  "es2015": "./esm2015/index.js",
   "jest": {},
-  "jsnext:main": "./index.js",
-  "main": "./bundles/rxjs-marbles.umd.js",
-  "module": "./index.js",
+  "main": "./index.js",
+  "module": "./esm5/index.js",
   "private": false,
   "scripts": {},
   "types": "./index.d.ts",

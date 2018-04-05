@@ -15,7 +15,7 @@
  */
 /*tslint:disable indent prefer-template quotemark*/
 
-import isEqual from "lodash-es/isEqual";
+const isEqual = require("lodash/isEqual");
 
 function stringify(x: any): string {
   if (x === undefined) {

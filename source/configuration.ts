@@ -3,7 +3,7 @@
  * can be found in the LICENSE file at https://github.com/cartant/rxjs-marbles
  */
 
-import isEqual from "lodash-es/isEqual";
+const isEqual = require("lodash/isEqual");
 
 export interface Configuration {
     assert?: (value: any, message: string) => void;

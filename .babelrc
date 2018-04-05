@@ -1,3 +1,0 @@
-{
-  "presets": ["es2015-rollup", "es2016", "es2017"]
-}

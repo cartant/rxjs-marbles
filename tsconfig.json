@@ -1,20 +1,20 @@
 {
   "compilerOptions": {
-    "declaration": true,
+    "declaration": false,
     "importHelpers": false,
     "lib": ["es2015"],
-    "module": "es2015",
+    "module": "commonjs",
     "moduleResolution": "node",
     "noEmitHelpers": false,
     "noImplicitAny": true,
-    "outDir": "dist",
+    "outDir": "build",
     "removeComments": true,
     "skipLibCheck": true,
     "sourceMap": false,
     "strict": true,
     "suppressImplicitAnyIndexErrors": true,
-    "target": "es5",
-    "types": ["lodash", "lodash-es", "node"]
+    "target": "es2015",
+    "types": ["lodash", "node"]
   },
   "exclude": [],
   "include": [
