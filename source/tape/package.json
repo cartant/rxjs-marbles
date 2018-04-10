@@ -2,5 +2,5 @@
   "es2015": "../esm2015/tape/index.js",
   "main": "./index.js",
   "module": "../esm5/tape/index.js",
-  "typings": "../index.d.ts"
+  "types": "./index.d.ts"
 }

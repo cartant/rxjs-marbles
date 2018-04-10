@@ -2,5 +2,5 @@
   "es2015": "../esm2015/ava/index.js",
   "main": "./index.js",
   "module": "../esm5/ava/index.js",
-  "typings": "../index.d.ts"
+  "types": "./index.d.ts"
 }

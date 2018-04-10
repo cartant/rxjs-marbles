@@ -2,5 +2,5 @@
   "es2015": "../esm2015/mocha/index.js",
   "main": "./index.js",
   "module": "../esm5/mocha/index.js",
-  "typings": "../index.d.ts"
+  "types": "./index.d.ts"
 }

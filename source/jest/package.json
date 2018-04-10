@@ -2,5 +2,5 @@
   "es2015": "../esm2015/jest/index.js",
   "main": "./index.js",
   "module": "../esm5/jest/index.js",
-  "typings": "../index.d.ts"
+  "types": "./index.d.ts"
 }

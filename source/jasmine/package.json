@@ -2,5 +2,5 @@
   "es2015": "../esm2015/jasmine/index.js",
   "main": "./index.js",
   "module": "../esm5/jasmine/index.js",
-  "typings": "../index.d.ts"
+  "types": "./index.d.ts"
 }
