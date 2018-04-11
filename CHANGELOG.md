@@ -1,3 +1,10 @@
+<a name="2.4.1"></a>
+## [2.4.1](https://github.com/cartant/rxjs-marbles/compare/v2.4.0...v2.4.1) (2018-04-11)
+
+### Bug fixes
+
+* **reframe**: Fix import case. ([651fe31](https://github.com/cartant/rxjs-marbles/commit/651fe31))
+
 <a name="2.4.0"></a>
 ## [2.4.0](https://github.com/cartant/rxjs-marbles/compare/v2.3.3...v2.4.0) (2018-04-11)
 
