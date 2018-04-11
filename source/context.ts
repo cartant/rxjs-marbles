@@ -5,8 +5,8 @@
 
 import { Observable } from "rxjs/Observable";
 import { IScheduler } from "rxjs/Scheduler";
-import { VirtualTimeScheduler } from "rxjs/Scheduler/VirtualTimeScheduler";
 import { animationFrame } from "rxjs/scheduler/animationFrame";
+import { VirtualTimeScheduler } from "rxjs/scheduler/VirtualTimeScheduler";
 import { asap } from "rxjs/scheduler/asap";
 import { async } from "rxjs/scheduler/async";
 import { queue } from "rxjs/scheduler/queue";
