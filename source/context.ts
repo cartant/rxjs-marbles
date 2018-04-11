@@ -5,6 +5,7 @@
 
 import { Observable } from "rxjs/Observable";
 import { IScheduler } from "rxjs/Scheduler";
+import { VirtualTimeScheduler } from "rxjs/Scheduler/VirtualTimeScheduler";
 import { animationFrame } from "rxjs/scheduler/animationFrame";
 import { asap } from "rxjs/scheduler/asap";
 import { async } from "rxjs/scheduler/async";
@@ -27,6 +28,8 @@ export class Context {
         now?: IScheduler["now"],
         schedule?: IScheduler["schedule"]
     }[] = [];
+    private frameTimeFactor_: number | undefined = undefined;
+    private reframable_ = true;
 
     constructor(public readonly scheduler: TestScheduler) {}
 
@@ -51,6 +54,7 @@ export class Context {
     cold<T = any>(marbles: string, values?: { [key: string]: T }, error?: any): ColdObservable<T> {
 
         const { scheduler } = this;
+        this.reframable_ = false;
         const observable = scheduler.createColdObservable<T>(marbles, values, error);
         observable[argsSymbol] = { error, marbles, values };
         return observable;
@@ -98,6 +102,7 @@ export class Context {
     flush(): void {
 
         const { scheduler } = this;
+        this.reframable_ = false;
         scheduler.flush();
     }
 
@@ -112,9 +117,27 @@ export class Context {
     hot<T = any>(marbles: string, values?: { [key: string]: T }, error?: any): HotObservable<T> {
 
         const { scheduler } = this;
+        this.reframable_ = false;
         const observable = scheduler.createHotObservable<T>(marbles, values, error);
         observable[argsSymbol] = { error, marbles, values };
         return observable;
+    }
+
+    reframe(framesPerCharacter: number, maxFrames?: number): void {
+
+        if (!this.reframable_) {
+            throw new Error("Cannot reframe; scheduler already used.");
+        }
+        if (maxFrames === undefined) {
+            maxFrames = framesPerCharacter * 75;
+        }
+
+        this.frameTimeFactor_ = (VirtualTimeScheduler as any).frameTimeFactor;
+        (VirtualTimeScheduler as any).frameTimeFactor = framesPerCharacter;
+        (TestScheduler as any).frameTimeFactor = framesPerCharacter;
+
+        const { scheduler } = this;
+        scheduler.maxFrames = maxFrames;
     }
 
     teardown(): void {
@@ -139,6 +162,11 @@ export class Context {
                     delete instance.schedule;
                 }
             });
+
+            if (this.frameTimeFactor_) {
+                (VirtualTimeScheduler as any).frameTimeFactor = this.frameTimeFactor_;
+                (TestScheduler as any).frameTimeFactor = this.frameTimeFactor_;
+            }
         }
 
     }
@@ -146,6 +174,7 @@ export class Context {
     time(marbles: string): number {
 
         const { scheduler } = this;
+        this.reframable_ = false;
         return scheduler.createTime(marbles);
     }
 }

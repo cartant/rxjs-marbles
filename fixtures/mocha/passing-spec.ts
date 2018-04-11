@@ -225,4 +225,26 @@ describe("rxjs-marbles", () => {
 
         return Promise.resolve().then(() => expect(m).to.be.an("object"));
     }));
+
+    it("should support reframing", marbles((m) => {
+
+        m.reframe(100, 10000);
+
+        const duration = m.time("--|");
+        expect(duration).to.equal(200);
+
+        const source =   m.cold("--(a|)");
+        const expected = m.cold("----(a|)");
+        m.expect(source.delay(duration, m.scheduler)).toBeObservable(expected);
+    }));
+
+    it("should restore after reframing", marbles((m) => {
+
+        const duration = m.time("--|");
+        expect(duration).to.equal(20);
+
+        const source =   m.cold("--(a|)");
+        const expected = m.cold("----(a|)");
+        m.expect(source.delay(duration, m.scheduler)).toBeObservable(expected);
+    }));
 });
