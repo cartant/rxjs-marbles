@@ -1,0 +1,12 @@
+{
+  "devDependencies": {
+    "@types/jasmine": "^2.5.53",
+    "jasmine": "^3.0.0",
+    "rxjs": "^6.0.0-rc.0",
+    "rxjs-marbles": "^3.0.0-rc.0",
+    "typescript": "~2.8.1"
+  },
+  "name": "rxjs-marbles-examples-jasmine",
+  "scripts": {},
+  "version": "0.0.0"
+}

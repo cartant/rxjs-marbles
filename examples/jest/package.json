@@ -1,0 +1,12 @@
+{
+  "devDependencies": {
+    "@types/jest": "^22.0.0",
+    "jest": "^22.0.0",
+    "rxjs": "^6.0.0-rc.0",
+    "rxjs-marbles": "^3.0.0-rc.0",
+    "typescript": "~2.8.1"
+  },
+  "name": "rxjs-marbles-examples-jest",
+  "scripts": {},
+  "version": "0.0.0"
+}
