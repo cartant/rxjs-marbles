@@ -1,3 +1,10 @@
+<a name="2.4.0"></a>
+## [2.4.0](https://github.com/cartant/rxjs-marbles/compare/v2.3.3...v2.4.0) (2018-04-11)
+
+### Features
+
+* **reframe**: Add `reframe` to the `Context` to allow the number of frames per character to be specified. ([15ef0e9](https://github.com/cartant/rxjs-marbles/commit/15ef0e9))
+
 <a name="2.3.3"></a>
 ## [2.3.3](https://github.com/cartant/rxjs-marbles/compare/v2.3.2...v2.3.3) (2018-03-29)
 
