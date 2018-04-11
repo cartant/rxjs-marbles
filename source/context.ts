@@ -139,7 +139,9 @@ export class Context {
             maxFrames = framesPerCharacter * 75;
         }
 
-        this.frameTimeFactor_ = (VirtualTimeScheduler as any).frameTimeFactor;
+        this.frameTimeFactor_ =
+            (VirtualTimeScheduler as any).frameTimeFactor ||
+            (TestScheduler as any).frameTimeFactor;
         (VirtualTimeScheduler as any).frameTimeFactor = framesPerCharacter;
         (TestScheduler as any).frameTimeFactor = framesPerCharacter;
 
