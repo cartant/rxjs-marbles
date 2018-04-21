@@ -132,6 +132,14 @@ it("should support binding non-test schedulers", marbles(m => {
 }));
 ```
 
+### Changing the number of frames per character
+
+The RxJS `TestScheduler` defaults to 10 frames per character with a maximum number of 750 frames for each test.
+
+If the default is not suitable for your test, you can change it by calling the context's `reframe` method and specifying the number of frames per character and the (optional) maximum number of frames. The `reframe` method must be called before any of the `cold`, `flush`, `hot` or `time` methods are called.
+
+The [examples](./examples) include tests that use `reframe`.
+
 ### Alternate assertion methods
 
 If the BDD syntax is something you really don't like, there are some alternative methods on the `Context` that are more terse:
