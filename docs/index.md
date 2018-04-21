@@ -2,137 +2,34 @@
 
 It can be used with [AVA](https://github.com/avajs/ava), [Jasmine](https://github.com/jasmine/jasmine), [Jest](https://facebook.github.io/jest/), [Mocha](https://github.com/mochajs/mocha) or [Tape](https://github.com/substack/tape) in the browser or in Node and it supports CommonJS and ES module bundlers.
 
-### With Jasmine and Mocha
+### With Mocha
 
 Instead of passing your test function directly to `it`, pass it to the library's `marbles` function, like this:
 
 ```ts
-import { marbles } from "rxjs-marbles";
+import { marbles } from "rxjs-marbles/mocha";
+import { map } from "rxjs/operators";
 
 describe("rxjs-marbles", () => {
 
-    it("should support marble tests", marbles((m) => {
+    it("should support marble tests", marbles(m => {
 
-        const values = {
-            a: 1,
-            b: 2,
-            c: 3,
-            d: 4
-        };
-
-        const source =  m.hot("--^-a-b-c-|", values);
+        const source =  m.hot("--^-a-b-c-|");
         const subs =            "^-------!";
-        const expected = m.cold("--b-c-d-|", values);
+        const expected = m.cold("--b-c-d-|");
 
-        const destination = source.map((value) => value + 1);
+        const destination = source.pipe(
+            map(value => String.fromCharCode(value.charCodeAt(0) + 1))
+        );
         m.expect(destination).toBeObservable(expected);
         m.expect(source).toHaveSubscriptions(subs);
     }));
 });
 ```
 
-### With Jest
+### With other test frameworks
 
-Instead of passing your test function directly to Jest, pass it to the library's `marbles` function:
-
-```ts
-import { marbles } from "rxjs-marbles";
-
-test("it should support marble tests", marbles((m) => {
-
-    const values = {
-        a: 1,
-        b: 2,
-        c: 3,
-        d: 4
-    };
-
-    const source =  m.hot("--^-a-b-c-|", values);
-    const subs =            "^-------!";
-    const expected = m.cold("--b-c-d-|", values);
-
-    const destination = source.map((value) => value + 1);
-    m.expect(destination).toBeObservable(expected);
-    m.expect(source).toHaveSubscriptions(subs);
-}));
-```
-
-### With AVA
-
-Instead of passing your test function directly to AVA, pass it to the library's `marbles` function. The `marbles` function will concatenate the additional `TestContext` argument it receives from AVA.
-
-There is an `/ava` directory in the package that includes a wrapper that will correctly type additional argument and will call `configure` - passing AVA's assertion methods to ensure marble assertions will be counted towards AVA's `plan` - so be sure to specify `rxjs-marbles/ava` in the `import` statement or `require` call:
-
-```ts
-import { test } from "ava";
-import { marbles } from "rxjs-marbles/ava";
-
-test("it should support marble tests", marbles((m, t) => {
-
-    t.plan(2);
-
-    const values = {
-        a: 1,
-        b: 2,
-        c: 3,
-        d: 4
-    };
-
-    const source =  m.hot("--^-a-b-c-|", values);
-    const subs =            "^-------!";
-    const expected = m.cold("--b-c-d-|", values);
-
-    const destination = source.map((value) => value + 1);
-    m.expect(destination).toBeObservable(expected);
-    m.expect(source).toHaveSubscriptions(subs);
-}));
-
-```
-
-### With Tape
-
-Instead of passing your test function directly to Tape, pass it to the library's `marbles` function. The `marbles` function will concatenate the additional `Test` argument it receives from Tape.
-
-There is a `/tape` directory in the package that includes a wrapper that will correctly type additional argument and will call `configure` - passing Tape's assertion methods to ensure marble assertions will be counted towards Tape's `plan` - so be sure to specify `rxjs-marbles/tape` in the `import` statement or `require` call:
-
-```ts
-import * as tape from "tape";
-import { marbles } from "rxjs-marbles/tape";
-
-tape("it should support marble tests", marbles((m, t) => {
-
-    t.plan(2);
-
-    const values = {
-        a: 1,
-        b: 2,
-        c: 3,
-        d: 4
-    };
-
-    const source =  m.hot("--^-a-b-c-|", values);
-    const subs =            "^-------!";
-    const expected = m.cold("--b-c-d-|", values);
-
-    const destination = source.map((value) => value + 1);
-    m.expect(destination).toBeObservable(expected);
-    m.expect(source).toHaveSubscriptions(subs);
-}));
-```
-
-### Alternate assertion methods
-
-If the BDD syntax is something you really don't like, there are some alternative methods on the `Context` that are more terse:
-
-```ts
-const source =  m.hot("--^-a-b-c-|", values);
-const subs =            "^-------!";
-const expected = m.cold("--b-c-d-|", values);
-
-const destination = source.map((value) => value + 1);
-m.equal(destination, expected);
-m.has(source, subs);
-```
+To see how `rxjs-marbles` can be used with other test frameworks, see the [examples](https://github.com/cartant/rxjs-marbles/tree/master/examples) within the repository.
 
 <script>
     (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
