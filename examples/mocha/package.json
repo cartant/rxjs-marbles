@@ -1,14 +1,17 @@
 {
   "devDependencies": {
-    "@types/chai": "^4.1.2",
-    "@types/mocha": "^5.0.0",
+    "@types/chai": "^4.1.3",
+    "@types/mocha": "^5.2.0",
     "chai": "^4.1.2",
-    "mocha": "^5.0.0",
-    "rxjs": "^6.0.0-rc.0",
-    "rxjs-marbles": "^3.0.0-rc.0",
-    "typescript": "~2.8.1"
+    "mocha": "^5.1.1",
+    "rxjs": "^6.0.0-uncanny-rc.7",
+    "rxjs-marbles": "^3.0.0-rc.4",
+    "ts-node": "^6.0.0",
+    "typescript": "^2.8.3"
   },
   "name": "rxjs-marbles-examples-mocha",
-  "scripts": {},
+  "scripts": {
+    "test": "mocha -r ts-node/register *-spec.ts"
+  },
   "version": "0.0.0"
 }
