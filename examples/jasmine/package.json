@@ -2,11 +2,14 @@
   "devDependencies": {
     "@types/jasmine": "^2.5.53",
     "jasmine": "^3.0.0",
-    "rxjs": "^6.0.0-rc.0",
-    "rxjs-marbles": "^3.0.0-rc.0",
-    "typescript": "~2.8.1"
+    "rxjs": "^6.0.0-uncanny-rc.7",
+    "rxjs-marbles": "^3.0.0-rc.4",
+    "ts-node": "^6.0.0",
+    "typescript": "^2.8.3"
   },
   "name": "rxjs-marbles-examples-jasmine",
-  "scripts": {},
+  "scripts": {
+    "test": "ts-node node_modules/jasmine/bin/jasmine *-spec.ts"
+  },
   "version": "0.0.0"
 }
