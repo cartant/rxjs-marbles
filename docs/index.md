@@ -16,7 +16,7 @@ describe("rxjs-marbles", () => {
 
         const source =  m.hot("--^-a-b-c-|");
         const subs =            "^-------!";
-        const expected = m.cold("--b-c-d-|");
+        const expected =        "--b-c-d-|";
 
         const destination = source.pipe(
             map(value => String.fromCharCode(value.charCodeAt(0) + 1))

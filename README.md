@@ -55,7 +55,7 @@ describe("rxjs-marbles", () => {
 
         const source =  m.hot("--^-a-b-c-|");
         const subs =            "^-------!";
-        const expected = m.cold("--b-c-d-|");
+        const expected =        "--b-c-d-|";
 
         const destination = source.pipe(
             map(value => String.fromCharCode(value.charCodeAt(0) + 1))
@@ -86,14 +86,11 @@ describe("rxjs-marbles", () => {
 
     cases("should support cases", (m, c) => {
 
-        const values = { a: 1, b: 2, c: 3, d: 4 };
-        const source =  m.hot(c.s, values);
-        const expected = m.cold(c.e, values);
-
+        const source =  m.hot(c.s);
         const destination = source.pipe(
             map(value => String.fromCharCode(value.charCodeAt(0) + 1))
         );
-        m.expect(destination).toBeObservable(expected);
+        m.expect(destination).toBeObservable(c.e);
 
     }, {
         "non-empty": {
