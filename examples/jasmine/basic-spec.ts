@@ -3,7 +3,7 @@ import { map } from "rxjs/operators";
 
 describe("basic", () => {
 
-    it("should support marble tests without values", marbles((m) => {
+    it("should support marble tests without values", marbles(m => {
 
         const source =  m.hot("--^-a-b-c-|");
         const subs =            "^-------!";
@@ -16,7 +16,7 @@ describe("basic", () => {
         m.expect(source).toHaveSubscriptions(subs);
     }));
 
-    it("should support marble tests with values", marbles((m) => {
+    it("should support marble tests with values", marbles(m => {
 
         const inputs = {
             a: 1,
@@ -40,7 +40,7 @@ describe("basic", () => {
         m.expect(source).toHaveSubscriptions(subs);
     }));
 
-    it("should support marble tests with errors", marbles((m) => {
+    it("should support marble tests with errors", marbles(m => {
 
         const source =  m.hot("--^-a-b-c-#");
         const subs =            "^-------!";
@@ -51,7 +51,7 @@ describe("basic", () => {
         m.expect(source).toHaveSubscriptions(subs);
     }));
 
-    it("should support marble tests with explicit errors", marbles((m) => {
+    it("should support marble tests with explicit errors", marbles(m => {
 
         const inputs = {
             a: 1,
