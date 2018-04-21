@@ -37,99 +37,96 @@ If you're just getting started with marble testing, you might be interested in h
 
 ## Usage
 
-### With Jasmine and Mocha
+`rxjs-marbles` contains framework-specific import locations. If there is a location for the test framework that you are using, you should use the specific import. Doing so will ensure that you receive the best possible integration with your test framework.
+
+For example, importing from `"rxjs-marbles/jest"` will ensure that Jest's matcher is used and the output for test failures will be much prettier.
+
+### With Mocha
 
 Instead of passing your test function directly to `it`, pass it to the library's `marbles` function, like this:
 
 ```ts
-import { marbles } from "rxjs-marbles";
+import { marbles } from "rxjs-marbles/mocha";
+import { map } from "rxjs/operators";
 
 describe("rxjs-marbles", () => {
 
-    it("should support marble tests", marbles((m) => {
+    it("should support marble tests", marbles(m => {
 
-        const values = { a: 1, b: 2, c: 3, d: 4 };
-
-        const source =  m.hot("--^-a-b-c-|", values);
+        const source =  m.hot("--^-a-b-c-|");
         const subs =            "^-------!";
-        const expected = m.cold("--b-c-d-|", values);
+        const expected = m.cold("--b-c-d-|");
 
-        const destination = source.map((value) => value + 1);
+        const destination = source.pipe(
+            map(value => String.fromCharCode(value.charCodeAt(0) + 1))
+        );
         m.expect(destination).toBeObservable(expected);
         m.expect(source).toHaveSubscriptions(subs);
     }));
 });
 ```
 
-### With Jest
+### With other test frameworks
 
-Instead of passing your test function directly to Jest, pass it to the library's `marbles` function:
+To see how `rxjs-marbles` can be used with other test frameworks, see the [examples](https://github.com/cartant/rxjs-marbles/tree/master/examples) within the repository.
+
+With AVA and Tape, the callback passed to the `marbles` function will receive an addional argument - the AVA `TestContext` or the Tape `Test` - which can be used to specify the number of assertions in the test plan. See the framework-specific examples for details.
+
+### Using cases for test variations
+
+In addition to the `marbles` function, the library exports a `cases` function that can be used to reduce test boilerplate by specifying multiple cases for variations of a single test. The API is based on that of [`jest-in-case`](https://github.com/Thinkmill/jest-in-case), but also includes the marbles context.
+
+The `cases` implementation is framework-specific, so the import must specify the framework. For example, with Mocha, you would import `cases` and use it instead of the `it` function, like this:
 
 ```ts
-import { marbles } from "rxjs-marbles";
+import { cases } from "rxjs-marbles/mocha";
+import { map } from "rxjs/operators";
 
-test("it should support marble tests", marbles((m) => {
+describe("rxjs-marbles", () => {
 
-    const values = { a: 1, b: 2, c: 3, d: 4 };
+    cases("should support cases", (m, c) => {
 
-    const source =  m.hot("--^-a-b-c-|", values);
-    const subs =            "^-------!";
-    const expected = m.cold("--b-c-d-|", values);
+        const values = { a: 1, b: 2, c: 3, d: 4 };
+        const source =  m.hot(c.s, values);
+        const expected = m.cold(c.e, values);
 
-    const destination = source.map((value) => value + 1);
-    m.expect(destination).toBeObservable(expected);
-    m.expect(source).toHaveSubscriptions(subs);
-}));
+        const destination = source.pipe(
+            map(value => String.fromCharCode(value.charCodeAt(0) + 1))
+        );
+        m.expect(destination).toBeObservable(expected);
+
+    }, {
+        "non-empty": {
+            s: "-a-b-c-|",
+            e: "-b-c-d-|"
+        },
+        "empty": {
+            s: "-|",
+            e: "-|"
+        }
+    });
+});
 ```
 
-### With AVA
+### Dealing with deeply-nested schedulers
 
-Instead of passing your test function directly to AVA, pass it to the library's `marbles` function. The `marbles` function will concatenate the additional `TestContext` argument it receives from AVA.
+Sometimes, passing the `TestScheduler` instance to the code under test can be tedious. The context includes a `bind` method that can be used to bind a scheduler's `now` and `schedule` methods to those of the context's `TestScheduler`.
 
-There is an `/ava` directory in the package that includes a wrapper that will correctly type additional argument and will call `configure` - passing AVA's assertion methods to ensure marble assertions will be counted towards AVA's `plan` - so be sure to specify `rxjs-marbles/ava` in the `import` statement or `require` call:
+`bind` can be passed specific scheduler instances or can be called with no arguments to bind RxJS's `animationFrame`, `asap`, `async` and `queue` schedulers to the context's `TestScheduler`.
 
-```ts
-import { test } from "ava";
-import { marbles } from "rxjs-marbles/ava";
-
-test("it should support marble tests", marbles((m, t) => {
-
-    t.plan(2);
-
-    const values = { a: 1, b: 2, c: 3, d: 4 };
-
-    const source =  m.hot("--^-a-b-c-|", values);
-    const subs =            "^-------!";
-    const expected = m.cold("--b-c-d-|", values);
-
-    const destination = source.map((value) => value + 1);
-    m.expect(destination).toBeObservable(expected);
-    m.expect(source).toHaveSubscriptions(subs);
-}));
-
-```
-
-### With Tape
-
-Instead of passing your test function directly to Tape, pass it to the library's `marbles` function. The `marbles` function will concatenate the additional `Test` argument it receives from Tape.
-
-There is a `/tape` directory in the package that includes a wrapper that will correctly type additional argument and will call `configure` - passing Tape's assertion methods to ensure marble assertions will be counted towards Tape's `plan` - so be sure to specify `rxjs-marbles/tape` in the `import` statement or `require` call:
+For example:
 
 ```ts
-import * as tape from "tape";
-import { marbles } from "rxjs-marbles/tape";
+it("should support binding non-test schedulers", marbles(m => {
 
-tape("it should support marble tests", marbles((m, t) => {
+    m.bind();
 
-    t.plan(2);
+    const source =  m.hot("--^-a-b-c-|");
+    const subs =            "^--------!";
+    const expected =        "---a-b-c-|";
 
-    const values = { a: 1, b: 2, c: 3, d: 4 };
-
-    const source =  m.hot("--^-a-b-c-|", values);
-    const subs =            "^-------!";
-    const expected = m.cold("--b-c-d-|", values);
-
-    const destination = source.map((value) => value + 1);
+    // Note that delay is not passed a scheduler:
+    const destination = source.delay(m.time("-|"));
     m.expect(destination).toBeObservable(expected);
     m.expect(source).toHaveSubscriptions(subs);
 }));
@@ -147,89 +144,6 @@ const expected = m.cold("--b-c-d-|", values);
 const destination = source.map((value) => value + 1);
 m.equal(destination, expected);
 m.has(source, subs);
-```
-
-### Using cases for test variations
-
-In addition to the `marbles` function, the library exports a `cases` function that can be used to reduce test boilerplate by specifying multiple cases for variations of a single test. The API is based on that of [`jest-in-case`](https://github.com/Thinkmill/jest-in-case), but also includes the marbles context.
-
-The `cases` implementation is framework-specific, so the import should specify the framework. For example, with Jasmine, you would import `cases` and use it instead of the `it` function, like this:
-
-```ts
-import { cases } from "rxjs-marbles/jasmine";
-
-describe("rxjs-marbles", () => {
-
-    cases("should support cases", (m, c) => {
-
-        const values = { a: 1, b: 2, c: 3, d: 4 };
-        const source =  m.hot(c.s, values);
-        const expected = m.cold(c.e, values);
-        const destination = source.map((value) => value + 1);
-        m.expect(destination).toBeObservable(expected);
-
-    }, {
-        "non-empty": {
-            s: "-a-b-c-|",
-            e: "-b-c-d-|"
-        },
-        "empty": {
-            s: "-|",
-            e: "-|"
-        }
-    });
-});
-```
-
-With AVA and Tape, the `cases` function also receives the test context. For example, with AVA, you would import `cases` and use it instead of the `test` function, like this:
-
-```ts
-import { cases } from "rxjs-marbles/ava";
-
-cases("should support cases", (m, c, t) => {
-
-    t.plan(1);
-
-    const values = { a: 1, b: 2, c: 3, d: 4 };
-    const source =  m.hot(c.s, values);
-    const expected = m.cold(c.e, values);
-    const destination = source.map((value) => value + 1);
-    m.equal(destination, expected);
-
-}, {
-    "non-empty": {
-        s: "-a-b-c-|",
-        e: "-b-c-d-|"
-    },
-    "empty": {
-        s: "-|",
-        e: "-|"
-    }
-});
-```
-
-### Dealing with deeply-nested schedulers
-
-Sometimes, passing the `TestScheduler` instance to the code under test can be tedious. The context includes a `bind` method that can be used to bind a scheduler's `now` and `schedule` methods to those of the context's `TestScheduler`.
-
-`bind` can be passed specific scheduler instances or can be called with no arguments to bind RxJS's `animationFrame`, `asap`, `async` and `queue` schedulers to the context's `TestScheduler`.
-
-For example:
-
-```ts
-it("should support binding non-test schedulers", marbles((m) => {
-
-    m.bind();
-
-    const source =  m.hot("--^-a-b-c-|");
-    const subs =            "^--------!";
-    const expected =        "---a-b-c-|";
-
-    // Note that delay is not passed a scheduler:
-    const destination = source.delay(m.time("-|"));
-    m.expect(destination).toBeObservable(expected);
-    m.expect(source).toHaveSubscriptions(subs);
-}));
 ```
 
 ## API
