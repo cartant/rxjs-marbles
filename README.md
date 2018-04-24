@@ -284,7 +284,7 @@ interface Context {
     flush(): void;
     has<T = any>(actual: Observable<T>, expected: string | string[]): void;
     hot<T = any>(marbles: string, values?: any, error?: any): HotObservable<T>;
-    reframe(framesPerCharacter: number, maxFrames?: number): void;
+    reframe(timePerFrame: number, maxTime?: number): void;
     readonly scheduler: TestScheduler;
     teardown(): void;
     time(marbles: string): number;
