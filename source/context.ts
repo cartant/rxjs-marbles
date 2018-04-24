@@ -130,23 +130,23 @@ export class Context {
         return observable;
     }
 
-    reframe(framesPerCharacter: number, maxFrames?: number): void {
+    reframe(timePerFrame: number, maxTime?: number): void {
 
         if (!this.reframable_) {
             throw new Error("Cannot reframe; scheduler already used.");
         }
-        if (maxFrames === undefined) {
-            maxFrames = framesPerCharacter * 75;
+        if (maxTime === undefined) {
+            maxTime = timePerFrame * 75;
         }
 
         this.frameTimeFactor_ =
             (VirtualTimeScheduler as any).frameTimeFactor ||
             (TestScheduler as any).frameTimeFactor;
-        (VirtualTimeScheduler as any).frameTimeFactor = framesPerCharacter;
-        (TestScheduler as any).frameTimeFactor = framesPerCharacter;
+        (VirtualTimeScheduler as any).frameTimeFactor = timePerFrame;
+        (TestScheduler as any).frameTimeFactor = timePerFrame;
 
         const { scheduler } = this;
-        scheduler.maxFrames = maxFrames;
+        scheduler.maxFrames = maxTime;
     }
 
     teardown(): void {
