@@ -4,6 +4,7 @@
 ### Breaking changes
 
 * Upgrade to RxJS version 6.
+* Rename the UMD global to `rxjsMarbles`.
 
 <a name="2.4.1"></a>
 ## [2.4.1](https://github.com/cartant/rxjs-marbles/compare/v2.4.0...v2.4.1) (2018-04-11)
