@@ -5,7 +5,7 @@
 /*tslint:disable:object-literal-sort-keys*/
 
 import { expect } from "chai";
-import { of } from "rxjs/observable/of";
+import { of } from "rxjs";
 import { cases, marbles } from "../../dist/mocha";
 
 describe("issues", () => {

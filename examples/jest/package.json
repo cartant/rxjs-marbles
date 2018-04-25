@@ -1,0 +1,38 @@
+{
+  "devDependencies": {
+    "@types/jest": "^22.2.3",
+    "enzyme": "^3.3.0",
+    "enzyme-adapter-react-16": "^1.1.1",
+    "jest": "^22.0.0",
+    "rxjs": "^6.0.0-uncanny-rc.7",
+    "rxjs-marbles": "^3.0.0-rc.4",
+    "ts-jest": "^22.0.0",
+    "typescript": "^2.8.3"
+  },
+  "jest": {
+    "moduleFileExtensions": [
+      "ts",
+      "tsx",
+      "js",
+      "jsx",
+      "json",
+      "node"
+    ],
+    "modulePathIgnorePatterns": [
+      "/temp/"
+    ],
+    "testPathIgnorePatterns": [
+      "/node_modules/",
+      "/temp/"
+    ],
+    "testRegex": "(/__tests__/.*|-(test|spec))\\.(jsx?|tsx?)$",
+    "transform": {
+      "^.+\\.tsx?$": "ts-jest"
+    }
+  },
+  "name": "rxjs-marbles-examples-jest",
+  "scripts": {
+    "test": "jest"
+  },
+  "version": "0.0.0"
+}

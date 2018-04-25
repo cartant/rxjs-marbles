@@ -3,7 +3,7 @@
  * can be found in the LICENSE file at https://github.com/cartant/rxjs-marbles
  */
 
-import isArray from "lodash-es/isArray";
+const isArray = require("lodash/isArray");
 
 export interface UnnamedCase {
     [key: string]: any;

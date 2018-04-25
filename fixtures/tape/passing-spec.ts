@@ -4,10 +4,9 @@
  */
 /*tslint:disable:object-literal-sort-keys*/
 
+import { map } from "rxjs/operators";
 import * as tape from "tape";
 import { cases, marbles } from "../../dist/tape";
-
-import "rxjs/add/operator/map";
 
 tape("it should support marble tests", marbles((m, t) => {
 
@@ -24,7 +23,7 @@ tape("it should support marble tests", marbles((m, t) => {
     const subs =            "^-------!";
     const expected = m.cold("--b-c-d-|", values);
 
-    const destination = source.map((value) => value + 1);
+    const destination = source.pipe(map((value) => value + 1));
 
     m.expect(destination).toBeObservable(expected);
     m.expect(source).toHaveSubscriptions(subs);
@@ -45,7 +44,7 @@ tape("it should support marble tests with terse assertions", marbles((m, t) => {
     const subs =            "^-------!";
     const expected = m.cold("--b-c-d-|", values);
 
-    const destination = source.map((value) => value + 1);
+    const destination = source.pipe(map((value) => value + 1));
 
     m.equal(destination, expected);
     m.has(source, subs);
@@ -66,7 +65,7 @@ tape("it should support string-based assertions", marbles((m, t) => {
     const subs =            "^-------!";
     const expected =        "--b-c-d-|";
 
-    const destination = source.map((value) => value + 1);
+    const destination = source.pipe(map((value) => value + 1));
 
     m.equal(destination, expected, values);
     m.has(source, subs);
@@ -103,7 +102,7 @@ tape("should support unsubscriptions with values", marbles((m, t) => {
     const unsubs =          "-----!";
     const expected = m.cold("--b-c-", values);
 
-    const destination = source.map((value) => value + 1);
+    const destination = source.pipe(map((value) => value + 1));
 
     m.equal(destination, unsubs, expected);
     m.has(source, subs);
@@ -140,7 +139,7 @@ tape("should support string-based assertions with unsubscriptions and values", m
     const unsubs =          "-----!";
     const expected =        "--b-c-";
 
-    const destination = source.map((value) => value + 1);
+    const destination = source.pipe(map((value) => value + 1));
 
     m.equal(destination, unsubs, expected, values);
     m.has(source, subs);
@@ -159,7 +158,7 @@ cases("should support cases", (m, c, t) => {
 
     const source =  m.hot(c.s, values);
     const expected = m.cold(c.e, values);
-    const destination = source.map((value) => value + 1);
+    const destination = source.pipe(map((value) => value + 1));
 
     m.expect(destination).toBeObservable(expected);
 }, {

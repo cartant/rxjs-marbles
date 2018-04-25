@@ -4,9 +4,8 @@
  */
 /*tslint:disable:object-literal-sort-keys*/
 
+import { map } from "rxjs/operators";
 import { cases, marbles } from "../../dist/jest";
-
-import "rxjs/add/operator/map";
 
 test("it should support marble tests", marbles((m) => {
 
@@ -21,7 +20,7 @@ test("it should support marble tests", marbles((m) => {
     const subs =            "^-------!";
     const expected = m.cold("--b-c-d-|", values);
 
-    const destination = source.map((value) => value + 1);
+    const destination = source.pipe(map((value) => value + 1));
 
     m.expect(destination).toBeObservable(expected);
     m.expect(source).toHaveSubscriptions(subs);
@@ -38,7 +37,7 @@ cases("should support cases", (m, c) => {
 
     const source =  m.hot(c.s, values);
     const expected = m.cold(c.e, values);
-    const destination = source.map((value) => value + 1);
+    const destination = source.pipe(map((value) => value + 1));
 
     m.expect(destination).toBeObservable(expected);
 }, {

@@ -3,7 +3,7 @@
  * can be found in the LICENSE file at https://github.com/cartant/rxjs-marbles
  */
 
-import { Observable } from "rxjs/Observable";
+import { Observable } from "rxjs";
 import { argsSymbol } from "./args";
 
 export function assertArgs<T>(observable: Observable<T>): void {

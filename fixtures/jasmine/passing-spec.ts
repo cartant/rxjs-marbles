@@ -4,9 +4,8 @@
  */
 /*tslint:disable:object-literal-sort-keys*/
 
+import { map } from "rxjs/operators";
 import { cases, marbles } from "../../dist/jasmine";
-
-import "rxjs/add/operator/map";
 
 describe("rxjs-marbles", () => {
 
@@ -23,7 +22,7 @@ describe("rxjs-marbles", () => {
         const subs =            "^-------!";
         const expected = m.cold("--b-c-d-|", values);
 
-        const destination = source.map((value) => value + 1);
+        const destination = source.pipe(map((value) => value + 1));
 
         m.expect(destination).toBeObservable(expected);
         m.expect(source).toHaveSubscriptions(subs);
@@ -40,7 +39,7 @@ describe("rxjs-marbles", () => {
 
         const source =  m.hot(c.s, values);
         const expected = m.cold(c.e, values);
-        const destination = source.map((value) => value + 1);
+        const destination = source.pipe(map((value) => value + 1));
 
         m.expect(destination).toBeObservable(expected);
     }, {

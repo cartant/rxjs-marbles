@@ -1,5 +1,6 @@
 {
-  "main": "../bundles/rxjs-marbles-jest.umd.js",
-  "module": "./index.js",
-  "typings": "./index.d.ts"
+  "es2015": "../esm2015/jest/index.js",
+  "main": "./index.js",
+  "module": "../esm5/jest/index.js",
+  "types": "./index.d.ts"
 }

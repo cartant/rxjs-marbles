@@ -1,0 +1,15 @@
+{
+  "devDependencies": {
+    "ava": "^0.25.0",
+    "ava-ts": "^0.24.3",
+    "rxjs": "^6.0.0-uncanny-rc.7",
+    "rxjs-marbles": "^3.0.0-rc.4",
+    "ts-node": "^6.0.0",
+    "typescript": "^2.8.3"
+  },
+  "name": "rxjs-marbles-examples-ava",
+  "scripts": {
+    "test": "ava-ts *-spec.ts"
+  },
+  "version": "0.0.0"
+}
