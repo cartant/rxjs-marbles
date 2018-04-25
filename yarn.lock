@@ -84,8 +84,8 @@
   resolved "https://registry.yarnpkg.com/@types/jest/-/jest-22.2.3.tgz#0157c0316dc3722c43a7b71de3fdf3acbccef10d"
 
 "@types/lodash@^4.0.0":
-  version "4.14.107"
-  resolved "https://registry.yarnpkg.com/@types/lodash/-/lodash-4.14.107.tgz#b2d2ae3958bfb8ff828495cbe12214af9e4d035e"
+  version "4.14.108"
+  resolved "https://registry.yarnpkg.com/@types/lodash/-/lodash-4.14.108.tgz#02656af3add2e5b3174f830862c47421c00ef817"
 
 "@types/mocha@^5.0.0":
   version "5.2.0"
@@ -5617,9 +5617,9 @@ rx-lite@*, rx-lite@^4.0.8:
   version "4.0.8"
   resolved "https://registry.yarnpkg.com/rx-lite/-/rx-lite-4.0.8.tgz#0b1e11af8bc44836f04a6407e92da42467b79444"
 
-rxjs-tslint-rules@^4.0.0-rc.0:
-  version "4.0.0-rc.2"
-  resolved "https://registry.yarnpkg.com/rxjs-tslint-rules/-/rxjs-tslint-rules-4.0.0-rc.2.tgz#efd2f074859f673c9d851d1c1034af77c2168f40"
+rxjs-tslint-rules@^4.0.0:
+  version "4.0.0"
+  resolved "https://registry.yarnpkg.com/rxjs-tslint-rules/-/rxjs-tslint-rules-4.0.0.tgz#60f60a2884b2a790403796e714f28e2e7ece391f"
   dependencies:
     decamelize "^2.0.0"
     resolve "^1.4.0"
@@ -5631,9 +5631,9 @@ rxjs@^5.4.2, rxjs@^5.5.2:
   dependencies:
     symbol-observable "1.0.1"
 
-rxjs@^6.0.0-rc.0:
-  version "6.0.0-uncanny-rc.7"
-  resolved "https://registry.yarnpkg.com/rxjs/-/rxjs-6.0.0-uncanny-rc.7.tgz#e5d6ebe2c538c583bf4b3600b60112d64a7a6991"
+rxjs@^6.0.0:
+  version "6.0.0"
+  resolved "https://registry.yarnpkg.com/rxjs/-/rxjs-6.0.0.tgz#d647e029b5854617f994c82fe57a4c6747b352da"
   dependencies:
     tslib "^1.9.0"
 
