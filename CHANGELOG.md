@@ -1,3 +1,10 @@
+<a name="3.0.1"></a>
+## [3.0.1](https://github.com/cartant/rxjs-marbles/compare/v3.0.0...v3.0.1) (2018-04-26)
+
+### Bug fixes
+
+* Preserve the `this` context in the `marbles` callback. ([be32253](https://github.com/cartant/rxjs-marbles/commit/be32253))
+
 <a name="3.0.0"></a>
 ## [3.0.0](https://github.com/cartant/rxjs-marbles/compare/v2.4.1...v3.0.0) (2018-04-25)
 
