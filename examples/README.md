@@ -12,5 +12,5 @@ The example for each test framework includes:
 | --- | --- |
 | `basic-spec.ts` | Tests that use basic functionality. |
 | `cases-spec.ts` | Tests that use the `cases` function. |
-| `reframe-spec.ts` | Tests that change the number of frames per character. |
+| `reframe-spec.ts` | Tests that change the amount of virtual time per character. |
 | `scheduler-spec.ts` | Tests that use schedulers. |
