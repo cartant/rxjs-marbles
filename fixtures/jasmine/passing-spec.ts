@@ -7,7 +7,19 @@
 import { map } from "rxjs/operators";
 import { cases, marbles } from "../../dist/jasmine";
 
+interface TestContext {
+    myVariable: number;
+}
+
 describe("rxjs-marbles", () => {
+
+    beforeEach(function(this: TestContext): void {
+        this.myVariable = 57;
+    });
+
+    it("should preserve test context", marbles(function(this: TestContext, m: any): void {
+        expect(this.myVariable).toBe(57);
+    }));
 
     it("should support marble tests", marbles((m) => {
 

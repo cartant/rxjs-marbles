@@ -32,7 +32,7 @@ export function marbles(func: (context: Context, ...rest: any[]) => any): (...re
             }
         };
     }
-    return (...rest: any[]) => {
+    return function(this: any, ...rest: any[]): any {
 
         const scheduler = new TestScheduler((a, b) => observableMatcher(a, b,
             get("assert"),
@@ -42,7 +42,7 @@ export function marbles(func: (context: Context, ...rest: any[]) => any): (...re
         const context = new Context(scheduler);
 
         try {
-            return func(context, ...rest);
+            return func.call(this, context, ...rest);
         } finally {
             context.teardown();
         }
