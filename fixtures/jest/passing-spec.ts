@@ -7,6 +7,24 @@
 import { map } from "rxjs/operators";
 import { cases, marbles } from "../../dist/jest";
 
+
+test('It should handle white space in marble diagrams correctly', marbles((m) => {
+
+    const values = {
+        a: 1,
+        b: 2,
+        c: 3,
+        d: 4
+    };
+
+    const source = m.cold('--a-b-c-|', values)
+    const expected = m.cold("--b-c-d-|", values);
+
+    const destination = source.pipe(map((value) => value + 1));
+
+    m.expect(destination).toBeObservable(expected);
+}))
+
 test("it should support marble tests", marbles((m) => {
 
     const values = {
