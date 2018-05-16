@@ -17,7 +17,7 @@ test('It should handle white space in marble diagrams correctly', marbles((m) =>
         d: 4
     };
 
-    const source = m.cold('--a-b-c-|', values)
+    const source = m.cold('  --a-b-c-|', values)
     const expected = m.cold("--b-c-d-|", values);
 
     const destination = source.pipe(map((value) => value + 1));
