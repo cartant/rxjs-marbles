@@ -1,7 +1,7 @@
 import { configure } from "rxjs-marbles/jest";
 import { delay } from "rxjs/operators";
 
-const marbles = configure({ run: false });
+const { marbles } = configure({ run: false });
 
 describe("reframe", () => {
 

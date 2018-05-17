@@ -8,7 +8,7 @@ import { expect } from "chai";
 import { of } from "rxjs";
 import { configure } from "../../dist/mocha";
 
-const marbles = configure({ run: false });
+const { marbles } = configure({ run: false });
 
 describe("issues", () => {
 

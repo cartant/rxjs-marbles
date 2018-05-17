@@ -2,7 +2,7 @@ import { configure } from "rxjs-marbles/jasmine";
 import { asyncScheduler } from "rxjs";
 import { delay } from "rxjs/operators";
 
-const marbles = configure({ run: false });
+const { marbles } = configure({ run: false });
 
 describe("scheduler", () => {
 

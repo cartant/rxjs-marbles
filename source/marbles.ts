@@ -15,9 +15,9 @@ export interface MarblesFunction {
     <T>(func: (context: Context, t: T) => any): (t: T) => any;
     (func: (context: Context, ...rest: any[]) => any): (...rest: any[]) => any;
 }
-export function configure(configuration: Configuration): MarblesFunction;
-export function configure<T>(factory: (t: T) => Configuration): MarblesFunction;
-export function configure(configurationOrFactory: any): MarblesFunction {
+export function configure(configuration: Configuration): { marbles: MarblesFunction };
+export function configure<T>(factory: (t: T) => Configuration): { marbles: MarblesFunction };
+export function configure(configurationOrFactory: any): { marbles: MarblesFunction } {
 
     function deriveConfiguration(...args: any[]): Configuration {
 
@@ -27,10 +27,10 @@ export function configure(configurationOrFactory: any): MarblesFunction {
         return { ...defaults(), ...explicit };
     }
 
-    function wrap(func: (context: Context) => any): () => any;
-    function wrap<T>(func: (context: Context, t: T) => any): (t: T) => any;
-    function wrap(func: (context: Context, ...rest: any[]) => any): (...rest: any[]) => any;
-    function wrap(func: (context: Context, ...rest: any[]) => any): (...rest: any[]) => any {
+    function _marbles(func: (context: Context) => any): () => any;
+    function _marbles<T>(func: (context: Context, t: T) => any): (t: T) => any;
+    function _marbles(func: (context: Context, ...rest: any[]) => any): (...rest: any[]) => any;
+    function _marbles(func: (context: Context, ...rest: any[]) => any): (...rest: any[]) => any {
 
         const wrapper = function(this: any, ...rest: any[]): any {
 
@@ -69,7 +69,7 @@ export function configure(configurationOrFactory: any): MarblesFunction {
         return wrapper;
     }
 
-    return wrap;
+    return { marbles: _marbles };
 }
 
-export const marbles = configure(defaults());
+export const { marbles } = configure(defaults());

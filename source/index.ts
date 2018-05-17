@@ -3,7 +3,6 @@
  * can be found in the LICENSE file at https://github.com/cartant/rxjs-marbles
  */
 
-export * from "./cases";
 export * from "./configuration";
 export * from "./context";
 export * from "./expect";

@@ -6,13 +6,13 @@
 
 import { expect } from "chai";
 import { delay, map } from "rxjs/operators";
-import { cases, configure } from "../../dist/mocha";
+import { configure } from "../../dist/mocha";
 
 describe("rxjs-marbles", () => {
 
     describe("deprecated", () => {
 
-        const marbles = configure({ run: false });
+        const { cases, marbles } = configure({ run: false });
 
         it("should support marble tests without values", marbles((m) => {
 
@@ -253,7 +253,7 @@ describe("rxjs-marbles", () => {
 
     describe("run", () => {
 
-        const marbles = configure({});
+        const { cases, marbles } = configure({});
 
         it("should support marble tests without values", marbles((m) => {
 
