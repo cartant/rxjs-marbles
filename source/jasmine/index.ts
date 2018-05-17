@@ -7,7 +7,7 @@ import { _cases, NamedCase, UnnamedCase } from "../cases";
 import { Context } from "../context";
 import { marbles } from "../marbles";
 
-export { configure } from "../configuration";
+export * from "../configuration";
 export * from "../context";
 export * from "../expect";
 export * from "../marbles";

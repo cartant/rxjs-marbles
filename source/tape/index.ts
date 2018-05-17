@@ -6,11 +6,16 @@
 import * as tape from "tape";
 import { _cases, NamedCase, UnnamedCase } from "../cases";
 import { Context } from "../context";
-import { marbles as _marbles } from "../marbles";
+import { configure } from "../marbles";
 
-export { configure } from "../configuration";
+export * from "../configuration";
 export * from "../context";
 export * from "../expect";
+
+export const marbles: (func: (m: Context, t: tape.Test) => any) => any = configure((t: tape.Test) => ({
+    assert: t.ok.bind(t),
+    assertDeepEqual: t.deepEqual.bind(t)
+}));
 
 export function cases<T extends UnnamedCase>(name: string, func: (context: Context, _case: T, t: tape.Test) => void, cases: { [key: string]: T }): void;
 export function cases<T extends NamedCase>(name: string, func: (context: Context, _case: T, t: tape.Test) => void, cases: T[]): void;
@@ -20,15 +25,4 @@ export function cases(name: string, func: any, cases: any): void {
         const t = c.only ? tape.only : c.skip ? tape.skip : tape;
         t(`${name} / ${c.name}`, marbles((m, t) => func(m, c, t)));
     }, cases);
-}
-
-export function marbles(func: (m: Context, t: tape.Test) => any): any {
-
-    return _marbles<tape.Test>((m, t) => {
-        m.configure({
-            assert: t.ok.bind(t),
-            assertDeepEqual: t.deepEqual.bind(t)
-        });
-        return func(m, t);
-    });
 }

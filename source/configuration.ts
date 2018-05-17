@@ -16,16 +16,10 @@ const defaultConfiguration = {
     assertDeepEqual: defaultAssertDeepEqual,
     frameworkMatcher: false
 };
-let globalConfiguration: Configuration = { ...defaultConfiguration };
 
-export function configure(options: Configuration): void {
+export function defaults(): Configuration {
 
-    globalConfiguration = { ...defaultConfiguration, ...options };
-}
-
-export function configured(): Configuration {
-
-    return globalConfiguration;
+    return { ...defaultConfiguration };
 }
 
 function defaultAssert(value: any, message: string): void {

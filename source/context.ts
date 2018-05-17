@@ -16,7 +16,7 @@ import {
 import { TestScheduler } from "rxjs/testing";
 import { argsSymbol } from "./args";
 import { assertArgs, assertSubscriptions } from "./assert";
-import { Configuration, configured } from "./configuration";
+import { Configuration, defaults } from "./configuration";
 import { Expect } from "./expect";
 import { observableMatcher } from "./matcher";
 import { TestObservableLike } from "./types";
@@ -30,12 +30,11 @@ export class Context {
         now?: SchedulerLike["now"],
         schedule?: SchedulerLike["schedule"]
     }[] = [];
-    private configuration_ = configured();
     private frameTimeFactor_: number | undefined = undefined;
     private reframable_ = true;
     private scheduler_: TestScheduler | undefined;
 
-    constructor() {}
+    constructor(private configuration_: Configuration) {}
 
     get scheduler(): TestScheduler {
 

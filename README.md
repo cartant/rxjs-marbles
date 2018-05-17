@@ -182,9 +182,7 @@ The default implementations simply perform the assertion and throw an error for 
 
 ```ts
 function marbles(test: (context: Context) => any): () => any;
-function marbles<T1>(test: (context: Context, t1: T1) => any): (t1: T1) => any;
-function marbles<T1, T2>(test: (context: Context, t1: T1, t2: T2) => any): (t1: T1, t2: T2) => any;
-function marbles<T1, T2, T3>(test: (context: Context, t1: T1, t2: T2, t3: T3) => any): (t1: T1, t2: T2, t3: T3) => any;
+function marbles<T>(test: (context: Context, t: T) => any): (t: T) => any;
 ```
 
 `marbles` is passed the test function, which it wraps, passing the wrapper to the test framework. When the test function is called, it is passed the `Context` - which contains methods that correspond to the [basic methods](https://github.com/ReactiveX/rxjs/blob/master/doc/writing-marble-tests.md#basic-methods) described in the RxJS documentation:
