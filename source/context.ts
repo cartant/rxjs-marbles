@@ -16,7 +16,7 @@ import {
 import { TestScheduler } from "rxjs/testing";
 import { argsSymbol } from "./args";
 import { assertArgs, assertSubscriptions } from "./assert";
-import { Configuration, defaults } from "./configuration";
+import { Configuration } from "./configuration";
 import { Expect } from "./expect";
 import { observableMatcher } from "./matcher";
 import { TestObservableLike } from "./types";

@@ -9,12 +9,14 @@ export interface Configuration {
     assert?: (value: any, message: string) => void;
     assertDeepEqual?: (a: any, b: any) => void;
     frameworkMatcher?: boolean;
+    run?: boolean;
 }
 
 const defaultConfiguration = {
     assert: defaultAssert,
     assertDeepEqual: defaultAssertDeepEqual,
-    frameworkMatcher: false
+    frameworkMatcher: false,
+    run: false
 };
 
 export function defaults(): Configuration {

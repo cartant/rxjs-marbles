@@ -15,10 +15,24 @@ export function configure(configuration: Configuration): MarblesFunction;
 export function configure<T>(factory: (t: T) => Configuration): MarblesFunction;
 export function configure(configurationOrFactory: any): MarblesFunction {
 
-    function _deprecated(func: (context: Context) => any): () => any;
-    function _deprecated<T>(func: (context: Context, t: T) => any): (t: T) => any;
-    function _deprecated(func: (context: Context, ...rest: any[]) => any): (...rest: any[]) => any;
-    function _deprecated(func: (context: Context, ...rest: any[]) => any): (...rest: any[]) => any {
+    function _marbles(func: (context: Context) => any): () => any;
+    function _marbles<T>(func: (context: Context, t: T) => any): (t: T) => any;
+    function _marbles(func: (context: Context, ...rest: any[]) => any): (...rest: any[]) => any;
+    function _marbles(func: (context: Context, ...rest: any[]) => any): (...rest: any[]) => any {
+
+        const test = function(this: any, ...rest: any[]): any {
+
+            const configuration = deriveConfiguration(...rest);
+            if (configuration.run) {
+                throw new Error("run is not yet supported.");
+            }
+            const context = new Context(configuration);
+            try {
+                return func.call(this, context, ...rest);
+            } finally {
+                context.teardown();
+            }
+        };
 
         // Jasmine, Jest and Mocha need to see an explicit parameter for callbacks
         // to be passed. It's the presence of the parameter that indicates to the
@@ -27,35 +41,21 @@ export function configure(configurationOrFactory: any): MarblesFunction {
         // added.
 
         if (func.length > 1) {
-            return function (this: any, first: any, ...rest: any[]): void {
-
-                const context = new Context(deriveConfiguration(first, ...rest));
-                try {
-                    return func.call(this, context, first, ...rest);
-                } finally {
-                    context.teardown();
-                }
-            };
+            /*tslint:disable-next-line:no-unnecessary-callback-wrapper*/
+            return (first: any, ...rest: any[]) => test(first, ...rest);
         }
-        return function(this: any, ...rest: any[]): any {
-
-            const context = new Context(deriveConfiguration(...rest));
-            try {
-                return func.call(this, context, ...rest);
-            } finally {
-                context.teardown();
-            }
-        };
+        return test;
     }
 
     function deriveConfiguration(...args: any[]): Configuration {
 
-        return (typeof configurationOrFactory === "function") ?
+        const explicit: Configuration = (typeof configurationOrFactory === "function") ?
             configurationOrFactory(...args) :
             configurationOrFactory;
+        return { ...defaults(), ...explicit };
     }
 
-    return _deprecated;
+    return _marbles;
 }
 
 export const marbles = configure(defaults());
