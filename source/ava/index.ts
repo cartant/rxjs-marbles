@@ -47,6 +47,5 @@ export function configure(configuration: Configuration): {
     return { cases, marbles };
 }
 
-const configured = configure(defaults());
-export const cases = configured.cases;
-export const marbles = configured.marbles;
+const { cases, marbles } = configure(defaults());
+export { cases, marbles };
