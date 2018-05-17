@@ -83,6 +83,9 @@ export class Context {
 
     configure(configuration: Configuration): void {
 
+        if (this.scheduler_) {
+            throw new Error("Scheduler already created; call configure before using other context methods and properties.");
+        }
         this.configuration_ = { ...this.configuration_, ...configuration };
     }
 
