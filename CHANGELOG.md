@@ -1,3 +1,12 @@
+<a name="4.0.0"></a>
+## [4.0.0](https://github.com/cartant/rxjs-marbles/compare/v3.0.1...v4.0.0) (2018-05-17)
+
+### Breaking changes
+
+* Default to using `TestScheduler.run`. See the [RxJS documentation](https://github.com/ReactiveX/rxjs/blob/master/doc/marble-testing.md)) for an explanation of the new behaviour and of the breaking changes.
+* Added a `run` property to the configuration settings - it defaults to `true`.
+* The `configure` function now returns an object containing a `marbles` function (and a `cases` function, for the framework-specific imports) that has the specified configuration applied.
+
 <a name="3.0.1"></a>
 ## [3.0.1](https://github.com/cartant/rxjs-marbles/compare/v3.0.0...v3.0.1) (2018-04-26)
 
