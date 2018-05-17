@@ -10,12 +10,13 @@ import { Expect } from "./expect";
 import { TestObservableLike } from "./types";
 
 export interface Context {
-
+    /** @deprecated */
     autoFlush: boolean;
     readonly scheduler: TestScheduler;
-
+    /** @deprecated */
     bind(...schedulers: SchedulerLike[]): void;
     cold<T = any>(marbles: string, values?: { [key: string]: T }, error?: any): TestObservableLike<T>;
+    /** @deprecated */
     configure(configuration: Configuration): void;
     equal<T = any>(actual: Observable<T>, expected: TestObservableLike<T>): void;
     equal<T = any>(actual: Observable<T>, expected: string, values?: { [key: string]: T }, error?: any): void;
@@ -25,7 +26,9 @@ export interface Context {
     flush(): void;
     has<T = any>(actual: Observable<T>, expected: string | string[]): void;
     hot<T = any>(marbles: string, values?: { [key: string]: T }, error?: any): TestObservableLike<T>;
+    /** @deprecated */
     reframe(timePerFrame: number, maxTime?: number): void;
+    /** @deprecated */
     teardown(): void;
     time(marbles: string): number;
 }

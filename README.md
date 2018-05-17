@@ -118,6 +118,8 @@ const { cases, marbles } = configure({ run: false });
 
 ### Dealing with deeply-nested schedulers
 
+**WARNING**: `bind` is deprecated and can only be used with `configure({ run: false })`.
+
 Sometimes, passing the `TestScheduler` instance to the code under test can be tedious. The context includes a `bind` method that can be used to bind a scheduler's `now` and `schedule` methods to those of the context's `TestScheduler`.
 
 `bind` can be passed specific scheduler instances or can be called with no arguments to bind RxJS's `animationFrame`, `asap`, `async` and `queue` schedulers to the context's `TestScheduler`.
@@ -141,6 +143,8 @@ it("should support binding non-test schedulers", marbles(m => {
 ```
 
 ### Changing the time per frame
+
+**WARNING**: `reframe` is deprecated and can only be used with `configure({ run: false })`.
 
 The RxJS `TestScheduler` defaults to 10 virtual milliseconds per frame (each character in the diagram represents a frame) with a maximum of 750 virtual milliseconds for each test.
 
