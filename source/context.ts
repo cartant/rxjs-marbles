@@ -16,24 +16,38 @@ import {
 import { TestScheduler } from "rxjs/testing";
 import { argsSymbol } from "./args";
 import { assertArgs, assertSubscriptions } from "./assert";
-import { configure } from "./configuration";
+import { Configuration, configured } from "./configuration";
 import { Expect } from "./expect";
+import { observableMatcher } from "./matcher";
 import { TestObservableLike } from "./types";
 
 export class Context {
 
     public autoFlush = true;
-    public configure = configure;
 
     private bindings_: {
         instance: SchedulerLike,
         now?: SchedulerLike["now"],
         schedule?: SchedulerLike["schedule"]
     }[] = [];
+    private configuration_ = configured();
     private frameTimeFactor_: number | undefined = undefined;
     private reframable_ = true;
+    private scheduler_: TestScheduler | undefined;
 
-    constructor(public readonly scheduler: TestScheduler) {}
+    constructor() {}
+
+    get scheduler(): TestScheduler {
+
+        if (!this.scheduler_) {
+            this.scheduler_ = new TestScheduler((a, b) => observableMatcher(a, b,
+                this.configuration_.assert,
+                this.configuration_.assertDeepEqual,
+                this.configuration_.frameworkMatcher
+            ));
+        }
+        return this.scheduler_;
+    }
 
     bind(...schedulers: SchedulerLike[]): void {
 
@@ -65,6 +79,11 @@ export class Context {
         const observable = scheduler.createColdObservable<T>(marbles, values, error);
         observable[argsSymbol] = { error, marbles, values };
         return observable;
+    }
+
+    configure(configuration: Configuration): void {
+
+        this.configuration_ = { ...this.configuration_, ...configuration };
     }
 
     equal<T = any>(actual: Observable<T>, expected: TestObservableLike<T>): void;

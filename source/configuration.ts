@@ -11,20 +11,21 @@ export interface Configuration {
     frameworkMatcher?: boolean;
 }
 
-let configuration: Configuration = {
+const defaultConfiguration = {
     assert: defaultAssert,
     assertDeepEqual: defaultAssertDeepEqual,
     frameworkMatcher: false
 };
+let globalConfiguration: Configuration = { ...defaultConfiguration };
 
 export function configure(options: Configuration): void {
 
-    configuration = { ...options };
+    globalConfiguration = { ...defaultConfiguration, ...options };
 }
 
-export function get<K extends keyof Configuration>(key: K): Configuration[K] {
+export function configured(): Configuration {
 
-    return configuration[key];
+    return globalConfiguration;
 }
 
 function defaultAssert(value: any, message: string): void {

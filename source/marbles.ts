@@ -3,10 +3,7 @@
  * can be found in the LICENSE file at https://github.com/cartant/rxjs-marbles
  */
 
-import { TestScheduler } from "rxjs/testing";
-import { get } from "./configuration";
 import { Context } from "./context";
-import { observableMatcher } from "./matcher";
 
 export function marbles(func: (context: Context) => any): () => any;
 export function marbles<T1>(func: (context: Context, t1: T1) => any): (t1: T1) => any;
@@ -24,13 +21,7 @@ export function marbles(func: (context: Context, ...rest: any[]) => any): (...re
     if (func.length > 1) {
         return function (this: any, first: any, ...rest: any[]): void {
 
-            const scheduler = new TestScheduler((a, b) => observableMatcher(a, b,
-                get("assert"),
-                get("assertDeepEqual"),
-                get("frameworkMatcher")
-            ));
-            const context = new Context(scheduler);
-
+            const context = new Context();
             try {
                 return func.call(this, context, first, ...rest);
             } finally {
@@ -40,13 +31,7 @@ export function marbles(func: (context: Context, ...rest: any[]) => any): (...re
     }
     return function(this: any, ...rest: any[]): any {
 
-        const scheduler = new TestScheduler((a, b) => observableMatcher(a, b,
-            get("assert"),
-            get("assertDeepEqual"),
-            get("frameworkMatcher")
-        ));
-        const context = new Context(scheduler);
-
+        const context = new Context();
         try {
             return func.call(this, context, ...rest);
         } finally {
