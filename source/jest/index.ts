@@ -27,6 +27,7 @@ export function configure(configuration: Configuration): {
     marbles: MarblesFunction
 } {
     const { marbles } = _configure({
+        ...configuration,
         assertDeepEqual: (a, e) => expect(a).toEqual(e),
         frameworkMatcher: true
     });

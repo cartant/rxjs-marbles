@@ -20,11 +20,18 @@ export interface CasesFunction {
 
 export type MarblesFunction = (func: (m: Context, t: TestContext) => any) => any;
 
-export function configure(factory: (t: TestContext) => Configuration): {
+export function configure(configuration: Configuration): {
     cases: CasesFunction,
     marbles: MarblesFunction
 } {
-    const configured = _configure(factory);
+    const factory = (t: TestContext) => ({
+        assert: t.truthy.bind(t),
+        assertDeepEqual: t.deepEqual.bind(t)
+    });
+    const configured = _configure((t: TestContext) => ({
+        ...configuration,
+        ...factory(t)
+    }));
     const marbles: MarblesFunction = configured.marbles;
 
     function cases<T extends UnnamedCase>(name: string, func: (context: Context, _case: T, t: TestContext) => void, cases: { [key: string]: T }): void;
@@ -40,9 +47,6 @@ export function configure(factory: (t: TestContext) => Configuration): {
     return { cases, marbles };
 }
 
-const configured = configure((t: TestContext) => ({
-    assert: t.truthy.bind(t),
-    assertDeepEqual: t.deepEqual.bind(t)
-}));
+const configured = configure(defaults());
 export const cases = configured.cases;
 export const marbles = configured.marbles;
