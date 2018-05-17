@@ -105,6 +105,17 @@ describe("rxjs-marbles", () => {
 });
 ```
 
+### `TestScheduler` behaviour changes in RxJS version 6
+
+In RxJS version 6, a `run` method was added to the `TestScheduler` and when it's used, the scheduler's behaviour is significantly changed.
+
+`rxjs-marbles` now defaults to using the scheduler's `run` method. To use the scheduler's old behaviour, you can call the `configure` function, passing `{ run: false }`, like this:
+
+```ts
+import { configure } from "rxjs-marbles/mocha";
+const { cases, marbles } = configure({ run: false });
+```
+
 ### Dealing with deeply-nested schedulers
 
 Sometimes, passing the `TestScheduler` instance to the code under test can be tedious. The context includes a `bind` method that can be used to bind a scheduler's `now` and `schedule` methods to those of the context's `TestScheduler`.
@@ -169,10 +180,10 @@ interface Configuration {
     frameworkMatcher?: boolean;
 }
 
-function configure(options: Configuration): void;
+function configure(options: Configuration): { marbles: MarblesFunction };
 ```
 
-The `configure` method can be used to specify the assertion functions that are to be used. Calling it is optional; it's only necessary if particular assertion functions are to be used.
+The `configure` method can be used to specify the assertion functions that are to be used. Calling it is optional; it's only necessary if particular assertion functions are to be used. It returns an object containing a `marbles` function that will use the specified configuration.
 
 The default implementations simply perform the assertion and throw an error for failed assertions.
 
