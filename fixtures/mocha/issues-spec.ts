@@ -6,9 +6,7 @@
 
 import { expect } from "chai";
 import { of } from "rxjs";
-import { configure } from "../../dist/mocha";
-
-const { marbles } = configure({ run: false });
+import { marbles } from "../../dist/mocha";
 
 describe("issues", () => {
 
@@ -18,7 +16,6 @@ describe("issues", () => {
             expect(() => {
                 const actual = of([undefined]);
                 m.expect(actual).toBeObservable("--|");
-                m.autoFlush = false;
                 m.flush();
             }).to.throw(/\{"frame":0,"notification":\{"kind":"N","value":"\[\s*undefined\s*\]","hasValue":true\}\}/);
         }));
