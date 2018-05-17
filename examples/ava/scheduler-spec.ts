@@ -1,7 +1,9 @@
 import { test } from "ava";
-import { marbles } from "rxjs-marbles/ava";
+import { configure } from "rxjs-marbles/ava";
 import { asyncScheduler } from "rxjs";
 import { delay } from "rxjs/operators";
+
+const marbles = configure({ run: false });
 
 test("should expose the TestScheduler", marbles((m, t) => {
 

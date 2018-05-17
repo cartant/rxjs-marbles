@@ -1,6 +1,8 @@
-import { marbles } from "rxjs-marbles/tape";
+import { configure } from "rxjs-marbles/tape";
 import { delay } from "rxjs/operators";
 import * as test from "tape";
+
+const marbles = configure({ run: false });
 
 test("should support reframing", marbles((m, t) => {
 

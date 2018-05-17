@@ -1,8 +1,8 @@
 {
   "devDependencies": {
     "@types/tape": "^4.2.30",
-    "rxjs": "^6.0.0-uncanny-rc.7",
-    "rxjs-marbles": "^3.0.0-rc.4",
+    "rxjs": "^6.0.0",
+    "rxjs-marbles": "^4.0.0",
     "tape": "^4.7.0",
     "ts-node": "^6.0.0",
     "typescript": "^2.8.3"

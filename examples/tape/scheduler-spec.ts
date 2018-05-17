@@ -1,7 +1,9 @@
-import { marbles } from "rxjs-marbles/tape";
+import { configure } from "rxjs-marbles/tape";
 import { asyncScheduler } from "rxjs";
 import { delay } from "rxjs/operators";
 import * as test from "tape";
+
+const marbles = configure({ run: false });
 
 test("should expose the TestScheduler", marbles((m, t) => {
 

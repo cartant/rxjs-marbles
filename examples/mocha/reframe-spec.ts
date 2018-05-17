@@ -1,6 +1,8 @@
 import { expect } from "chai";
-import { marbles } from "rxjs-marbles/mocha";
+import { configure } from "rxjs-marbles/mocha";
 import { delay } from "rxjs/operators";
+
+const marbles = configure({ run: false });
 
 describe("reframe", () => {
 

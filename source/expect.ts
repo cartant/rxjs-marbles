@@ -7,32 +7,32 @@ import { Observable } from "rxjs";
 import { TestScheduler } from "rxjs/testing";
 import { argsSymbol } from "./args";
 import { assertArgs, assertSubscriptions } from "./assert";
-import { TestObservableLike } from "./types";
+import { ExpectHelpers, TestObservableLike } from "./types";
 
 export class Expect<T> {
 
-    constructor(private actual: Observable<T>, private scheduler: TestScheduler, private unsubscription?: string) {}
+    constructor(private actual: Observable<T>, private helpers: ExpectHelpers, private unsubscription?: string) {}
 
     toBeObservable(expected: TestObservableLike<T>): void;
     toBeObservable(expected: string, values?: { [key: string]: T }, error?: any): void;
     toBeObservable(expected: TestObservableLike<T> | string, values?: { [key: string]: T }, error?: any): void {
 
-        const { actual, scheduler, unsubscription } = this;
+        const { actual, helpers, unsubscription } = this;
 
         if (typeof expected === "string") {
-            scheduler.expectObservable(actual, unsubscription).toBe(expected, values, error);
+            helpers.expectObservable(actual, unsubscription).toBe(expected, values, error);
         } else {
             assertArgs(expected);
             const { error, marbles, values } = expected[argsSymbol];
-            scheduler.expectObservable(actual, unsubscription).toBe(marbles, values, error);
+            helpers.expectObservable(actual, unsubscription).toBe(marbles, values, error);
         }
     }
 
     toHaveSubscriptions(expected: string | string[]): void {
 
-        const { actual, scheduler } = this;
+        const { actual, helpers } = this;
         assertSubscriptions(actual);
         const { subscriptions } = actual as TestObservableLike<T>;
-        scheduler.expectSubscriptions(subscriptions).toBe(expected);
+        helpers.expectSubscriptions(subscriptions).toBe(expected);
     }
 }

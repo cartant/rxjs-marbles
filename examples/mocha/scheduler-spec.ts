@@ -1,6 +1,8 @@
-import { marbles } from "rxjs-marbles/mocha";
+import { configure } from "rxjs-marbles/mocha";
 import { asyncScheduler } from "rxjs";
 import { delay } from "rxjs/operators";
+
+const marbles = configure({ run: false });
 
 describe("scheduler", () => {
 

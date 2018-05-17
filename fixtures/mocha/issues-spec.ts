@@ -6,7 +6,9 @@
 
 import { expect } from "chai";
 import { of } from "rxjs";
-import { cases, marbles } from "../../dist/mocha";
+import { configure } from "../../dist/mocha";
+
+const marbles = configure({ run: false });
 
 describe("issues", () => {
 

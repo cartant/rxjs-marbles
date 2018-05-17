@@ -84,6 +84,7 @@
     "test": "yarn run lint && yarn run test:build && cross-env FAILING=0 yarn run test:ava && cross-env FAILING=0 yarn run test:jasmine && cross-env FAILING=0 yarn run test:jest && cross-env FAILING=0 yarn run test:mocha && cross-env FAILING=0 yarn run test:tape",
     "test:ava": "tsc -p ./fixtures/ava/tsconfig.json && node scripts/rewrite.js && ava --verbose",
     "test:build": "yarn run dist:clean && tsc -p tsconfig-dist-cjs.json",
+    "test:debug": "yarn run lint && yarn run test:build && cross-env FAILING=0 yarn run test:mocha",
     "test:jasmine": "tsc -p ./fixtures/jasmine/tsconfig.json && jasmine ./fixtures/jasmine/*-spec.js",
     "test:jest": "tsc -p ./fixtures/jest/tsconfig.json && jest",
     "test:mocha": "tsc -p ./fixtures/mocha/tsconfig.json && mocha ./fixtures/mocha/*-spec.js",

@@ -1,6 +1,8 @@
 import { test } from "ava";
-import { marbles } from "rxjs-marbles/ava";
+import { configure } from "rxjs-marbles/ava";
 import { delay } from "rxjs/operators";
+
+const marbles = configure({ run: false });
 
 test("should support reframing", marbles((m, t) => {
 

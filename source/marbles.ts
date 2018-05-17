@@ -3,8 +3,12 @@
  * can be found in the LICENSE file at https://github.com/cartant/rxjs-marbles
  */
 
+import { TestScheduler } from "rxjs/testing";
 import { Configuration, defaults } from "./configuration";
 import { Context } from "./context";
+import { DeprecatedContext } from "./context-deprecated";
+import { RunContext } from "./context-run";
+import { observableMatcher } from "./matcher";
 
 export interface MarblesFunction {
     (func: (context: Context) => any): () => any;
@@ -15,22 +19,40 @@ export function configure(configuration: Configuration): MarblesFunction;
 export function configure<T>(factory: (t: T) => Configuration): MarblesFunction;
 export function configure(configurationOrFactory: any): MarblesFunction {
 
-    function _marbles(func: (context: Context) => any): () => any;
-    function _marbles<T>(func: (context: Context, t: T) => any): (t: T) => any;
-    function _marbles(func: (context: Context, ...rest: any[]) => any): (...rest: any[]) => any;
-    function _marbles(func: (context: Context, ...rest: any[]) => any): (...rest: any[]) => any {
+    function deriveConfiguration(...args: any[]): Configuration {
 
-        const test = function(this: any, ...rest: any[]): any {
+        const explicit: Configuration = (typeof configurationOrFactory === "function") ?
+            configurationOrFactory(...args) :
+            configurationOrFactory;
+        return { ...defaults(), ...explicit };
+    }
+
+    function wrap(func: (context: Context) => any): () => any;
+    function wrap<T>(func: (context: Context, t: T) => any): (t: T) => any;
+    function wrap(func: (context: Context, ...rest: any[]) => any): (...rest: any[]) => any;
+    function wrap(func: (context: Context, ...rest: any[]) => any): (...rest: any[]) => any {
+
+        const wrapper = function(this: any, ...rest: any[]): any {
 
             const configuration = deriveConfiguration(...rest);
             if (configuration.run) {
-                throw new Error("run is not yet supported.");
-            }
-            const context = new Context(configuration);
-            try {
-                return func.call(this, context, ...rest);
-            } finally {
-                context.teardown();
+                const scheduler = new TestScheduler((a, b) => observableMatcher(a, b,
+                    configuration.assert,
+                    configuration.assertDeepEqual,
+                    configuration.frameworkMatcher
+                ));
+                let result: any = undefined;
+                scheduler.run(helpers => {
+                    result = func.call(this, new RunContext(scheduler, helpers), ...rest);
+                });
+                return result;
+            } else {
+                const context = new DeprecatedContext(configuration);
+                try {
+                    return func.call(this, context, ...rest);
+                } finally {
+                    context.teardown();
+                }
             }
         };
 
@@ -42,20 +64,12 @@ export function configure(configurationOrFactory: any): MarblesFunction {
 
         if (func.length > 1) {
             /*tslint:disable-next-line:no-unnecessary-callback-wrapper*/
-            return (first: any, ...rest: any[]) => test(first, ...rest);
+            return (first: any, ...rest: any[]) => wrapper(first, ...rest);
         }
-        return test;
+        return wrapper;
     }
 
-    function deriveConfiguration(...args: any[]): Configuration {
-
-        const explicit: Configuration = (typeof configurationOrFactory === "function") ?
-            configurationOrFactory(...args) :
-            configurationOrFactory;
-        return { ...defaults(), ...explicit };
-    }
-
-    return _marbles;
+    return wrap;
 }
 
 export const marbles = configure(defaults());
