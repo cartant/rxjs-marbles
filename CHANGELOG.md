@@ -1,3 +1,10 @@
+<a name="4.0.2"></a>
+## [4.0.2](https://github.com/cartant/rxjs-marbles/compare/v4.0.1...v4.0.2) (2018-05-18)
+
+### Bug fixes
+
+* Fix an error message. ([55b8a92](https://github.com/cartant/rxjs-marbles/commit/55b8a92))
+
 <a name="4.0.1"></a>
 ## [4.0.1](https://github.com/cartant/rxjs-marbles/compare/v4.0.0...v4.0.1) (2018-05-18)
 
