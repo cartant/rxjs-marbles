@@ -182,6 +182,7 @@ interface Configuration {
     assert?: (value: any, message: string) => void;
     assertDeepEqual?: (a: any, b: any) => void;
     frameworkMatcher?: boolean;
+    run?: boolean;
 }
 
 function configure(options: Configuration): { marbles: MarblesFunction };
