@@ -130,5 +130,5 @@ export class RunContext implements Context {
 
 function notSupported(name: string): Error {
 
-    return new Error(`${name} is not supported when using the latest TestScheduler. For the deprecated behaviour, use 'const marbles = configure({ run: false })'.`);
+    return new Error(`${name} is not supported when using the latest TestScheduler. For the deprecated behaviour, use 'const { marbles } = configure({ run: false })'.`);
 }
