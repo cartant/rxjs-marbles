@@ -20,6 +20,14 @@
     * `reframe`
     * `teardown`
 
+To continue using the now deprecated behaviour, you would make these changes:
+
+```ts
+- import { cases, marbles } from "rxjs-marbles/mocha";
++ import { configure } from "rxjs-marbles/mocha";
++ const { cases, marbles } = configure({ run: false });
+```
+
 <a name="3.0.1"></a>
 ## [3.0.1](https://github.com/cartant/rxjs-marbles/compare/v3.0.0...v3.0.1) (2018-04-26)
 
