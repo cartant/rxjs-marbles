@@ -22,7 +22,7 @@
 
 To continue using the now deprecated behaviour, you would make these changes:
 
-```ts
+```diff
 - import { cases, marbles } from "rxjs-marbles/mocha";
 + import { configure } from "rxjs-marbles/mocha";
 + const { cases, marbles } = configure({ run: false });
