@@ -119,6 +119,11 @@ export class RunContext implements Context {
 
     time(marbles: string): number {
 
+        const messages = TestScheduler.parseMarbles(marbles, undefined, undefined, undefined, true);
+        const complete = messages.find(({ notification }) => notification.kind === "C");
+        if (complete) {
+            return complete.frame;
+        }
         return this.scheduler.createTime(marbles);
     }
 }

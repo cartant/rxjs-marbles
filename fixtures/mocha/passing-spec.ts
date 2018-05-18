@@ -474,5 +474,11 @@ describe("rxjs-marbles", () => {
             const expected = m.cold("----(a|)");
             m.expect(source.pipe(delay(duration, m.scheduler))).toBeObservable(expected);
         }));
+
+        it("should support explicit durations in time", marbles((m) => {
+
+            const duration = m.time(" 2ms |");
+            expect(duration).to.equal(2);
+        }));
     });
 });
