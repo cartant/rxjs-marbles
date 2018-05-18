@@ -1,3 +1,10 @@
+<a name="4.0.1"></a>
+## [4.0.1](https://github.com/cartant/rxjs-marbles/compare/v4.0.0...v4.0.1) (2018-05-18)
+
+### Bug fixes
+
+* Support explicit durations in the context's `time` method. ([4a7ac1d](https://github.com/cartant/rxjs-marbles/commit/4a7ac1d))
+
 <a name="4.0.0"></a>
 ## [4.0.0](https://github.com/cartant/rxjs-marbles/compare/v3.0.1...v4.0.0) (2018-05-17)
 
