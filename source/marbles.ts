@@ -41,18 +41,16 @@ export function configure(configurationOrFactory: any): { marbles: MarblesFuncti
                     configuration.assertDeepEqual,
                     configuration.frameworkMatcher
                 ));
-                let result: any = undefined;
-                scheduler.run(helpers => {
-                    result = func.call(this, new RunContext(scheduler, helpers), ...rest);
-                });
-                return result;
-            } else {
-                const context = new DeprecatedContext(configuration);
-                try {
-                    return func.call(this, context, ...rest);
-                } finally {
-                    context.teardown();
-                }
+                return scheduler.run(helpers => func.call(
+                    this, new RunContext(scheduler, helpers), ...rest
+                ));
+            }
+
+            const context = new DeprecatedContext(configuration);
+            try {
+                return func.call(this, context, ...rest);
+            } finally {
+                context.teardown();
             }
         };
 
