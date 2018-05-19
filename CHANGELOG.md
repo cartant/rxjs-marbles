@@ -1,3 +1,10 @@
+<a name="4.1.0"></a>
+## [4.1.0](https://github.com/cartant/rxjs-marbles/compare/v4.0.2...v4.1.0) (2018-05-19)
+
+### Features
+
+* Add an `observe` helper for non-marble tests in Jasmine, Jest and Mocha. ([9c38cce](https://github.com/cartant/rxjs-marbles/commit/9c38cce))
+
 <a name="4.0.2"></a>
 ## [4.0.2](https://github.com/cartant/rxjs-marbles/compare/v4.0.1...v4.0.2) (2018-05-18)
 
