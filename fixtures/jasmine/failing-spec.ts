@@ -3,12 +3,13 @@
  * can be found in the LICENSE file at https://github.com/cartant/rxjs-marbles
  */
 
-import { map } from "rxjs/operators";
-import { marbles } from "../../dist/jasmine";
+import { of } from "rxjs";
+import { map, tap } from "rxjs/operators";
+import { marbles, observe } from "../../dist/jasmine";
 
 if (process.env.FAILING !== "0") {
 
-    describe("rxjs-marbles", () => {
+    describe("marbles", () => {
 
         it("should fail", marbles((m) => {
 
@@ -28,5 +29,12 @@ if (process.env.FAILING !== "0") {
             m.expect(destination).toBeObservable(expected);
             m.expect(source).toHaveSubscriptions(subs);
         }));
+    });
+
+    describe("observe", () => {
+
+        it("should fail", observe(() => of("fail").pipe(
+            tap(value => expect(value).not.toEqual("fail"))
+        )));
     });
 }

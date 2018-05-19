@@ -5,10 +5,11 @@
 /*tslint:disable:object-literal-sort-keys*/
 
 import { expect } from "chai";
-import { delay, map } from "rxjs/operators";
-import { configure } from "../../dist/mocha";
+import { of } from "rxjs";
+import { delay, map, tap } from "rxjs/operators";
+import { configure, observe } from "../../dist/mocha";
 
-describe("rxjs-marbles", () => {
+describe("marbles", () => {
 
     describe("deprecated", () => {
 
@@ -225,7 +226,7 @@ describe("rxjs-marbles", () => {
 
         it("should support promises", marbles((m) => {
 
-            return Promise.resolve().then(() => expect(m).to.be.an("object"));
+            return Promise.resolve("pass").then((value) => expect(value).to.equal("pass"));
         }));
 
         it("should support reframing", marbles((m) => {
@@ -481,4 +482,11 @@ describe("rxjs-marbles", () => {
             expect(duration).to.equal(2);
         }));
     });
+});
+
+describe("observe", () => {
+
+    it("should support observe", observe(() => of("pass").pipe(
+        tap(value => expect(value).to.equal("pass"))
+    )));
 });

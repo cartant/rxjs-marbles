@@ -4,11 +4,11 @@
  */
 /*tslint:disable:object-literal-sort-keys*/
 
-import { map } from "rxjs/operators";
-import { cases, marbles } from "../../dist/jest";
+import { of } from "rxjs";
+import { map, tap } from "rxjs/operators";
+import { cases, marbles, observe } from "../../dist/jest";
 
-
-test('It should handle white space in marble diagrams correctly', marbles((m) => {
+test("it should handle white space in marble diagrams correctly", marbles((m) => {
 
     const values = {
         a: 1,
@@ -17,13 +17,13 @@ test('It should handle white space in marble diagrams correctly', marbles((m) =>
         d: 4
     };
 
-    const source = m.cold('  --a-b-c-|', values)
+    const source = m.cold("  --a-b-c-|", values);
     const expected = m.cold("--b-c-d-|", values);
 
     const destination = source.pipe(map((value) => value + 1));
 
     m.expect(destination).toBeObservable(expected);
-}))
+}));
 
 test("it should support marble tests", marbles((m) => {
 
@@ -71,5 +71,9 @@ cases("should support cases", (m, c) => {
 
 test("it should support promises", marbles((m) => {
 
-    return Promise.resolve().then(() => expect(typeof m).toEqual("object"));
+    return Promise.resolve("pass").then((value) => expect(value).toEqual("pass"));
 }));
+
+test("it should support observe", observe(() => of("pass").pipe(
+    tap(value => expect(value).toEqual("pass"))
+)));

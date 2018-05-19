@@ -12,6 +12,7 @@ export * from "../configuration";
 export * from "../context";
 export * from "../expect";
 export { MarblesFunction } from "../marbles";
+export * from "./observe";
 
 declare const describe: Function;
 declare const it: any;

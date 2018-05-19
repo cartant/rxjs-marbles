@@ -4,14 +4,15 @@
  */
 /*tslint:disable:object-literal-sort-keys*/
 
-import { map } from "rxjs/operators";
-import { cases, marbles } from "../../dist/jasmine";
+import { of } from "rxjs";
+import { map, tap } from "rxjs/operators";
+import { cases, marbles, observe } from "../../dist/jasmine";
 
 interface TestContext {
     myVariable: number;
 }
 
-describe("rxjs-marbles", () => {
+describe("marbles", () => {
 
     beforeEach(function(this: TestContext): void {
         this.myVariable = 57;
@@ -76,4 +77,11 @@ describe("rxjs-marbles", () => {
     }) as any, {
         "unused": {}
     });
+});
+
+describe("observe", () => {
+
+    it("should support observe", observe(() => of("pass").pipe(
+        tap(value => expect(value).toEqual("pass"))
+    )));
 });
