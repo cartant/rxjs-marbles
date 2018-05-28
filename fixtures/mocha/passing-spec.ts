@@ -7,7 +7,7 @@
 import { expect } from "chai";
 import { of } from "rxjs";
 import { delay, map, tap } from "rxjs/operators";
-import { configure, observe } from "../../dist/mocha";
+import { configure, DoneFunction, observe } from "../../dist/mocha";
 
 describe("marbles", () => {
 
@@ -44,6 +44,28 @@ describe("marbles", () => {
 
             m.expect(destination).toBeObservable(expected);
             m.expect(source).toHaveSubscriptions(subs);
+        }));
+
+        it("should support a done callback", marbles<DoneFunction>((m, done) => {
+
+            const values = {
+                a: 1,
+                b: 2,
+                c: 3,
+                d: 4
+            };
+
+            const source =  m.hot("--^-a-b-c-|", values);
+            const subs =            "^-------!";
+            const expected = m.cold("--b-c-d-|", values);
+
+            const destination = source.pipe(map((value) => value + 1));
+
+            m.expect(destination).toBeObservable(expected);
+            m.expect(source).toHaveSubscriptions(subs);
+            m.flush();
+
+            setTimeout(done, 0);
         }));
 
         it("should support marble tests with class-instance values", marbles((m) => {
@@ -285,6 +307,28 @@ describe("marbles", () => {
 
             m.expect(destination).toBeObservable(expected);
             m.expect(source).toHaveSubscriptions(subs);
+        }));
+
+        it("should support a done callback", marbles<DoneFunction>((m, done) => {
+
+            const values = {
+                a: 1,
+                b: 2,
+                c: 3,
+                d: 4
+            };
+
+            const source =  m.hot("--^-a-b-c-|", values);
+            const subs =            "^-------!";
+            const expected = m.cold("--b-c-d-|", values);
+
+            const destination = source.pipe(map((value) => value + 1));
+
+            m.expect(destination).toBeObservable(expected);
+            m.expect(source).toHaveSubscriptions(subs);
+            m.flush();
+
+            setTimeout(done, 0);
         }));
 
         it("should support marble tests with class-instance values", marbles((m) => {
