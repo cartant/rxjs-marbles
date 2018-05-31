@@ -63,6 +63,8 @@ test("it should support a done callback", marbles<DoneFunction>((m, done) => {
     m.expect(source).toHaveSubscriptions(subs);
     m.flush();
 
+    expect(done).toBeInstanceOf(Function);
+    expect(done.fail).toBeInstanceOf(Function);
     setTimeout(done, 0);
 }));
 
