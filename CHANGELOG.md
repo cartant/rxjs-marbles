@@ -1,3 +1,10 @@
+<a name="4.2.0"></a>
+## [4.2.0](https://github.com/cartant/rxjs-marbles/compare/v4.1.0...v4.2.0) (2018-06-09)
+
+### Features
+
+* Add a `fakeSchedulers` helper for non-marble tests in Jasmine (with Angular) and Jest. ([01cfbb3](https://github.com/cartant/rxjs-marbles/commit/01cfbb3))
+
 <a name="4.1.0"></a>
 ## [4.1.0](https://github.com/cartant/rxjs-marbles/compare/v4.0.2...v4.1.0) (2018-05-19)
 
