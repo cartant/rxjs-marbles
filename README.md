@@ -172,6 +172,8 @@ The `rxjs-marbles` API is comprised of two functions:
 
 * [configure](#configure)
 * [marbles](#marbles)
+* [observe](#observe)
+* [fakeSchedulers](#fakeSchedulers)
 
 <a name="configure"></a>
 
@@ -229,3 +231,23 @@ interface Expect<T> {
     toHaveSubscriptions(expected: string | string[]): void;
 }
 ```
+
+<a name="observe"></a>
+
+### observe
+
+In Jasmine, Jest and Mocha, the test framework recognises asynchronous tests by their taking a `done` callback or returning a promise.
+
+The `observe` helper can be useful when an observable cannot be tested using a marble test. Instead, expectations can be added to the observable stream and the observable can be returned from the test.
+
+See the [examples](./examples) for usage.
+
+<a name="fakeSchedulers"></a>
+
+### fakeSchedulers
+
+In Jest and when testing Angular components with Jasmine, the test framework can be configured to use its own concept of fake time.
+
+It's possible to test observables using the test framework's concept of fake time, but the `now` method of the `AsyncScheduler` has to be patched. The `fakeSchedulers` can be used to do this.
+
+See the [examples](./examples) for usage.
