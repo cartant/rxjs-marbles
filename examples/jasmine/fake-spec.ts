@@ -1,3 +1,7 @@
+// These zone.js imports are only required because this is a stand-alone
+// example. When using fakeSchedulers in an Angular project, these zone.js
+// imports will be elsewhere.
+
 import "zone.js";
 import "zone.js/dist/long-stack-trace-zone";
 import "zone.js/dist/proxy.js";
