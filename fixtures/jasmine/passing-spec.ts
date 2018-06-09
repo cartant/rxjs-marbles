@@ -4,9 +4,18 @@
  */
 /*tslint:disable:object-literal-sort-keys*/
 
-import { of } from "rxjs";
-import { map, tap } from "rxjs/operators";
+import "zone.js";
+import "zone.js/dist/long-stack-trace-zone";
+import "zone.js/dist/proxy.js";
+import "zone.js/dist/sync-test";
+import "zone.js/dist/jasmine-patch";
+import "zone.js/dist/async-test";
+import "zone.js/dist/fake-async-test";
+
+import { of, timer } from "rxjs";
+import { delay, map, tap } from "rxjs/operators";
 import { cases, DoneFunction, marbles, observe } from "../../dist/jasmine";
+import { fakeSchedulers } from "../../dist/jasmine/angular";
 
 interface TestContext {
     myVariable: number;
@@ -106,4 +115,25 @@ describe("observe", () => {
     it("should support observe", observe(() => of("pass").pipe(
         tap(value => expect(value).toEqual("pass"))
     )));
+});
+
+describe("fakeSchedulers", () => {
+
+    it("should support a timer", fakeSchedulers(tick => {
+        let received: number | undefined;
+        timer(100).subscribe(value => received = value);
+        tick(50);
+        expect(received).not.toBeDefined();
+        tick(50);
+        expect(received).toBe(0);
+    }));
+
+    it("should support delay", fakeSchedulers(tick => {
+        let received: number | undefined;
+        of(1).pipe(delay(100)).subscribe(value => received = value);
+        tick(50);
+        expect(received).not.toBeDefined();
+        tick(50);
+        expect(received).toBe(1);
+    }));
 });

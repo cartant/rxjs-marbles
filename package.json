@@ -9,6 +9,7 @@
   },
   "description": "An RxJS marble testing library for any test framework",
   "devDependencies": {
+    "@angular/core": "^6.0.4",
     "@types/chai": "^4.1.2",
     "@types/jasmine": "^2.5.53",
     "@types/jest": "^23.0.0",
@@ -31,7 +32,8 @@
     "typescript": "~2.9.1",
     "webpack": "^4.0.0",
     "webpack-cli": "^3.0.0",
-    "webpack-rxjs-externals": "^2.0.0"
+    "webpack-rxjs-externals": "^2.0.0",
+    "zone.js": "~0.8.26"
   },
   "es2015": "./dist/esm2015/index.js",
   "homepage": "https://github.com/cartant/rxjs-marbles",
