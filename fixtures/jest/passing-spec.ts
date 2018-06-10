@@ -4,7 +4,7 @@
  */
 /*tslint:disable:object-literal-sort-keys*/
 
-import { of, timer } from "rxjs";
+import { asapScheduler, of, timer } from "rxjs";
 import { delay, map, tap } from "rxjs/operators";
 import { cases, DoneFunction, fakeSchedulers, marbles, observe } from "../../dist/jest";
 
@@ -126,6 +126,14 @@ describe("fakeSchedulers", () => {
         advance(50);
         expect(received).not.toBeDefined();
         advance(50);
+        expect(received).toBe(1);
+    }));
+
+    test("it should support the asapScheduler", fakeSchedulers(advance => {
+        let received: number | undefined;
+        of(1).pipe(delay(0, asapScheduler)).subscribe(value => received = value);
+        expect(received).not.toBeDefined();
+        advance(0);
         expect(received).toBe(1);
     }));
 });

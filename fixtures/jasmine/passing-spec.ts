@@ -12,7 +12,7 @@ import "zone.js/dist/jasmine-patch";
 import "zone.js/dist/async-test";
 import "zone.js/dist/fake-async-test";
 
-import { of, timer } from "rxjs";
+import { asapScheduler, of, timer } from "rxjs";
 import { delay, map, tap } from "rxjs/operators";
 import { cases, DoneFunction, marbles, observe } from "../../dist/jasmine";
 import { fakeSchedulers } from "../../dist/jasmine/angular";
@@ -134,6 +134,14 @@ describe("fakeSchedulers", () => {
         tick(50);
         expect(received).not.toBeDefined();
         tick(50);
+        expect(received).toBe(1);
+    }));
+
+    it("should support the asapScheduler", fakeSchedulers(tick => {
+        let received: number | undefined;
+        of(1).pipe(delay(0, asapScheduler)).subscribe(value => received = value);
+        expect(received).not.toBeDefined();
+        tick(0);
         expect(received).toBe(1);
     }));
 });
