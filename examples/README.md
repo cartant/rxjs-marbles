@@ -12,7 +12,7 @@ The example for each test framework includes:
 | --- | --- |
 | `basic-spec.ts` | Tests that use basic functionality. |
 | `cases-spec.ts` | Tests that use the `cases` function. |
-| `fake-spec.ts` | Tests that use the `fakeScheduler` helper. |
+| `fake-spec.ts` | Tests that use the `fakeSchedulers` helper. |
 | `observe-spec.ts` | Tests that use the `observe` helper. |
 | `reframe-spec.ts` | Tests that change the amount of virtual time per character. |
 | `scheduler-spec.ts` | Tests that use schedulers. |
