@@ -1,3 +1,10 @@
+<a name="4.2.1"></a>
+## [4.2.1](https://github.com/cartant/rxjs-marbles/compare/v4.2.0...v4.2.1) (2018-06-10)
+
+### Bug fixes
+
+* Support the `asapScheduler` in `fakeSchedulers`. ([e510698](https://github.com/cartant/rxjs-marbles/commit/e510698))
+
 <a name="4.2.0"></a>
 ## [4.2.0](https://github.com/cartant/rxjs-marbles/compare/v4.1.0...v4.2.0) (2018-06-09)
 
