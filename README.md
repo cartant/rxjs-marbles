@@ -248,6 +248,6 @@ See the [examples](./examples) for usage.
 
 In Jest and when testing Angular components with Jasmine, the test framework can be configured to use its own concept of fake time.
 
-It's possible to test observables using the test framework's concept of fake time, but the `now` method of the `AsyncScheduler` has to be patched. The `fakeSchedulers` can be used to do this.
+It's possible to test observables using the test framework's concept of fake time, but the `now` method of the `AsyncScheduler` has to be patched. The `fakeSchedulers` helper can be used to do this.
 
 See the [examples](./examples) for usage.
