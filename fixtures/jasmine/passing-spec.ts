@@ -12,6 +12,7 @@ import "zone.js/dist/jasmine-patch";
 import "zone.js/dist/async-test";
 import "zone.js/dist/fake-async-test";
 
+import { tick } from "@angular/core/testing";
 import { asapScheduler, of, timer } from "rxjs";
 import { delay, map, tap } from "rxjs/operators";
 import { cases, DoneFunction, marbles, observe } from "../../dist/jasmine";
@@ -143,5 +144,14 @@ describe("fakeSchedulers", () => {
         expect(received).not.toBeDefined();
         tick(0);
         expect(received).toBe(1);
+    }));
+
+    it("should support the Angular tick function", fakeSchedulers(() => {
+        let received: number | undefined;
+        timer(100).subscribe(value => received = value);
+        tick(50);
+        expect(received).not.toBeDefined();
+        tick(50);
+        expect(received).toBe(0);
     }));
 });

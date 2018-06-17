@@ -11,12 +11,8 @@ export function fakeSchedulers(
 ): () => void {
     return fakeAsync(() => {
         try {
-            let fakeTime = 0;
-            asyncScheduler.now = () => fakeTime;
-            fakeTest(milliseconds => {
-                fakeTime += milliseconds;
-                tick(milliseconds);
-            });
+            asyncScheduler.now = () => Date.now();
+            fakeTest(tick);
         } finally {
             delete asyncScheduler.now;
         }
