@@ -51,6 +51,6 @@ export function configure(configuration: Configuration): {
 const { cases, marbles } = configure(defaults());
 export { cases, marbles };
 
-export function fakeSchedulers<R>(fakeTest: () => R): () => R {
+export function fakeSchedulers(fakeTest: () => any): () => any {
     return _fakeSchedulers(fakeTest);
 }

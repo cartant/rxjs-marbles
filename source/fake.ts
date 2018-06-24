@@ -5,9 +5,9 @@
 
 import { asapScheduler, asyncScheduler } from "rxjs";
 
-export function fakeSchedulers<R>(fakeTest: () => R): () => R;
-export function fakeSchedulers<T, R>(fakeTest: (t: T) => R): (t: T) => R;
-export function fakeSchedulers<R>(fakeTest: (...args: any[]) => R): (...args: any[]) => R {
+export function fakeSchedulers(fakeTest: () => any): () => any;
+export function fakeSchedulers<T>(fakeTest: (t: T) => any): (t: T) => any;
+export function fakeSchedulers(fakeTest: (...args: any[]) => any): (...args: any[]) => any {
     return (...args: any[]) => {
         try {
             asapScheduler.schedule = asyncScheduler.schedule.bind(asyncScheduler);

@@ -6,9 +6,9 @@
 import { fakeAsync, tick } from "@angular/core/testing";
 import { asyncScheduler } from "rxjs";
 
-export function fakeSchedulers<R>(
-    fakeTest: (tick: (milliseconds: number) => void) => R
-): () => R {
+export function fakeSchedulers(
+    fakeTest: (tick: (milliseconds: number) => void) => any
+): () => any {
     return fakeAsync(() => {
         try {
             asyncScheduler.now = () => Date.now();

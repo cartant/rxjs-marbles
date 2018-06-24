@@ -7,9 +7,9 @@ import { asapScheduler, asyncScheduler } from "rxjs";
 
 declare const jest: any;
 
-export function fakeSchedulers<R>(
-    fakeTest: (advance: (milliseconds: number) => void) => R
-): () => R {
+export function fakeSchedulers(
+    fakeTest: (advance: (milliseconds: number) => void) => any
+): () => any {
     return () => {
         try {
             let fakeTime = 0;
