@@ -6,6 +6,7 @@
 import { _cases, NamedCase, UnnamedCase } from "../cases";
 import { Configuration, defaults } from "../configuration";
 import { Context } from "../context";
+import { fakeSchedulers as _fakeSchedulers } from "../fake";
 import { configure as _configure, MarblesFunction } from "../marbles";
 
 export * from "../configuration";
@@ -49,3 +50,7 @@ export function configure(configuration: Configuration): {
 
 const { cases, marbles } = configure(defaults());
 export { cases, marbles };
+
+export function fakeSchedulers<R>(fakeTest: () => R): () => R {
+    return _fakeSchedulers(fakeTest);
+}

@@ -4,7 +4,6 @@
  */
 
 import { Observable } from "rxjs";
-import { TestScheduler } from "rxjs/testing";
 import { argsSymbol } from "./args";
 import { assertArgs, assertSubscriptions } from "./assert";
 import { ExpectHelpers, TestObservableLike } from "./types";

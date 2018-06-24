@@ -6,13 +6,16 @@
 import { fakeAsync, tick } from "@angular/core/testing";
 import { asyncScheduler } from "rxjs";
 
-export function fakeSchedulers(
-    fakeTest: (tick: (milliseconds: number) => void) => void
-): () => void {
+export function fakeSchedulers<R>(
+    fakeTest: (tick: (milliseconds: number) => void) => R
+): () => R {
     return fakeAsync(() => {
         try {
             asyncScheduler.now = () => Date.now();
-            fakeTest(tick);
+            return fakeTest(milliseconds => {
+                console.log("The tick parameter passed to the fakeSchedulers test is deprecated; call the @angular/core/testing tick function instead. See the examples for the intended usage.");
+                tick(milliseconds);
+            });
         } finally {
             delete asyncScheduler.now;
         }

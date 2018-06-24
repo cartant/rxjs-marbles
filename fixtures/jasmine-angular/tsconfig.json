@@ -1,0 +1,6 @@
+{
+  "compilerOptions": {
+    "types": ["jasmine", "node"]
+  },
+  "extends": "../tsconfig.json"
+}

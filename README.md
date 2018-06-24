@@ -246,7 +246,7 @@ See the [examples](./examples) for usage.
 
 ### fakeSchedulers
 
-In Jest and when testing Angular components with Jasmine, the test framework can be configured to use its own concept of fake time.
+With Jest and Jasmine, the test framework can be configured to use its own concept of fake time. AVA, Mocha and Tape don't have built-in support for fake time, but the functionality can be added via `sinon.useFakeTimers()`.
 
 It's possible to test observables using the test framework's concept of fake time, but the `now` method of the `AsyncScheduler` has to be patched. The `fakeSchedulers` helper can be used to do this.
 

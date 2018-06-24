@@ -7,11 +7,13 @@ import * as tape from "tape";
 import { _cases, NamedCase, UnnamedCase } from "../cases";
 import { Configuration, defaults } from "../configuration";
 import { Context } from "../context";
+import { fakeSchedulers as _fakeSchedulers } from "../fake";
 import { configure as _configure } from "../marbles";
 
 export * from "../configuration";
 export * from "../context";
 export * from "../expect";
+export * from "../fake";
 
 export interface CasesFunction {
     <T extends UnnamedCase>(name: string, func: (context: Context, _case: T, t: tape.Test) => void, cases: { [key: string]: T }): void;
@@ -49,3 +51,7 @@ export function configure(configuration: Configuration): {
 
 const { cases, marbles } = configure(defaults());
 export { cases, marbles };
+
+export function fakeSchedulers<R>(fakeTest: (t: tape.Test) => R): (t: tape.Test) => R {
+    return _fakeSchedulers(fakeTest);
+}

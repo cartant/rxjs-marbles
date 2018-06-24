@@ -5,20 +5,14 @@
 
 import { asapScheduler, asyncScheduler } from "rxjs";
 
-declare const jest: any;
-
-export function fakeSchedulers<R>(
-    fakeTest: (advance: (milliseconds: number) => void) => R
-): () => R {
-    return () => {
+export function fakeSchedulers<R>(fakeTest: () => R): () => R;
+export function fakeSchedulers<T, R>(fakeTest: (t: T) => R): (t: T) => R;
+export function fakeSchedulers<R>(fakeTest: (...args: any[]) => R): (...args: any[]) => R {
+    return (...args: any[]) => {
         try {
-            let fakeTime = 0;
             asapScheduler.schedule = asyncScheduler.schedule.bind(asyncScheduler);
-            asyncScheduler.now = () => fakeTime;
-            return fakeTest(milliseconds => {
-                fakeTime += milliseconds;
-                jest.advanceTimersByTime(milliseconds);
-            });
+            asyncScheduler.now = () => Date.now();
+            return fakeTest(...args);
         } finally {
             delete asapScheduler.schedule;
             delete asyncScheduler.now;

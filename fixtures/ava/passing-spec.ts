@@ -2,10 +2,13 @@
  * @license Use of this source code is governed by an MIT-style license that
  * can be found in the LICENSE file at https://github.com/cartant/rxjs-marbles
  */
+/*tslint:disable:object-literal-sort-keys*/
 
 import { test } from "ava";
-import { map } from "rxjs/operators";
-import { cases, marbles } from "../../dist/ava";
+import { asapScheduler, of, timer } from "rxjs";
+import { delay, map } from "rxjs/operators";
+import * as sinon from "sinon";
+import { cases, fakeSchedulers, marbles } from "../../dist/ava";
 
 test("it should support marble tests", marbles((m, t) => {
 
@@ -54,3 +57,38 @@ cases("should support cases", (m, c, t) => {
         e: "-|"
     }
 });
+
+test("it should support a timer", fakeSchedulers(t => {
+    t.plan(2);
+    const clock: sinon.SinonFakeTimers = sinon.useFakeTimers();
+    let received: number | undefined;
+    timer(100).subscribe(value => received = value);
+    clock.tick(50);
+    t.is(received, undefined);
+    clock.tick(50);
+    t.is(received, 0);
+    clock.restore();
+}));
+
+test("it should support delay", fakeSchedulers(t => {
+    t.plan(2);
+    const clock: sinon.SinonFakeTimers = sinon.useFakeTimers();
+    let received: number | undefined;
+    of(1).pipe(delay(100)).subscribe(value => received = value);
+    clock.tick(50);
+    t.is(received, undefined);
+    clock.tick(50);
+    t.is(received, 1);
+    clock.restore();
+}));
+
+test("it should support the asapScheduler", fakeSchedulers(t => {
+    t.plan(2);
+    const clock: sinon.SinonFakeTimers = sinon.useFakeTimers();
+    let received: number | undefined;
+    of(1).pipe(delay(0, asapScheduler)).subscribe(value => received = value);
+    t.is(received, undefined);
+    clock.tick(0);
+    t.is(received, 1);
+    clock.restore();
+}));

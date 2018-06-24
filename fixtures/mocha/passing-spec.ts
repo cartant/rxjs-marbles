@@ -2,12 +2,13 @@
  * @license Use of this source code is governed by an MIT-style license that
  * can be found in the LICENSE file at https://github.com/cartant/rxjs-marbles
  */
-/*tslint:disable:object-literal-sort-keys*/
+/*tslint:disable:no-unused-expression object-literal-sort-keys*/
 
 import { expect } from "chai";
-import { of } from "rxjs";
+import { asapScheduler, of, timer } from "rxjs";
 import { delay, map, tap } from "rxjs/operators";
-import { configure, DoneFunction, observe } from "../../dist/mocha";
+import * as sinon from "sinon";
+import { configure, DoneFunction, fakeSchedulers, observe } from "../../dist/mocha";
 
 describe("marbles", () => {
 
@@ -533,4 +534,43 @@ describe("observe", () => {
     it("should support observe", observe(() => of("pass").pipe(
         tap(value => expect(value).to.equal("pass"))
     )));
+});
+
+describe("fakeSchedulers", () => {
+
+    let clock: sinon.SinonFakeTimers;
+
+    beforeEach(() => {
+        clock = sinon.useFakeTimers();
+    });
+
+    it("should support a timer", fakeSchedulers(() => {
+        let received: number | undefined;
+        timer(100).subscribe(value => received = value);
+        clock.tick(50);
+        expect(received).to.be.undefined;
+        clock.tick(50);
+        expect(received).to.equal(0);
+    }));
+
+    it("should support delay", fakeSchedulers(() => {
+        let received: number | undefined;
+        of(1).pipe(delay(100)).subscribe(value => received = value);
+        clock.tick(50);
+        expect(received).to.be.undefined;
+        clock.tick(50);
+        expect(received).to.equal(1);
+    }));
+
+    it("should support the asapScheduler", fakeSchedulers(() => {
+        let received: number | undefined;
+        of(1).pipe(delay(0, asapScheduler)).subscribe(value => received = value);
+        expect(received).to.be.undefined;
+        clock.tick(0);
+        expect(received).to.equal(1);
+    }));
+
+    afterEach(() => {
+        clock.restore();
+    });
 });
