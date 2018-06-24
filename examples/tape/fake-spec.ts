@@ -2,7 +2,7 @@ import { fakeSchedulers } from "rxjs-marbles/tape";
 import { of, timer } from "rxjs";
 import { delay } from "rxjs/operators";
 import * as sinon from "sinon";
-import { tape } from "tape";
+import * as tape from "tape";
 
 tape("it should support a timer", fakeSchedulers(t => {
     t.plan(2);

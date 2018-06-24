@@ -1,10 +1,12 @@
 {
   "devDependencies": {
+    "@types/sinon": "^5.0.0",
     "@types/tape": "^4.2.30",
     "rxjs": "^6.0.0",
-    "rxjs-marbles": "^4.2.0",
+    "rxjs-marbles": "^4.3.0",
+    "sinon": "^5.0.0",
     "tape": "^4.7.0",
-    "ts-node": "^6.0.0",
+    "ts-node": "^7.0.0",
     "typescript": "^2.8.3"
   },
   "name": "rxjs-marbles-examples-tape",

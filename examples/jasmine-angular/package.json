@@ -4,8 +4,8 @@
     "@types/jasmine": "^2.5.53",
     "jasmine": "^3.0.0",
     "rxjs": "^6.0.0",
-    "rxjs-marbles": "^4.2.0",
-    "ts-node": "^6.0.0",
+    "rxjs-marbles": "^4.3.0",
+    "ts-node": "^7.0.0",
     "typescript": "^2.8.3",
     "zone.js": "~0.8.26"
   },
