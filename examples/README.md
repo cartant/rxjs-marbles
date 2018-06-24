@@ -2,6 +2,7 @@ The sub-directories within the `examples` directory contain self-contained examp
 
 * [AVA](./ava)
 * [Jasmine](./jasmine)
+* [Jasmine and Angular)](./jasmine-angular)
 * [Jest](./jest)
 * [Mocha](./mocha)
 * [Tape](./tape)
