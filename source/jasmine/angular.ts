@@ -13,6 +13,7 @@ export function fakeSchedulers<R>(
         try {
             asyncScheduler.now = () => Date.now();
             return fakeTest(milliseconds => {
+                /*tslint:disable-next-line:no-console*/
                 console.log("The tick parameter passed to the fakeSchedulers test is deprecated; call the @angular/core/testing tick function instead. See the examples for the intended usage.");
                 tick(milliseconds);
             });
