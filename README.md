@@ -251,3 +251,5 @@ With Jest and Jasmine, the test framework can be configured to use its own conce
 It's possible to test observables using the test framework's concept of fake time, but the `now` method of the `AsyncScheduler` has to be patched. The `fakeSchedulers` helper can be used to do this.
 
 See the [examples](./examples) for usage.
+
+Also, I've written an article on the `fakeSchedulers` function: [RxJS: Testing with Fake Time](https://medium.com/@cartant/rxjs-testing-with-fake-time-94114271eed2).
