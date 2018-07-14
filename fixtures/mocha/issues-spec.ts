@@ -6,18 +6,24 @@
 
 import { expect } from "chai";
 import { of } from "rxjs";
-import { marbles } from "../../dist/mocha";
+import { configure } from "../../dist/mocha";
 
 describe("issues", () => {
 
-    describe("issue-22", () => {
+    describe("deprecated", () => {
 
-        it("should fail with a useful error message", marbles(m => {
-            expect(() => {
-                const actual = of([undefined]);
-                m.expect(actual).toBeObservable("--|");
-                m.flush();
-            }).to.throw(/\{"frame":0,"notification":\{"kind":"N","value":"\[\s*undefined\s*\]","hasValue":true\}\}/);
-        }));
+        const { marbles } = configure({ run: false });
+
+        describe("issue-22", () => {
+
+            it("should fail with a useful error message", marbles(m => {
+                expect(() => {
+                    const actual = of([undefined]);
+                    m.expect(actual).toBeObservable("--|");
+                    m.autoFlush = false;
+                    m.flush();
+                }).to.throw(/\{"frame":0,"notification":\{"kind":"N","value":"\[\s*undefined\s*\]","hasValue":true\}\}/);
+            }));
+        });
     });
 });
