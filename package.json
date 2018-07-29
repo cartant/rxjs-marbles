@@ -41,6 +41,7 @@
   "homepage": "https://github.com/cartant/rxjs-marbles",
   "jest": {
     "testRegex": "(fixtures/jest/.*-spec)\\.jsx?$",
+    "testURL": "http://localhost/",
     "transform": {},
     "moduleFileExtensions": [
       "js",
