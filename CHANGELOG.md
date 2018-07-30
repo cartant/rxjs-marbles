@@ -1,3 +1,10 @@
+<a name="4.3.1"></a>
+## [4.3.1](https://github.com/cartant/rxjs-marbles/compare/v4.3.0...v4.3.1) (2018-07-30)
+
+### Build
+
+* Update `lodash` to avoid security warning from [David](https://david-dm.org/cartant/rxjs-marbles).
+
 <a name="4.3.0"></a>
 ## [4.3.0](https://github.com/cartant/rxjs-marbles/compare/v4.2.1...v4.3.0) (2018-06-24)
 
