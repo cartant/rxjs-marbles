@@ -213,7 +213,7 @@ describe("marbles", () => {
             m.bind();
 
             const source =  m.hot("--^-a-b-c-|");
-            const subs =            "^--------!";
+            const subs =            "^-------!";
             const expected =        "---a-b-c-|";
 
             const destination = source.pipe(delay(m.time("-|")));
