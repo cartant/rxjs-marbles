@@ -9,7 +9,8 @@
   },
   "description": "An RxJS marble testing library for any test framework",
   "devDependencies": {
-    "@angular/core": "^6.0.4",
+    "@angular/compiler": "^7.0.0",
+    "@angular/core": "^7.0.0",
     "@types/chai": "^4.1.2",
     "@types/jasmine": "^2.5.53",
     "@types/jest": "^23.0.0",
@@ -27,7 +28,7 @@
     "rimraf": "^2.6.1",
     "rxjs": "^6.0.0",
     "rxjs-tslint-rules": "^4.0.0",
-    "sinon": "^6.0.0",
+    "sinon": "^7.0.0",
     "tape": "^4.7.0",
     "ts-loader": "^5.0.0",
     "tslint": "^5.5.0",
