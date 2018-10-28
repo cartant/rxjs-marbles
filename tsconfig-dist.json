@@ -1,5 +1,4 @@
 {
-  "compilerOptions": {},
   "exclude": [
     "source/**/*-spec.ts"
   ],
