@@ -28,7 +28,7 @@
     "rimraf": "^2.6.1",
     "rxjs": "^6.0.0",
     "rxjs-tslint-rules": "^4.0.0",
-    "sinon": "^7.0.0",
+    "sinon": "^7.1.0",
     "tape": "^4.7.0",
     "ts-loader": "^5.0.0",
     "tslint": "^5.5.0",
