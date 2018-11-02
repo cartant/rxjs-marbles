@@ -1,3 +1,10 @@
+<a name="4.3.2"></a>
+## [4.3.2](https://github.com/cartant/rxjs-marbles/compare/v4.3.1...v4.3.2) (2018-11-02)
+
+### Build
+
+* Replace `lodash` with `fast-equals` to avoid `require` calls in the ES module distributions. ([5909ebc](https://github.com/cartant/rxjs-marbles/commit/5909ebc))
+
 <a name="4.3.1"></a>
 ## [4.3.1](https://github.com/cartant/rxjs-marbles/compare/v4.3.0...v4.3.1) (2018-07-30)
 
