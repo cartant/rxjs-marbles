@@ -15,7 +15,7 @@
  */
 /*tslint:disable indent prefer-template quotemark*/
 
-const isEqual = require("lodash/isEqual");
+import { deepEqual } from "fast-equals";
 
 function stringify(x: any): string {
   if (x === undefined) {
@@ -55,7 +55,7 @@ export function observableMatcher(actual: any, expected: any, assert: any, asser
     if (frameworkMatcher) {
       assertDeepEqual(actual, expected);
     } else {
-      const passed = isEqual(actual, expected);
+      const passed = deepEqual(actual, expected);
       if (passed) {
         assert(true, "");
         return;

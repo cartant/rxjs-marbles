@@ -4,8 +4,7 @@
     "url": "https://github.com/cartant/rxjs-marbles/issues"
   },
   "dependencies": {
-    "@types/lodash": "^4.0.0",
-    "lodash": "^4.17.5"
+    "fast-equals": "^1.6.1"
   },
   "description": "An RxJS marble testing library for any test framework",
   "devDependencies": {

@@ -14,7 +14,7 @@
     "strict": true,
     "suppressImplicitAnyIndexErrors": true,
     "target": "es2015",
-    "types": ["lodash", "node"]
+    "types": ["node"]
   },
   "exclude": [],
   "include": [
