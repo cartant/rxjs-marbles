@@ -1,3 +1,10 @@
+<a name="4.3.4"></a>
+## [4.3.4](https://github.com/cartant/rxjs-marbles/compare/v4.3.3...v4.3.4) (2018-11-11)
+
+### Bug fixes
+
+* Overwrite the Jasmine and Jest assert options. ([24a0715](https://github.com/cartant/rxjs-marbles/commit/24a0715))
+
 <a name="4.3.3"></a>
 ## [4.3.3](https://github.com/cartant/rxjs-marbles/compare/v4.3.2...v4.3.3) (2018-11-11)
 
