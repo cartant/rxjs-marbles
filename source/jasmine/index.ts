@@ -31,9 +31,20 @@ export function configure(configuration: Configuration): {
     cases: CasesFunction,
     marbles: MarblesFunction
 } {
+    const { assert: defaultAssert } = defaults();
     const { marbles } = _configure({
         ...configuration,
-        assert: (a, m) => expect(a).withContext(m).toBeTruthy(),
+        assert: (a, m) => {
+            // It seems that withContext was introduced in Jasmine 3.3.0 and,
+            // prior to that, user-defined messages for failures weren't
+            // possible.
+            const expectation = expect(a);
+            if (expectation.withContext) {
+                expect(a).withContext(m).toBeTruthy();
+            } else {
+                defaultAssert!(a, m);
+            }
+        },
         assertDeepEqual: (a, e) => expect(a).toEqual(e)
     });
 
