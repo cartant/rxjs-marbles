@@ -17,6 +17,7 @@ export { MarblesFunction } from "../marbles";
 export * from "./observe";
 
 declare const describe: Function;
+declare const expect: Function;
 declare const fit: Function;
 declare const it: Function;
 declare const xit: Function;
@@ -30,7 +31,11 @@ export function configure(configuration: Configuration): {
     cases: CasesFunction,
     marbles: MarblesFunction
 } {
-    const { marbles } = _configure(configuration);
+    const { marbles } = _configure({
+        assert: (a, m) => expect(a).toBeTruthy().withContext(m),
+        assertDeepEqual: (a, e) => expect(a).toEqual(e),
+        ...configuration
+    });
 
     function cases<T extends UnnamedCase>(name: string, func: (context: Context, _case: T) => void, cases: { [key: string]: T }): void;
     function cases<T extends NamedCase>(name: string, func: (context: Context, _case: T) => void, cases: T[]): void;
