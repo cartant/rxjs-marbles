@@ -1,3 +1,10 @@
+<a name="4.3.5"></a>
+## [4.3.5](https://github.com/cartant/rxjs-marbles/compare/v4.3.4...v4.3.5) (2018-11-12)
+
+### Bug fixes
+
+* Check for Jasmine's `withContext` at runtime. ([24a0715](https://github.com/cartant/rxjs-marbles/commit/24a0715))
+
 <a name="4.3.4"></a>
 ## [4.3.4](https://github.com/cartant/rxjs-marbles/compare/v4.3.3...v4.3.4) (2018-11-11)
 
