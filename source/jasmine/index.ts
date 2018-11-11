@@ -32,9 +32,9 @@ export function configure(configuration: Configuration): {
     marbles: MarblesFunction
 } {
     const { marbles } = _configure({
-        assert: (a, m) => expect(a).toBeTruthy().withContext(m),
-        assertDeepEqual: (a, e) => expect(a).toEqual(e),
-        ...configuration
+        ...configuration,
+        assert: (a, m) => expect(a).withContext(m).toBeTruthy(),
+        assertDeepEqual: (a, e) => expect(a).toEqual(e)
     });
 
     function cases<T extends UnnamedCase>(name: string, func: (context: Context, _case: T) => void, cases: { [key: string]: T }): void;

@@ -29,9 +29,9 @@ export function configure(configuration: Configuration): {
     marbles: MarblesFunction
 } {
     const { marbles } = _configure({
+        ...configuration,
         assertDeepEqual: (a, e) => expect(a).toEqual(e),
-        frameworkMatcher: true,
-        ...configuration
+        frameworkMatcher: true
     });
 
     function cases<T extends UnnamedCase>(name: string, func: (context: Context, _case: T) => void, cases: { [key: string]: T }): void;
