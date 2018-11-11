@@ -1,3 +1,10 @@
+<a name="4.3.3"></a>
+## [4.3.3](https://github.com/cartant/rxjs-marbles/compare/v4.3.2...v4.3.3) (2018-11-11)
+
+### Bug fixes
+
+* Use Jasmine assertions for the `rxjs-marbles/jasmine` import location. ([36771ca](https://github.com/cartant/rxjs-marbles/commit/36771ca))
+
 <a name="4.3.2"></a>
 ## [4.3.2](https://github.com/cartant/rxjs-marbles/compare/v4.3.1...v4.3.2) (2018-11-02)
 
