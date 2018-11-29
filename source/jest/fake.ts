@@ -13,7 +13,7 @@ export function fakeSchedulers(
     return () => {
         try {
             let fakeTime = 0;
-            asapScheduler.schedule = asyncScheduler.schedule.bind(asyncScheduler);
+            asapScheduler.schedule = asyncScheduler.schedule.bind(asyncScheduler) as any;
             asyncScheduler.now = () => fakeTime;
             return fakeTest(milliseconds => {
                 fakeTime += milliseconds;
