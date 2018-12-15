@@ -1,17 +1,23 @@
 {
+  "ava": {
+    "compileEnhancements": false,
+    "extensions": ["ts"],
+    "require": [
+      "ts-node/register"
+    ]
+  },
   "devDependencies": {
-    "@types/sinon": "^5.0.0",
-    "ava": "^0.25.0",
-    "ava-ts": "^0.24.3",
+    "@types/sinon": "^7.0.0",
+    "ava": "^1.0.0",
     "rxjs": "^6.0.0",
-    "rxjs-marbles": "^4.3.0",
-    "sinon": "^5.0.0",
+    "rxjs-marbles": "^5.0.0",
+    "sinon": "^7.0.0",
     "ts-node": "^7.0.0",
-    "typescript": "^2.8.3"
+    "typescript": "^3.2.2"
   },
   "name": "rxjs-marbles-examples-ava",
   "scripts": {
-    "test": "ava-ts *-spec.ts"
+    "test": "ava *-spec.ts"
   },
   "version": "0.0.0"
 }

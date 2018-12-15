@@ -1,4 +1,4 @@
-import { test } from "ava";
+import test from "ava";
 import { fakeSchedulers } from "rxjs-marbles/ava";
 import { of, timer } from "rxjs";
 import { delay } from "rxjs/operators";

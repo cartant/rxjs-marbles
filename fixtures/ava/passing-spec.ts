@@ -4,7 +4,7 @@
  */
 /*tslint:disable:object-literal-sort-keys*/
 
-import { test } from "ava";
+import test from "ava";
 import { asapScheduler, of, timer } from "rxjs";
 import { delay, map } from "rxjs/operators";
 import * as sinon from "sinon";

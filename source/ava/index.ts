@@ -3,7 +3,7 @@
  * can be found in the LICENSE file at https://github.com/cartant/rxjs-marbles
  */
 
-import { test, TestContext } from "ava";
+import test, { ExecutionContext } from "ava";
 import { _cases, NamedCase, UnnamedCase } from "../cases";
 import { Configuration, defaults } from "../configuration";
 import { Context } from "../context";
@@ -16,28 +16,28 @@ export * from "../expect";
 export * from "../fake";
 
 export interface CasesFunction {
-    <T extends UnnamedCase>(name: string, func: (context: Context, _case: T, t: TestContext) => void, cases: { [key: string]: T }): void;
-    <T extends NamedCase>(name: string, func: (context: Context, _case: T, t: TestContext) => void, cases: T[]): void;
+    <T extends UnnamedCase>(name: string, func: (context: Context, _case: T, t: ExecutionContext) => void, cases: { [key: string]: T }): void;
+    <T extends NamedCase>(name: string, func: (context: Context, _case: T, t: ExecutionContext) => void, cases: T[]): void;
 }
 
-export type MarblesFunction = (func: (m: Context, t: TestContext) => any) => any;
+export type MarblesFunction = (func: (m: Context, t: ExecutionContext) => any) => any;
 
 export function configure(configuration: Configuration): {
     cases: CasesFunction,
     marbles: MarblesFunction
 } {
-    const factory = (t: TestContext) => ({
+    const factory = (t: ExecutionContext) => ({
         assert: t.truthy.bind(t),
         assertDeepEqual: t.deepEqual.bind(t)
     });
-    const configured = _configure((t: TestContext) => ({
+    const configured = _configure((t: ExecutionContext) => ({
         ...configuration,
         ...factory(t)
     }));
     const marbles: MarblesFunction = configured.marbles;
 
-    function cases<T extends UnnamedCase>(name: string, func: (context: Context, _case: T, t: TestContext) => void, cases: { [key: string]: T }): void;
-    function cases<T extends NamedCase>(name: string, func: (context: Context, _case: T, t: TestContext) => void, cases: T[]): void;
+    function cases<T extends UnnamedCase>(name: string, func: (context: Context, _case: T, t: ExecutionContext) => void, cases: { [key: string]: T }): void;
+    function cases<T extends NamedCase>(name: string, func: (context: Context, _case: T, t: ExecutionContext) => void, cases: T[]): void;
     function cases(name: string, func: any, cases: any): void {
 
         _cases((c) => {
@@ -52,6 +52,6 @@ export function configure(configuration: Configuration): {
 const { cases, marbles } = configure(defaults());
 export { cases, marbles };
 
-export function fakeSchedulers(fakeTest: (t: TestContext) => any): (t: TestContext) => any {
+export function fakeSchedulers(fakeTest: (t: ExecutionContext) => any): (t: ExecutionContext) => any {
     return _fakeSchedulers(fakeTest);
 }

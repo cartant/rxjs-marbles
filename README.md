@@ -70,7 +70,7 @@ describe("rxjs-marbles", () => {
 
 To see how `rxjs-marbles` can be used with other test frameworks, see the [examples](./examples) within the repository.
 
-With AVA and Tape, the callback passed to the `marbles` function will receive an addional argument - the AVA `TestContext` or the Tape `Test` - which can be used to specify the number of assertions in the test plan. See the framework-specific examples for details.
+With AVA and Tape, the callback passed to the `marbles` function will receive an addional argument - the AVA `ExecutionContext` or the Tape `Test` - which can be used to specify the number of assertions in the test plan. See the framework-specific examples for details.
 
 ### Using cases for test variations
 

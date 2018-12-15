@@ -1,4 +1,4 @@
-import { test } from "ava";
+import test from "ava";
 import { configure } from "rxjs-marbles/ava";
 import { asyncScheduler } from "rxjs";
 import { delay } from "rxjs/operators";
@@ -10,7 +10,7 @@ test("should expose the TestScheduler", marbles((m, t) => {
     t.plan(2);
 
     const source =  m.hot("--^-a-b-c-|");
-    const subs =            "^---------!";
+    const subs =            "^-------!";
     const expected =        "----a-b-c-|";
 
     const destination = source.pipe(delay(m.time("--|"), m.scheduler));
@@ -24,7 +24,7 @@ test("should support binding specific schedulers", marbles((m, t) => {
     m.bind(asyncScheduler);
 
     const source =  m.hot("--^-a-b-c-|");
-    const subs =            "^---------!";
+    const subs =            "^-------!";
     const expected =        "----a-b-c-|";
 
     const destination = source.pipe(delay(m.time("--|"), asyncScheduler));
@@ -38,7 +38,7 @@ test("should support binding all schedulers", marbles((m, t) => {
     m.bind();
 
     const source =  m.hot("--^-a-b-c-|");
-    const subs =            "^---------!";
+    const subs =            "^-------!";
     const expected =        "----a-b-c-|";
 
     const destination = source.pipe(delay(m.time("--|")));

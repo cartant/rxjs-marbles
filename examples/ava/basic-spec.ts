@@ -1,4 +1,4 @@
-import { test } from "ava";
+import test from "ava";
 import { marbles } from "rxjs-marbles/ava";
 import { map } from "rxjs/operators";
 

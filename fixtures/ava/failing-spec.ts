@@ -3,7 +3,7 @@
  * can be found in the LICENSE file at https://github.com/cartant/rxjs-marbles
  */
 
-import { test } from "ava";
+import test from "ava";
 import { map } from "rxjs/operators";
 import { marbles } from "../../dist/ava";
 

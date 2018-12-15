@@ -1,4 +1,4 @@
-import { test } from "ava";
+import test from "ava";
 import { configure } from "rxjs-marbles/ava";
 import { delay } from "rxjs/operators";
 
