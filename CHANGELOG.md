@@ -1,3 +1,10 @@
+<a name="5.0.0"></a>
+## [5.0.0](https://github.com/cartant/rxjs-marbles/compare/v4.3.5...v5.0.0) (2018-12-16)
+
+### Breaking changes
+
+* Upgrade to AVA 1.0. In that version, breaking changes were made to AVA's exports. The major version bump for `rxjs-marbles` reflects this; there are no changes to `rxjs-marbles` functionality in this release. ([2dab29b](https://github.com/cartant/rxjs-marbles/commit/2dab29b))
+
 <a name="4.3.5"></a>
 ## [4.3.5](https://github.com/cartant/rxjs-marbles/compare/v4.3.4...v4.3.5) (2018-11-12)
 
