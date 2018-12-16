@@ -168,7 +168,7 @@ m.has(source, subs);
 
 ## API
 
-The `rxjs-marbles` API is comprised of two functions:
+The `rxjs-marbles` API includes the following functions:
 
 * [configure](#configure)
 * [marbles](#marbles)
