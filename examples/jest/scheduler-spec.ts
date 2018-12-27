@@ -9,7 +9,7 @@ describe("scheduler", () => {
     it("should expose the TestScheduler", marbles(m => {
 
         const source =  m.hot("--^-a-b-c-|");
-        const subs =            "^---------!";
+        const subs =            "^-------!";
         const expected =        "----a-b-c-|";
 
         const destination = source.pipe(delay(m.time("--|"), m.scheduler));
@@ -22,7 +22,7 @@ describe("scheduler", () => {
         m.bind(asyncScheduler);
 
         const source =  m.hot("--^-a-b-c-|");
-        const subs =            "^---------!";
+        const subs =            "^-------!";
         const expected =        "----a-b-c-|";
 
         const destination = source.pipe(delay(m.time("--|"), asyncScheduler));
@@ -35,7 +35,7 @@ describe("scheduler", () => {
         m.bind();
 
         const source =  m.hot("--^-a-b-c-|");
-        const subs =            "^---------!";
+        const subs =            "^-------!";
         const expected =        "----a-b-c-|";
 
         const destination = source.pipe(delay(m.time("--|")));
