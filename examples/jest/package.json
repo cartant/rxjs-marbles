@@ -28,7 +28,8 @@
     "testRegex": "(/__tests__/.*|-(test|spec))\\.(jsx?|tsx?)$",
     "transform": {
       "^.+\\.tsx?$": "ts-jest"
-    }
+    },
+    "testURL": "http://localhost"
   },
   "name": "rxjs-marbles-examples-jest",
   "scripts": {
