@@ -31,7 +31,7 @@
     "tape": "^4.7.0",
     "ts-loader": "^5.0.0",
     "tslint": "^5.5.0",
-    "typescript": "~3.2.1",
+    "typescript": "~3.3.1",
     "webpack": "^4.0.0",
     "webpack-cli": "^3.0.0",
     "webpack-rxjs-externals": "^2.0.0",
