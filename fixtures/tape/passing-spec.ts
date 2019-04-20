@@ -21,9 +21,9 @@ tape("it should support marble tests", marbles((m, t) => {
         d: 4
     };
 
-    const source =  m.hot("--^-a-b-c-|", values);
-    const subs =            "^-------!";
-    const expected = m.cold("--b-c-d-|", values);
+    const source = m.hot("  --^-a-b-c-|", values);
+    const subs = "            ^-------!";
+    const expected = m.cold(" --b-c-d-|", values);
 
     const destination = source.pipe(map((value) => value + 1));
 
@@ -42,9 +42,9 @@ tape("it should support marble tests with terse assertions", marbles((m, t) => {
         d: 4
     };
 
-    const source =  m.hot("--^-a-b-c-|", values);
-    const subs =            "^-------!";
-    const expected = m.cold("--b-c-d-|", values);
+    const source = m.hot("  --^-a-b-c-|", values);
+    const subs = "            ^-------!";
+    const expected = m.cold(" --b-c-d-|", values);
 
     const destination = source.pipe(map((value) => value + 1));
 
@@ -63,9 +63,9 @@ tape("it should support string-based assertions", marbles((m, t) => {
         d: 4
     };
 
-    const source =  m.hot("--^-a-b-c-|", values);
-    const subs =            "^-------!";
-    const expected =        "--b-c-d-|";
+    const source = m.hot(" --^-a-b-c-|", values);
+    const subs = "           ^-------!";
+    const expected = "       --b-c-d-|";
 
     const destination = source.pipe(map((value) => value + 1));
 
@@ -77,10 +77,10 @@ tape("should support unsubscriptions", marbles((m, t) => {
 
     t.plan(2);
 
-    const source =  m.hot("--^-a-b-c-|");
-    const subs =            "^----!";
-    const unsubs =          "-----!";
-    const expected = m.cold("--a-b-");
+    const source = m.hot("  --^-a-b-c-|");
+    const subs = "            ^----!";
+    const unsubs = "          -----!";
+    const expected = m.cold(" --a-b-");
 
     const destination = source;
 
@@ -99,10 +99,10 @@ tape("should support unsubscriptions with values", marbles((m, t) => {
         d: 4
     };
 
-    const source =  m.hot("--^-a-b-c-|", values);
-    const subs =            "^----!";
-    const unsubs =          "-----!";
-    const expected = m.cold("--b-c-", values);
+    const source = m.hot("  --^-a-b-c-|", values);
+    const subs = "            ^----!";
+    const unsubs = "          -----!";
+    const expected = m.cold(" --b-c-", values);
 
     const destination = source.pipe(map((value) => value + 1));
 
@@ -114,10 +114,10 @@ tape("should support string-based assertions with unsubscriptions", marbles((m, 
 
     t.plan(2);
 
-    const source =  m.hot("--^-a-b-c-|");
-    const subs =            "^----!";
-    const unsubs =          "-----!";
-    const expected =        "--a-b-";
+    const source = m.hot(" --^-a-b-c-|");
+    const subs = "           ^----!";
+    const unsubs = "         -----!";
+    const expected = "       --a-b-";
 
     const destination = source;
 
@@ -136,10 +136,10 @@ tape("should support string-based assertions with unsubscriptions and values", m
         d: 4
     };
 
-    const source =  m.hot("--^-a-b-c-|", values);
-    const subs =            "^----!";
-    const unsubs =          "-----!";
-    const expected =        "--b-c-";
+    const source = m.hot(" --^-a-b-c-|", values);
+    const subs = "           ^----!";
+    const unsubs = "         -----!";
+    const expected = "       --b-c-";
 
     const destination = source.pipe(map((value) => value + 1));
 

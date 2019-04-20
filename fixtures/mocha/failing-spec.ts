@@ -21,9 +21,9 @@ if (process.env.FAILING !== "0") {
                 d: 4
             };
 
-            const source =  m.hot("--^-a-b-c-|", values);
-            const subs =            "^-------!";
-            const expected = m.cold("--a-a-a-|", values);
+            const source = m.hot("  --^-a-b-c-|", values);
+            const subs = "            ^-------!";
+            const expected = m.cold(" --a-a-a-|", values);
 
             const destination = source.pipe(map((value) => value + 1));
 

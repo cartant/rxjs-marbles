@@ -18,9 +18,9 @@ describe("marbles", () => {
 
         it("should support marble tests without values", marbles((m) => {
 
-            const source =  m.hot("--^-a-b-c-|");
-            const subs =            "^-------!";
-            const expected = m.cold("--a-b-c-|");
+            const source = m.hot("  --^-a-b-c-|".trim());
+            const subs = "            ^-------!".trim();
+            const expected = m.cold(" --a-b-c-|".trim());
 
             const destination = source;
 
@@ -37,9 +37,9 @@ describe("marbles", () => {
                 d: 4
             };
 
-            const source =  m.hot("--^-a-b-c-|", values);
-            const subs =            "^-------!";
-            const expected = m.cold("--b-c-d-|", values);
+            const source = m.hot("  --^-a-b-c-|".trim(), values);
+            const subs = "            ^-------!".trim();
+            const expected = m.cold(" --b-c-d-|".trim(), values);
 
             const destination = source.pipe(map((value) => value + 1));
 
@@ -56,9 +56,9 @@ describe("marbles", () => {
                 d: 4
             };
 
-            const source =  m.hot("--^-a-b-c-|", values);
-            const subs =            "^-------!";
-            const expected = m.cold("--b-c-d-|", values);
+            const source = m.hot("  --^-a-b-c-|".trim(), values);
+            const subs = "            ^-------!".trim();
+            const expected = m.cold(" --b-c-d-|".trim(), values);
 
             const destination = source.pipe(map((value) => value + 1));
 
@@ -82,9 +82,9 @@ describe("marbles", () => {
                 d: new Thing(4)
             };
 
-            const source =  m.hot("--^-a-b-c-|", values);
-            const subs =            "^-------!";
-            const expected = m.cold("--b-c-d-|", values);
+            const source = m.hot("  --^-a-b-c-|".trim(), values);
+            const subs = "            ^-------!".trim();
+            const expected = m.cold(" --b-c-d-|".trim(), values);
 
             const destination = source.pipe(map((thing) => new Thing(thing.value + 1)));
 
@@ -94,9 +94,9 @@ describe("marbles", () => {
 
         it("should support marble tests with errors", marbles((m) => {
 
-            const source =  m.hot("--^-a-b-c-#");
-            const subs =            "^-------!";
-            const expected = m.cold("--a-b-c-#");
+            const source = m.hot("  --^-a-b-c-#".trim());
+            const subs = "            ^-------!".trim();
+            const expected = m.cold(" --a-b-c-#".trim());
 
             const destination = source;
 
@@ -113,9 +113,9 @@ describe("marbles", () => {
                 d: 4
             };
 
-            const source =  m.hot("--^-a-b-c-#", values, new Error("Boom!"));
-            const subs =            "^-------!";
-            const expected = m.cold("--b-c-d-#", values, new Error("Boom!"));
+            const source = m.hot("  --^-a-b-c-#".trim(), values, new Error("Boom!"));
+            const subs = "            ^-------!".trim();
+            const expected = m.cold(" --b-c-d-#".trim(), values, new Error("Boom!"));
 
             const destination = source.pipe(map((value) => value + 1));
 
@@ -132,9 +132,9 @@ describe("marbles", () => {
                 d: 4
             };
 
-            const source =  m.hot("--^-a-b-c-|", values);
-            const subs =            "^-------!";
-            const expected =        "--b-c-d-|";
+            const source = m.hot(" --^-a-b-c-|".trim(), values);
+            const subs = "           ^-------!".trim();
+            const expected = "       --b-c-d-|".trim();
 
             const destination = source.pipe(map((value) => value + 1));
 
@@ -144,10 +144,10 @@ describe("marbles", () => {
 
         it("should support unsubscriptions", marbles((m) => {
 
-            const source =  m.hot("--^-a-b-c-|");
-            const subs =            "^----!";
-            const unsubs =          "-----!";
-            const expected = m.cold("--a-b-");
+            const source = m.hot("  --^-a-b-c-|".trim());
+            const subs = "            ^----!".trim();
+            const unsubs = "          -----!".trim();
+            const expected = m.cold(" --a-b-".trim());
 
             const destination = source;
 
@@ -164,10 +164,10 @@ describe("marbles", () => {
                 d: 4
             };
 
-            const source =  m.hot("--^-a-b-c-|", values);
-            const subs =            "^----!";
-            const unsubs =          "-----!";
-            const expected = m.cold("--b-c-", values);
+            const source = m.hot("  --^-a-b-c-|".trim(), values);
+            const subs = "            ^----!".trim();
+            const unsubs = "          -----!".trim();
+            const expected = m.cold(" --b-c-".trim(), values);
 
             const destination = source.pipe(map((value) => value + 1));
 
@@ -177,10 +177,10 @@ describe("marbles", () => {
 
         it("should support string-based assertions with unsubscriptions", marbles((m) => {
 
-            const source =  m.hot("--^-a-b-c-|");
-            const subs =            "^----!";
-            const unsubs =          "-----!";
-            const expected =        "--a-b-";
+            const source = m.hot(" --^-a-b-c-|".trim());
+            const subs = "           ^----!".trim();
+            const unsubs = "         -----!".trim();
+            const expected = "       --a-b-".trim();
 
             const destination = source;
 
@@ -197,10 +197,10 @@ describe("marbles", () => {
                 d: 4
             };
 
-            const source =  m.hot("--^-a-b-c-|", values);
-            const subs =            "^----!";
-            const unsubs =          "-----!";
-            const expected =        "--b-c-";
+            const source = m.hot(" --^-a-b-c-|".trim(), values);
+            const subs = "           ^----!".trim();
+            const unsubs = "         -----!".trim();
+            const expected = "       --b-c-".trim();
 
             const destination = source.pipe(map((value) => value + 1));
 
@@ -212,9 +212,9 @@ describe("marbles", () => {
 
             m.bind();
 
-            const source =  m.hot("--^-a-b-c-|");
-            const subs =            "^-------!";
-            const expected =        "---a-b-c-|";
+            const source = m.hot(" --^-a-b-c-|".trim());
+            const subs = "           ^-------!".trim();
+            const expected = "       ---a-b-c-|".trim();
 
             const destination = source.pipe(delay(m.time("-|")));
 
@@ -259,8 +259,8 @@ describe("marbles", () => {
             const duration = m.time("--|");
             expect(duration).to.equal(200);
 
-            const source =   m.cold("--(a|)");
-            const expected = m.cold("----(a|)");
+            const source = m.cold("   --(a|)".trim());
+            const expected = m.cold(" ----(a|)".trim());
             m.expect(source.pipe(delay(duration, m.scheduler))).toBeObservable(expected);
         }));
 
@@ -269,8 +269,8 @@ describe("marbles", () => {
             const duration = m.time("--|");
             expect(duration).to.equal(20);
 
-            const source =   m.cold("--(a|)");
-            const expected = m.cold("----(a|)");
+            const source = m.cold("   --(a|)".trim());
+            const expected = m.cold(" ----(a|)".trim());
             m.expect(source.pipe(delay(duration, m.scheduler))).toBeObservable(expected);
         }));
     });
@@ -281,9 +281,9 @@ describe("marbles", () => {
 
         it("should support marble tests without values", marbles((m) => {
 
-            const source =  m.hot("--^-a-b-c-|");
-            const subs =            "^-------!";
-            const expected = m.cold("--a-b-c-|");
+            const source = m.hot("  --^-a-b-c-|");
+            const subs = "            ^-------!";
+            const expected = m.cold(" --a-b-c-|");
 
             const destination = source;
 
@@ -300,9 +300,9 @@ describe("marbles", () => {
                 d: 4
             };
 
-            const source =  m.hot("--^-a-b-c-|", values);
-            const subs =            "^-------!";
-            const expected = m.cold("--b-c-d-|", values);
+            const source = m.hot("  --^-a-b-c-|", values);
+            const subs = "            ^-------!";
+            const expected = m.cold(" --b-c-d-|", values);
 
             const destination = source.pipe(map((value) => value + 1));
 
@@ -319,9 +319,9 @@ describe("marbles", () => {
                 d: 4
             };
 
-            const source =  m.hot("--^-a-b-c-|", values);
-            const subs =            "^-------!";
-            const expected = m.cold("--b-c-d-|", values);
+            const source = m.hot("  --^-a-b-c-|", values);
+            const subs = "            ^-------!";
+            const expected = m.cold(" --b-c-d-|", values);
 
             const destination = source.pipe(map((value) => value + 1));
 
@@ -345,9 +345,9 @@ describe("marbles", () => {
                 d: new Thing(4)
             };
 
-            const source =  m.hot("--^-a-b-c-|", values);
-            const subs =            "^-------!";
-            const expected = m.cold("--b-c-d-|", values);
+            const source = m.hot("  --^-a-b-c-|", values);
+            const subs = "            ^-------!";
+            const expected = m.cold(" --b-c-d-|", values);
 
             const destination = source.pipe(map((thing) => new Thing(thing.value + 1)));
 
@@ -357,9 +357,9 @@ describe("marbles", () => {
 
         it("should support marble tests with errors", marbles((m) => {
 
-            const source =  m.hot("--^-a-b-c-#");
-            const subs =            "^-------!";
-            const expected = m.cold("--a-b-c-#");
+            const source = m.hot("  --^-a-b-c-#");
+            const subs = "            ^-------!";
+            const expected = m.cold(" --a-b-c-#");
 
             const destination = source;
 
@@ -376,9 +376,9 @@ describe("marbles", () => {
                 d: 4
             };
 
-            const source =  m.hot("--^-a-b-c-#", values, new Error("Boom!"));
-            const subs =            "^-------!";
-            const expected = m.cold("--b-c-d-#", values, new Error("Boom!"));
+            const source = m.hot("  --^-a-b-c-#", values, new Error("Boom!"));
+            const subs = "            ^-------!";
+            const expected = m.cold(" --b-c-d-#", values, new Error("Boom!"));
 
             const destination = source.pipe(map((value) => value + 1));
 
@@ -395,9 +395,9 @@ describe("marbles", () => {
                 d: 4
             };
 
-            const source =  m.hot("--^-a-b-c-|", values);
-            const subs =            "^-------!";
-            const expected =        "--b-c-d-|";
+            const source = m.hot(" --^-a-b-c-|", values);
+            const subs = "           ^-------!";
+            const expected = "       --b-c-d-|";
 
             const destination = source.pipe(map((value) => value + 1));
 
@@ -407,10 +407,10 @@ describe("marbles", () => {
 
         it("should support unsubscriptions", marbles((m) => {
 
-            const source =  m.hot("--^-a-b-c-|");
-            const subs =            "^----!";
-            const unsubs =          "-----!";
-            const expected = m.cold("--a-b-");
+            const source = m.hot("  --^-a-b-c-|");
+            const subs = "            ^----!";
+            const unsubs = "          -----!";
+            const expected = m.cold(" --a-b-");
 
             const destination = source;
 
@@ -427,10 +427,10 @@ describe("marbles", () => {
                 d: 4
             };
 
-            const source =  m.hot("--^-a-b-c-|", values);
-            const subs =            "^----!";
-            const unsubs =          "-----!";
-            const expected = m.cold("--b-c-", values);
+            const source = m.hot("  --^-a-b-c-|", values);
+            const subs = "            ^----!";
+            const unsubs = "          -----!";
+            const expected = m.cold(" --b-c-", values);
 
             const destination = source.pipe(map((value) => value + 1));
 
@@ -440,10 +440,10 @@ describe("marbles", () => {
 
         it("should support string-based assertions with unsubscriptions", marbles((m) => {
 
-            const source =  m.hot("--^-a-b-c-|");
-            const subs =            "^----!";
-            const unsubs =          "-----!";
-            const expected =        "--a-b-";
+            const source = m.hot(" --^-a-b-c-|");
+            const subs = "           ^----!";
+            const unsubs = "         -----!";
+            const expected = "       --a-b-";
 
             const destination = source;
 
@@ -460,10 +460,10 @@ describe("marbles", () => {
                 d: 4
             };
 
-            const source =  m.hot("--^-a-b-c-|", values);
-            const subs =            "^----!";
-            const unsubs =          "-----!";
-            const expected =        "--b-c-";
+            const source = m.hot(" --^-a-b-c-|", values);
+            const subs = "           ^----!";
+            const unsubs = "         -----!";
+            const expected = "       --b-c-";
 
             const destination = source.pipe(map((value) => value + 1));
 
@@ -516,8 +516,8 @@ describe("marbles", () => {
             const duration = m.time("--|");
             expect(duration).to.equal(2);
 
-            const source =   m.cold("--(a|)");
-            const expected = m.cold("----(a|)");
+            const source = m.cold("   --(a|)");
+            const expected = m.cold(" ----(a|)");
             m.expect(source.pipe(delay(duration, m.scheduler))).toBeObservable(expected);
         }));
 

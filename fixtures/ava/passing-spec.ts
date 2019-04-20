@@ -21,9 +21,9 @@ test("it should support marble tests", marbles((m, t) => {
         d: 4
     };
 
-    const source =  m.hot("--^-a-b-c-|", values);
-    const subs =            "^-------!";
-    const expected = m.cold("--b-c-d-|", values);
+    const source = m.hot("  --^-a-b-c-|", values);
+    const subs = "            ^-------!";
+    const expected = m.cold(" --b-c-d-|", values);
 
     const destination = source.pipe(map((value) => value + 1));
 
