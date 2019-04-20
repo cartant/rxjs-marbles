@@ -23,53 +23,77 @@ declare const it: Function;
 declare const xit: Function;
 
 export interface CasesFunction {
-    <T extends UnnamedCase>(name: string, func: (context: Context, _case: T) => void, cases: { [key: string]: T }): void;
-    <T extends NamedCase>(name: string, func: (context: Context, _case: T) => void, cases: T[]): void;
+  <T extends UnnamedCase>(
+    name: string,
+    func: (context: Context, _case: T) => void,
+    cases: { [key: string]: T }
+  ): void;
+  <T extends NamedCase>(
+    name: string,
+    func: (context: Context, _case: T) => void,
+    cases: T[]
+  ): void;
 }
 
-export function configure(configuration: Configuration): {
-    cases: CasesFunction,
-    marbles: MarblesFunction
+export function configure(
+  configuration: Configuration
+): {
+  cases: CasesFunction;
+  marbles: MarblesFunction;
 } {
-    const { assert: defaultAssert } = defaults();
-    const { marbles } = _configure({
-        ...configuration,
-        assert: (a, m) => {
-            // It seems that withContext was introduced in Jasmine 3.3.0 and,
-            // prior to that, user-defined messages for failures weren't
-            // possible.
-            const expectation = expect(a);
-            if (expectation.withContext) {
-                expect(a).withContext(m).toBeTruthy();
-            } else {
-                defaultAssert!(a, m);
-            }
-        },
-        assertDeepEqual: (a, e) => expect(a).toEqual(e)
+  const { assert: defaultAssert } = defaults();
+  const { marbles } = _configure({
+    ...configuration,
+    assert: (a, m) => {
+      // It seems that withContext was introduced in Jasmine 3.3.0 and,
+      // prior to that, user-defined messages for failures weren't
+      // possible.
+      const expectation = expect(a);
+      if (expectation.withContext) {
+        expect(a)
+          .withContext(m)
+          .toBeTruthy();
+      } else {
+        defaultAssert!(a, m);
+      }
+    },
+    assertDeepEqual: (a, e) => expect(a).toEqual(e)
+  });
+
+  function cases<T extends UnnamedCase>(
+    name: string,
+    func: (context: Context, _case: T) => void,
+    cases: { [key: string]: T }
+  ): void;
+  function cases<T extends NamedCase>(
+    name: string,
+    func: (context: Context, _case: T) => void,
+    cases: T[]
+  ): void;
+  function cases(name: string, func: any, cases: any): void {
+    describe(name, () => {
+      _cases(c => {
+        const t = c.only ? fit : c.skip ? xit : it;
+        if (func.length > 2) {
+          t(
+            c.name,
+            marbles((m: any, second: any, ...rest: any[]) =>
+              func(m, c, second, ...rest)
+            )
+          );
+        } else {
+          t(c.name, marbles((m, ...rest: any[]) => func(m, c, ...rest)));
+        }
+      }, cases);
     });
+  }
 
-    function cases<T extends UnnamedCase>(name: string, func: (context: Context, _case: T) => void, cases: { [key: string]: T }): void;
-    function cases<T extends NamedCase>(name: string, func: (context: Context, _case: T) => void, cases: T[]): void;
-    function cases(name: string, func: any, cases: any): void {
-
-        describe(name, () => {
-            _cases((c) => {
-                const t = c.only ? fit : c.skip ? xit : it;
-                if (func.length > 2) {
-                    t(c.name, marbles((m: any, second: any, ...rest: any[]) => func(m, c, second, ...rest)));
-                } else {
-                    t(c.name, marbles((m, ...rest: any[]) => func(m, c, ...rest)));
-                }
-            }, cases);
-        });
-    }
-
-    return { cases, marbles };
+  return { cases, marbles };
 }
 
 const { cases, marbles } = configure(defaults());
 export { cases, marbles };
 
 export function fakeSchedulers(fakeTest: () => any): () => any {
-    return _fakeSchedulers(fakeTest);
+  return _fakeSchedulers(fakeTest);
 }

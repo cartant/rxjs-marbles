@@ -9,21 +9,23 @@ import { of } from "rxjs";
 import { configure } from "../../dist/mocha";
 
 describe("issues", () => {
+  describe("deprecated", () => {
+    const { marbles } = configure({ run: false });
 
-    describe("deprecated", () => {
-
-        const { marbles } = configure({ run: false });
-
-        describe("issue-22", () => {
-
-            it("should fail with a useful error message", marbles(m => {
-                expect(() => {
-                    const actual = of([undefined]);
-                    m.expect(actual).toBeObservable("--|");
-                    m.autoFlush = false;
-                    m.flush();
-                }).to.throw(/\{"frame":0,"notification":\{"kind":"N","value":"\[\s*undefined\s*\]","hasValue":true\}\}/);
-            }));
-        });
+    describe("issue-22", () => {
+      it(
+        "should fail with a useful error message",
+        marbles(m => {
+          expect(() => {
+            const actual = of([undefined]);
+            m.expect(actual).toBeObservable("--|");
+            m.autoFlush = false;
+            m.flush();
+          }).to.throw(
+            /\{"frame":0,"notification":\{"kind":"N","value":"\[\s*undefined\s*\]","hasValue":true\}\}/
+          );
+        })
+      );
     });
+  });
 });

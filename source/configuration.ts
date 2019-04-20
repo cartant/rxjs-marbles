@@ -6,46 +6,42 @@
 import { deepEqual } from "fast-equals";
 
 export interface Configuration {
-    assert?: (value: any, message: string) => void;
-    assertDeepEqual?: (a: any, b: any) => void;
-    frameworkMatcher?: boolean;
-    run?: boolean;
+  assert?: (value: any, message: string) => void;
+  assertDeepEqual?: (a: any, b: any) => void;
+  frameworkMatcher?: boolean;
+  run?: boolean;
 }
 
 const defaultConfiguration = {
-    assert: defaultAssert,
-    assertDeepEqual: defaultAssertDeepEqual,
-    frameworkMatcher: false,
-    run: true
+  assert: defaultAssert,
+  assertDeepEqual: defaultAssertDeepEqual,
+  frameworkMatcher: false,
+  run: true
 };
 
 export function defaults(): Configuration {
-
-    return { ...defaultConfiguration };
+  return { ...defaultConfiguration };
 }
 
 function defaultAssert(value: any, message: string): void {
-
-    if (value) {
-        return;
-    }
-    throw new Error(message);
+  if (value) {
+    return;
+  }
+  throw new Error(message);
 }
 
 function defaultAssertDeepEqual(a: any, b: any): void {
-
-    if (deepEqual(a, b)) {
-        return;
-    }
-    throw new Error(`Expected ${toString(a)} to equal ${toString(b)}.`);
+  if (deepEqual(a, b)) {
+    return;
+  }
+  throw new Error(`Expected ${toString(a)} to equal ${toString(b)}.`);
 }
 
 function toString(value: any): string {
-
-    if (value === null) {
-        return "null";
-    } else if (value === undefined) {
-        return "undefined";
-    }
-    return value.toString();
+  if (value === null) {
+    return "null";
+  } else if (value === undefined) {
+    return "undefined";
+  }
+  return value.toString();
 }

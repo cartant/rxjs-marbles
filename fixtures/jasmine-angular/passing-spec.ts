@@ -18,30 +18,42 @@ import { delay, map, tap } from "rxjs/operators";
 import { fakeSchedulers } from "../../dist/jasmine/angular";
 
 describe("fakeSchedulers", () => {
+  it(
+    "should support a timer",
+    fakeSchedulers(() => {
+      let received: number | undefined;
+      timer(100).subscribe(value => (received = value));
+      tick(50);
+      expect(received).not.toBeDefined();
+      tick(50);
+      expect(received).toBe(0);
+    })
+  );
 
-    it("should support a timer", fakeSchedulers(() => {
-        let received: number | undefined;
-        timer(100).subscribe(value => received = value);
-        tick(50);
-        expect(received).not.toBeDefined();
-        tick(50);
-        expect(received).toBe(0);
-    }));
+  it(
+    "should support delay",
+    fakeSchedulers(() => {
+      let received: number | undefined;
+      of(1)
+        .pipe(delay(100))
+        .subscribe(value => (received = value));
+      tick(50);
+      expect(received).not.toBeDefined();
+      tick(50);
+      expect(received).toBe(1);
+    })
+  );
 
-    it("should support delay", fakeSchedulers(() => {
-        let received: number | undefined;
-        of(1).pipe(delay(100)).subscribe(value => received = value);
-        tick(50);
-        expect(received).not.toBeDefined();
-        tick(50);
-        expect(received).toBe(1);
-    }));
-
-    it("should support the asapScheduler", fakeSchedulers(() => {
-        let received: number | undefined;
-        of(1).pipe(delay(0, asapScheduler)).subscribe(value => received = value);
-        expect(received).not.toBeDefined();
-        tick(0);
-        expect(received).toBe(1);
-    }));
+  it(
+    "should support the asapScheduler",
+    fakeSchedulers(() => {
+      let received: number | undefined;
+      of(1)
+        .pipe(delay(0, asapScheduler))
+        .subscribe(value => (received = value));
+      expect(received).not.toBeDefined();
+      tick(0);
+      expect(received).toBe(1);
+    })
+  );
 });

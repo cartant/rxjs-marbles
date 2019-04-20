@@ -5,8 +5,9 @@ import * as test from "tape";
 
 const { marbles } = configure({ run: false });
 
-test("should expose the TestScheduler", marbles((m, t) => {
-
+test(
+  "should expose the TestScheduler",
+  marbles((m, t) => {
     t.plan(2);
 
     const source = m.hot(" --^-a-b-c-|");
@@ -16,10 +17,12 @@ test("should expose the TestScheduler", marbles((m, t) => {
     const destination = source.pipe(delay(m.time("--|"), m.scheduler));
     m.expect(destination).toBeObservable(expected);
     m.expect(source).toHaveSubscriptions(subs);
-}));
+  })
+);
 
-test("should support binding specific schedulers", marbles((m, t) => {
-
+test(
+  "should support binding specific schedulers",
+  marbles((m, t) => {
     t.plan(2);
     m.bind(asyncScheduler);
 
@@ -30,10 +33,12 @@ test("should support binding specific schedulers", marbles((m, t) => {
     const destination = source.pipe(delay(m.time("--|"), asyncScheduler));
     m.expect(destination).toBeObservable(expected);
     m.expect(source).toHaveSubscriptions(subs);
-}));
+  })
+);
 
-test("should support binding all schedulers", marbles((m, t) => {
-
+test(
+  "should support binding all schedulers",
+  marbles((m, t) => {
     t.plan(2);
     m.bind();
 
@@ -44,4 +49,5 @@ test("should support binding all schedulers", marbles((m, t) => {
     const destination = source.pipe(delay(m.time("--|")));
     m.expect(destination).toBeObservable(expected);
     m.expect(source).toHaveSubscriptions(subs);
-}));
+  })
+);

@@ -6,142 +6,176 @@
 
 import { asapScheduler, of, timer } from "rxjs";
 import { delay, map, tap } from "rxjs/operators";
-import { cases, DoneFunction, fakeSchedulers, marbles, observe } from "../../dist/jasmine";
+import {
+  cases,
+  DoneFunction,
+  fakeSchedulers,
+  marbles,
+  observe
+} from "../../dist/jasmine";
 
 interface TestContext {
-    myVariable: number;
+  myVariable: number;
 }
 
 describe("marbles", () => {
+  beforeEach(function(this: TestContext): void {
+    this.myVariable = 57;
+  });
 
-    beforeEach(function(this: TestContext): void {
-        this.myVariable = 57;
-    });
+  it(
+    "should preserve test context",
+    marbles(function(this: TestContext, m: any): void {
+      expect(this.myVariable).toBe(57);
+    })
+  );
 
-    it("should preserve test context", marbles(function(this: TestContext, m: any): void {
-        expect(this.myVariable).toBe(57);
-    }));
+  it(
+    "should support marble tests",
+    marbles(m => {
+      const values = {
+        a: 1,
+        b: 2,
+        c: 3,
+        d: 4
+      };
 
-    it("should support marble tests", marbles((m) => {
+      const source = m.hot("  --^-a-b-c-|", values);
+      const subs = "            ^-------!";
+      const expected = m.cold(" --b-c-d-|", values);
 
-        const values = {
-            a: 1,
-            b: 2,
-            c: 3,
-            d: 4
-        };
+      const destination = source.pipe(map(value => value + 1));
 
-        const source = m.hot("  --^-a-b-c-|", values);
-        const subs = "            ^-------!";
-        const expected = m.cold(" --b-c-d-|", values);
+      m.expect(destination).toBeObservable(expected);
+      m.expect(source).toHaveSubscriptions(subs);
+    })
+  );
 
-        const destination = source.pipe(map((value) => value + 1));
+  it(
+    "should support a done callback",
+    marbles<DoneFunction>((m, done) => {
+      const values = {
+        a: 1,
+        b: 2,
+        c: 3,
+        d: 4
+      };
 
-        m.expect(destination).toBeObservable(expected);
-        m.expect(source).toHaveSubscriptions(subs);
-    }));
+      const source = m.hot("--^-a-b-c-|", values);
+      const subs = "            ^-------!";
+      const expected = m.cold(" --b-c-d-|", values);
 
-    it("should support a done callback", marbles<DoneFunction>((m, done) => {
+      const destination = source.pipe(map(value => value + 1));
 
-        const values = {
-            a: 1,
-            b: 2,
-            c: 3,
-            d: 4
-        };
+      m.expect(destination).toBeObservable(expected);
+      m.expect(source).toHaveSubscriptions(subs);
+      m.flush();
 
-        const source = m.hot(  "--^-a-b-c-|", values);
-        const subs = "            ^-------!";
-        const expected = m.cold(" --b-c-d-|", values);
+      setTimeout(done, 0);
+    })
+  );
 
-        const destination = source.pipe(map((value) => value + 1));
+  cases(
+    "should support cases",
+    (m, c) => {
+      const values = {
+        a: 1,
+        b: 2,
+        c: 3,
+        d: 4
+      };
 
-        m.expect(destination).toBeObservable(expected);
-        m.expect(source).toHaveSubscriptions(subs);
-        m.flush();
+      const source = m.hot(c.s, values);
+      const expected = m.cold(c.e, values);
+      const destination = source.pipe(map(value => value + 1));
 
-        setTimeout(done, 0);
-    }));
+      m.expect(destination).toBeObservable(expected);
+    },
+    {
+      "non-empty": {
+        s: "-a-b-c-|",
+        e: "-b-c-d-|"
+      },
+      empty: {
+        s: "-|",
+        e: "-|"
+      }
+    }
+  );
 
-    cases("should support cases", (m, c) => {
+  it(
+    "should pass callbacks to marbles",
+    marbles(((m: any, callback: any) => {
+      expect(typeof callback).toEqual("function");
+      callback();
+    }) as any)
+  );
 
-        const values = {
-            a: 1,
-            b: 2,
-            c: 3,
-            d: 4
-        };
-
-        const source =  m.hot(c.s, values);
-        const expected = m.cold(c.e, values);
-        const destination = source.pipe(map((value) => value + 1));
-
-        m.expect(destination).toBeObservable(expected);
-    }, {
-        "non-empty": {
-            s: "-a-b-c-|",
-            e: "-b-c-d-|"
-        },
-        "empty": {
-            s: "-|",
-            e: "-|"
-        }
-    });
-
-    it("should pass callbacks to marbles", marbles(((m: any, callback: any) => {
-        expect(typeof callback).toEqual("function");
-        callback();
-    }) as any));
-
-    cases("should pass callbacks to cases", ((m: any, c: any, callback: any) => {
-        expect(typeof callback).toEqual("function");
-        callback();
-    }) as any, {
-        "unused": {}
-    });
+  cases(
+    "should pass callbacks to cases",
+    ((m: any, c: any, callback: any) => {
+      expect(typeof callback).toEqual("function");
+      callback();
+    }) as any,
+    {
+      unused: {}
+    }
+  );
 });
 
 describe("observe", () => {
-
-    it("should support observe", observe(() => of("pass").pipe(
-        tap(value => expect(value).toEqual("pass"))
-    )));
+  it(
+    "should support observe",
+    observe(() => of("pass").pipe(tap(value => expect(value).toEqual("pass"))))
+  );
 });
 
 describe("fakeSchedulers", () => {
+  beforeEach(() => {
+    jasmine.clock().install();
+    jasmine.clock().mockDate(new Date(0));
+  });
 
-    beforeEach(() => {
-        jasmine.clock().install();
-        jasmine.clock().mockDate(new Date(0));
-    });
+  it(
+    "should support a timer",
+    fakeSchedulers(() => {
+      let received: number | undefined;
+      timer(100).subscribe(value => (received = value));
+      jasmine.clock().tick(50);
+      expect(received).not.toBeDefined();
+      jasmine.clock().tick(50);
+      expect(received).toBe(0);
+    })
+  );
 
-    it("should support a timer", fakeSchedulers(() => {
-        let received: number | undefined;
-        timer(100).subscribe(value => received = value);
-        jasmine.clock().tick(50);
-        expect(received).not.toBeDefined();
-        jasmine.clock().tick(50);
-        expect(received).toBe(0);
-    }));
+  it(
+    "should support delay",
+    fakeSchedulers(() => {
+      let received: number | undefined;
+      of(1)
+        .pipe(delay(100))
+        .subscribe(value => (received = value));
+      jasmine.clock().tick(50);
+      expect(received).not.toBeDefined();
+      jasmine.clock().tick(50);
+      expect(received).toBe(1);
+    })
+  );
 
-    it("should support delay", fakeSchedulers(() => {
-        let received: number | undefined;
-        of(1).pipe(delay(100)).subscribe(value => received = value);
-        jasmine.clock().tick(50);
-        expect(received).not.toBeDefined();
-        jasmine.clock().tick(50);
-        expect(received).toBe(1);
-    }));
+  it(
+    "should support the asapScheduler",
+    fakeSchedulers(() => {
+      let received: number | undefined;
+      of(1)
+        .pipe(delay(0, asapScheduler))
+        .subscribe(value => (received = value));
+      expect(received).not.toBeDefined();
+      jasmine.clock().tick(0);
+      expect(received).toBe(1);
+    })
+  );
 
-    it("should support the asapScheduler", fakeSchedulers(() => {
-        let received: number | undefined;
-        of(1).pipe(delay(0, asapScheduler)).subscribe(value => received = value);
-        expect(received).not.toBeDefined();
-        jasmine.clock().tick(0);
-        expect(received).toBe(1);
-    }));
-
-    afterEach(() => {
-        jasmine.clock().uninstall();
-    });
+  afterEach(() => {
+    jasmine.clock().uninstall();
+  });
 });

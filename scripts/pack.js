@@ -8,9 +8,14 @@
 const fs = require("fs");
 
 const content = Object.assign(
-    {},
-    JSON.parse(fs.readFileSync("./package.json")),
-    JSON.parse(fs.readFileSync("./package-dist.json"))
+  {},
+  JSON.parse(fs.readFileSync("./package.json")),
+  JSON.parse(fs.readFileSync("./package-dist.json"))
 );
 fs.writeFileSync("./dist/package.json", JSON.stringify(content, null, 2));
-["ava", "jasmine", "jest", "mocha", "tape"].forEach((name) => fs.writeFileSync(`./dist/${name}/package.json`, fs.readFileSync(`./source/${name}/package.json`)));
+["ava", "jasmine", "jest", "mocha", "tape"].forEach(name =>
+  fs.writeFileSync(
+    `./dist/${name}/package.json`,
+    fs.readFileSync(`./source/${name}/package.json`)
+  )
+);

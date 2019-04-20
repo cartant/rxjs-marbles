@@ -20,37 +20,59 @@ declare const expect: Function;
 declare const test: any;
 
 export interface CasesFunction {
-    <T extends UnnamedCase>(name: string, func: (context: Context, _case: T) => void, cases: { [key: string]: T }): void;
-    <T extends NamedCase>(name: string, func: (context: Context, _case: T) => void, cases: T[]): void;
+  <T extends UnnamedCase>(
+    name: string,
+    func: (context: Context, _case: T) => void,
+    cases: { [key: string]: T }
+  ): void;
+  <T extends NamedCase>(
+    name: string,
+    func: (context: Context, _case: T) => void,
+    cases: T[]
+  ): void;
 }
 
-export function configure(configuration: Configuration): {
-    cases: CasesFunction,
-    marbles: MarblesFunction
+export function configure(
+  configuration: Configuration
+): {
+  cases: CasesFunction;
+  marbles: MarblesFunction;
 } {
-    const { marbles } = _configure({
-        ...configuration,
-        assertDeepEqual: (a, e) => expect(a).toEqual(e),
-        frameworkMatcher: true
+  const { marbles } = _configure({
+    ...configuration,
+    assertDeepEqual: (a, e) => expect(a).toEqual(e),
+    frameworkMatcher: true
+  });
+
+  function cases<T extends UnnamedCase>(
+    name: string,
+    func: (context: Context, _case: T) => void,
+    cases: { [key: string]: T }
+  ): void;
+  function cases<T extends NamedCase>(
+    name: string,
+    func: (context: Context, _case: T) => void,
+    cases: T[]
+  ): void;
+  function cases(name: string, func: any, cases: any): void {
+    describe(name, () => {
+      _cases(c => {
+        const t = c.only ? test.only : c.skip ? test.skip : test;
+        if (func.length > 2) {
+          t(
+            c.name,
+            marbles((m: any, second: any, ...rest: any[]) =>
+              func(m, c, second, ...rest)
+            )
+          );
+        } else {
+          t(c.name, marbles((m, ...rest: any[]) => func(m, c, ...rest)));
+        }
+      }, cases);
     });
+  }
 
-    function cases<T extends UnnamedCase>(name: string, func: (context: Context, _case: T) => void, cases: { [key: string]: T }): void;
-    function cases<T extends NamedCase>(name: string, func: (context: Context, _case: T) => void, cases: T[]): void;
-    function cases(name: string, func: any, cases: any): void {
-
-        describe(name, () => {
-            _cases((c) => {
-                const t = c.only ? test.only : c.skip ? test.skip : test;
-                if (func.length > 2) {
-                    t(c.name, marbles((m: any, second: any, ...rest: any[]) => func(m, c, second, ...rest)));
-                } else {
-                    t(c.name, marbles((m, ...rest: any[]) => func(m, c, ...rest)));
-                }
-            }, cases);
-        });
-    }
-
-    return { cases, marbles };
+  return { cases, marbles };
 }
 
 const { cases, marbles } = configure(defaults());

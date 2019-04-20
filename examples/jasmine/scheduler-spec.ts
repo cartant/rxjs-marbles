@@ -5,41 +5,46 @@ import { delay } from "rxjs/operators";
 const { marbles } = configure({ run: false });
 
 describe("scheduler", () => {
+  it(
+    "should expose the TestScheduler",
+    marbles(m => {
+      const source = m.hot(" --^-a-b-c-|");
+      const subs = "           ^-------!";
+      const expected = "       ----a-b-c-|";
 
-    it("should expose the TestScheduler", marbles(m => {
+      const destination = source.pipe(delay(m.time("--|"), m.scheduler));
+      m.expect(destination).toBeObservable(expected);
+      m.expect(source).toHaveSubscriptions(subs);
+    })
+  );
 
-        const source = m.hot(" --^-a-b-c-|");
-        const subs = "           ^-------!";
-        const expected = "       ----a-b-c-|";
+  it(
+    "should support binding specific schedulers",
+    marbles(m => {
+      m.bind(asyncScheduler);
 
-        const destination = source.pipe(delay(m.time("--|"), m.scheduler));
-        m.expect(destination).toBeObservable(expected);
-        m.expect(source).toHaveSubscriptions(subs);
-    }));
+      const source = m.hot(" --^-a-b-c-|");
+      const subs = "           ^-------!";
+      const expected = "       ----a-b-c-|";
 
-    it("should support binding specific schedulers", marbles(m => {
+      const destination = source.pipe(delay(m.time("--|"), asyncScheduler));
+      m.expect(destination).toBeObservable(expected);
+      m.expect(source).toHaveSubscriptions(subs);
+    })
+  );
 
-        m.bind(asyncScheduler);
+  it(
+    "should support binding all schedulers",
+    marbles(m => {
+      m.bind();
 
-        const source = m.hot(" --^-a-b-c-|");
-        const subs = "           ^-------!";
-        const expected = "       ----a-b-c-|";
+      const source = m.hot(" --^-a-b-c-|");
+      const subs = "           ^-------!";
+      const expected = "       ----a-b-c-|";
 
-        const destination = source.pipe(delay(m.time("--|"), asyncScheduler));
-        m.expect(destination).toBeObservable(expected);
-        m.expect(source).toHaveSubscriptions(subs);
-    }));
-
-    it("should support binding all schedulers", marbles(m => {
-
-        m.bind();
-
-        const source = m.hot(" --^-a-b-c-|");
-        const subs = "           ^-------!";
-        const expected = "       ----a-b-c-|";
-
-        const destination = source.pipe(delay(m.time("--|")));
-        m.expect(destination).toBeObservable(expected);
-        m.expect(source).toHaveSubscriptions(subs);
-    }));
+      const destination = source.pipe(delay(m.time("--|")));
+      m.expect(destination).toBeObservable(expected);
+      m.expect(source).toHaveSubscriptions(subs);
+    })
+  );
 });

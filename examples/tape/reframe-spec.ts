@@ -4,8 +4,9 @@ import * as test from "tape";
 
 const { marbles } = configure({ run: false });
 
-test("should support reframing", marbles((m, t) => {
-
+test(
+  "should support reframing",
+  marbles((m, t) => {
     t.plan(2);
     m.reframe(100, 10000);
 
@@ -14,5 +15,8 @@ test("should support reframing", marbles((m, t) => {
 
     const source = m.cold("   --(a|)");
     const expected = m.cold(" ----(a|)");
-    m.expect(source.pipe(delay(duration, m.scheduler))).toBeObservable(expected);
-}));
+    m.expect(source.pipe(delay(duration, m.scheduler))).toBeObservable(
+      expected
+    );
+  })
+);

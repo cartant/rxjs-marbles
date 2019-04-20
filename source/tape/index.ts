@@ -16,42 +16,61 @@ export * from "../expect";
 export * from "../fake";
 
 export interface CasesFunction {
-    <T extends UnnamedCase>(name: string, func: (context: Context, _case: T, t: tape.Test) => void, cases: { [key: string]: T }): void;
-    <T extends NamedCase>(name: string, func: (context: Context, _case: T, t: tape.Test) => void, cases: T[]): void;
+  <T extends UnnamedCase>(
+    name: string,
+    func: (context: Context, _case: T, t: tape.Test) => void,
+    cases: { [key: string]: T }
+  ): void;
+  <T extends NamedCase>(
+    name: string,
+    func: (context: Context, _case: T, t: tape.Test) => void,
+    cases: T[]
+  ): void;
 }
 
 export type MarblesFunction = (func: (m: Context, t: tape.Test) => any) => any;
 
-export function configure(configuration: Configuration): {
-    cases: CasesFunction,
-    marbles: MarblesFunction
+export function configure(
+  configuration: Configuration
+): {
+  cases: CasesFunction;
+  marbles: MarblesFunction;
 } {
-    const factory = (t: tape.Test) => ({
-        assert: t.ok.bind(t),
-        assertDeepEqual: t.deepEqual.bind(t)
-    });
-    const configured = _configure((t: tape.Test) => ({
-        ...configuration,
-        ...factory(t)
-    }));
-    const marbles: MarblesFunction = configured.marbles;
+  const factory = (t: tape.Test) => ({
+    assert: t.ok.bind(t),
+    assertDeepEqual: t.deepEqual.bind(t)
+  });
+  const configured = _configure((t: tape.Test) => ({
+    ...configuration,
+    ...factory(t)
+  }));
+  const marbles: MarblesFunction = configured.marbles;
 
-    function cases<T extends UnnamedCase>(name: string, func: (context: Context, _case: T, t: tape.Test) => void, cases: { [key: string]: T }): void;
-    function cases<T extends NamedCase>(name: string, func: (context: Context, _case: T, t: tape.Test) => void, cases: T[]): void;
-    function cases(name: string, func: any, cases: any): void {
+  function cases<T extends UnnamedCase>(
+    name: string,
+    func: (context: Context, _case: T, t: tape.Test) => void,
+    cases: { [key: string]: T }
+  ): void;
+  function cases<T extends NamedCase>(
+    name: string,
+    func: (context: Context, _case: T, t: tape.Test) => void,
+    cases: T[]
+  ): void;
+  function cases(name: string, func: any, cases: any): void {
+    _cases(c => {
+      const t = c.only ? tape.only : c.skip ? tape.skip : tape;
+      t(`${name} / ${c.name}`, marbles((m, t) => func(m, c, t)));
+    }, cases);
+  }
 
-        _cases((c) => {
-            const t = c.only ? tape.only : c.skip ? tape.skip : tape;
-            t(`${name} / ${c.name}`, marbles((m, t) => func(m, c, t)));
-        }, cases);
-    }
-
-    return { cases, marbles };
+  return { cases, marbles };
 }
 
 const { cases, marbles } = configure(defaults());
 export { cases, marbles };
 
-export function fakeSchedulers(fakeTest: (t: tape.Test) => any): (t: tape.Test) => any {
-    return _fakeSchedulers(fakeTest);
+export function fakeSchedulers(
+  fakeTest: (t: tape.Test) => any
+): (t: tape.Test) => any {
+  return _fakeSchedulers(fakeTest);
 }

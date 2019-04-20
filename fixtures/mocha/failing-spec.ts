@@ -9,33 +9,35 @@ import { map, tap } from "rxjs/operators";
 import { marbles, observe } from "../../dist/mocha";
 
 if (process.env.FAILING !== "0") {
+  describe("marbles", () => {
+    it(
+      "should fail",
+      marbles(m => {
+        const values = {
+          a: 1,
+          b: 2,
+          c: 3,
+          d: 4
+        };
 
-    describe("marbles", () => {
+        const source = m.hot("  --^-a-b-c-|", values);
+        const subs = "            ^-------!";
+        const expected = m.cold(" --a-a-a-|", values);
 
-        it("should fail", marbles((m) => {
+        const destination = source.pipe(map(value => value + 1));
 
-            const values = {
-                a: 1,
-                b: 2,
-                c: 3,
-                d: 4
-            };
+        m.expect(destination).toBeObservable(expected);
+        m.expect(source).toHaveSubscriptions(subs);
+      })
+    );
+  });
 
-            const source = m.hot("  --^-a-b-c-|", values);
-            const subs = "            ^-------!";
-            const expected = m.cold(" --a-a-a-|", values);
-
-            const destination = source.pipe(map((value) => value + 1));
-
-            m.expect(destination).toBeObservable(expected);
-            m.expect(source).toHaveSubscriptions(subs);
-        }));
-    });
-
-    describe("observe", () => {
-
-        it("should fail", observe(() => of("fail").pipe(
-            tap(value => expect(value).to.not.equal("fail"))
-        )));
-    });
+  describe("observe", () => {
+    it(
+      "should fail",
+      observe(() =>
+        of("fail").pipe(tap(value => expect(value).to.not.equal("fail")))
+      )
+    );
+  });
 }

@@ -6,10 +6,13 @@
 import { Observable } from "rxjs";
 
 export interface DoneFunction {
-    (): void;
-    fail: (error: any) => void;
+  (): void;
+  fail: (error: any) => void;
 }
 
-export function observe<T>(observableTest: () => Observable<T>): (done: DoneFunction) => void {
-    return (done: DoneFunction) => observableTest().subscribe(undefined, done.fail, done);
+export function observe<T>(
+  observableTest: () => Observable<T>
+): (done: DoneFunction) => void {
+  return (done: DoneFunction) =>
+    observableTest().subscribe(undefined, done.fail, done);
 }

@@ -7,15 +7,15 @@ import { Observable } from "rxjs";
 import { argsSymbol } from "./args";
 
 export function assertArgs<T>(observable: Observable<T>): void {
-
-    if (!observable[argsSymbol]) {
-        throw new Error("Expected a hot or cold test observable.");
-    }
+  if (!observable[argsSymbol]) {
+    throw new Error("Expected a hot or cold test observable.");
+  }
 }
 
 export function assertSubscriptions<T>(observable: Observable<T>): void {
-
-    if (!observable["subscriptions"]) {
-        throw new Error("Expected a hot or cold test observable with subscriptions.");
-    }
+  if (!observable["subscriptions"]) {
+    throw new Error(
+      "Expected a hot or cold test observable with subscriptions."
+    );
+  }
 }

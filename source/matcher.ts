@@ -19,35 +19,43 @@ import { deepEqual } from "fast-equals";
 
 function stringify(x: any): string {
   if (x === undefined) {
-    return 'undefined';
+    return "undefined";
   }
-  return JSON.stringify(x, function (key: any, value: any): any {
+  return JSON.stringify(x, function(key: any, value: any): any {
     if (Array.isArray(value)) {
-      return '[' + value
-        .map(function (i: any): any {
-          return '\n\t' + stringify(i);
-        }) + '\n]';
+      return (
+        "[" +
+        value.map(function(i: any): any {
+          return "\n\t" + stringify(i);
+        }) +
+        "\n]"
+      );
     }
     return value;
   })
-  .replace(/\\"/g, '"')
-  .replace(/\\t/g, '\t')
-  .replace(/\\n/g, '\n');
+    .replace(/\\"/g, '"')
+    .replace(/\\t/g, "\t")
+    .replace(/\\n/g, "\n");
 }
 
 function deleteErrorNotificationStack(marble: any): any {
   const { notification } = marble;
   if (notification) {
     const { kind, error } = notification;
-    if (kind === 'E' && error instanceof Error) {
+    if (kind === "E" && error instanceof Error) {
       notification.error = { name: error.name, message: error.message };
     }
   }
   return marble;
 }
 
-export function observableMatcher(actual: any, expected: any, assert: any, assertDeepEqual: any, frameworkMatcher: any): any {
-
+export function observableMatcher(
+  actual: any,
+  expected: any,
+  assert: any,
+  assertDeepEqual: any,
+  frameworkMatcher: any
+): any {
   if (Array.isArray(actual) && Array.isArray(expected)) {
     actual = actual.map(deleteErrorNotificationStack);
     expected = expected.map(deleteErrorNotificationStack);
@@ -61,11 +69,11 @@ export function observableMatcher(actual: any, expected: any, assert: any, asser
         return;
       }
 
-      let message = '\nExpected \n';
-      actual.forEach((x: any) => message += `\t${stringify(x)}\n`);
+      let message = "\nExpected \n";
+      actual.forEach((x: any) => (message += `\t${stringify(x)}\n`));
 
-      message += '\t\nto deep equal \n';
-      expected.forEach((x: any) => message += `\t${stringify(x)}\n`);
+      message += "\t\nto deep equal \n";
+      expected.forEach((x: any) => (message += `\t${stringify(x)}\n`));
 
       assert(passed, message);
     }

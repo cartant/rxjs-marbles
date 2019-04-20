@@ -8,29 +8,30 @@ import { map } from "rxjs/operators";
 import { marbles } from "../../dist/ava";
 
 if (process.env.FAILING !== "0") {
+  test(
+    "it should fail",
+    marbles((m, t) => {
+      t.plan(2);
 
-    test("it should fail", marbles((m, t) => {
+      const values = {
+        a: 1,
+        b: 2,
+        c: 3,
+        d: 4
+      };
 
-        t.plan(2);
+      const source = m.hot("  --^-a-b-c-|", values);
+      const subs = "            ^-------!";
+      const expected = m.cold(" --a-a-a-|", values);
 
-        const values = {
-            a: 1,
-            b: 2,
-            c: 3,
-            d: 4
-        };
+      const destination = source.pipe(map(value => value + 1));
 
-        const source = m.hot("  --^-a-b-c-|", values);
-        const subs = "            ^-------!";
-        const expected = m.cold(" --a-a-a-|", values);
-
-        const destination = source.pipe(map((value) => value + 1));
-
-        m.expect(destination).toBeObservable(expected);
-        m.expect(source).toHaveSubscriptions(subs);
-    }));
-
+      m.expect(destination).toBeObservable(expected);
+      m.expect(source).toHaveSubscriptions(subs);
+    })
+  );
 } else {
-
-    test("it should pass", (t) => { t.plan(0); });
+  test("it should pass", t => {
+    t.plan(0);
+  });
 }
