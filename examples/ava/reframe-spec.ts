@@ -12,7 +12,7 @@ test("should support reframing", marbles((m, t) => {
     const duration = m.time("--|");
     t.is(duration, 200);
 
-    const source =   m.cold("--(a|)");
-    const expected = m.cold("----(a|)");
+    const source = m.cold("   --(a|)");
+    const expected = m.cold(" ----(a|)");
     m.expect(source.pipe(delay(duration, m.scheduler))).toBeObservable(expected);
 }));
