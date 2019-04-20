@@ -1,3 +1,10 @@
+<a name="5.0.1"></a>
+## [5.0.1](https://github.com/cartant/rxjs-marbles/compare/v5.0.0...v5.0.1) (2019-04-01)
+
+### Non-breaking changes
+
+* Changed a parameter name from `unsubscription` to `subscription` better reflect that subscription can now be used, too. See [this RxJS PR](https://github.com/ReactiveX/rxjs/pull/3997). ([ac61708](https://github.com/cartant/rxjs-marbles/commit/ac61708))
+
 <a name="5.0.0"></a>
 ## [5.0.0](https://github.com/cartant/rxjs-marbles/compare/v4.3.5...v5.0.0) (2018-12-16)
 
