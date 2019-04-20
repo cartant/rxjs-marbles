@@ -31,17 +31,17 @@ export interface Context {
   ): void;
   equal<T = any>(
     actual: Observable<T>,
-    unsubscription: string,
+    subscription: string,
     expected: TestObservableLike<T>
   ): void;
   equal<T = any>(
     actual: Observable<T>,
-    unsubscription: string,
+    subscription: string,
     expected: string,
     values?: { [key: string]: T },
     error?: any
   ): void;
-  expect<T = any>(actual: Observable<T>, unsubscription?: string): Expect<T>;
+  expect<T = any>(actual: Observable<T>, subscription?: string): Expect<T>;
   flush(): void;
   has<T = any>(actual: Observable<T>, expected: string | string[]): void;
   hot<T = any>(

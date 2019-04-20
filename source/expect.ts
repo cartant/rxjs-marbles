@@ -12,7 +12,7 @@ export class Expect<T> {
   constructor(
     private actual: Observable<T>,
     private helpers: ExpectHelpers,
-    private unsubscription?: string
+    private subscription?: string
   ) {}
 
   toBeObservable(expected: TestObservableLike<T>): void;
@@ -26,17 +26,17 @@ export class Expect<T> {
     values?: { [key: string]: T },
     error?: any
   ): void {
-    const { actual, helpers, unsubscription } = this;
+    const { actual, helpers, subscription } = this;
 
     if (typeof expected === "string") {
       helpers
-        .expectObservable(actual, unsubscription)
+        .expectObservable(actual, subscription)
         .toBe(expected, values, error);
     } else {
       assertArgs(expected);
       const { error, marbles, values } = expected[argsSymbol];
       helpers
-        .expectObservable(actual, unsubscription)
+        .expectObservable(actual, subscription)
         .toBe(marbles, values, error);
     }
   }

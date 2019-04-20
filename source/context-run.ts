@@ -54,12 +54,12 @@ export class RunContext implements Context {
   ): void;
   equal<T = any>(
     actual: Observable<T>,
-    unsubscription: string,
+    subscription: string,
     expected: TestObservableLike<T>
   ): void;
   equal<T = any>(
     actual: Observable<T>,
-    unsubscription: string,
+    subscription: string,
     expected: string,
     values?: { [key: string]: T },
     error?: any
@@ -85,9 +85,9 @@ export class RunContext implements Context {
     }
   }
 
-  expect<T = any>(actual: Observable<T>, unsubscription?: string): Expect<T> {
+  expect<T = any>(actual: Observable<T>, subscription?: string): Expect<T> {
     const { helpers_ } = this;
-    return new Expect(actual as any, helpers_, unsubscription);
+    return new Expect(actual as any, helpers_, subscription);
   }
 
   flush(): void {

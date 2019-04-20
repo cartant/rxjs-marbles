@@ -110,12 +110,12 @@ export class DeprecatedContext implements Context {
   ): void;
   equal<T = any>(
     actual: Observable<T>,
-    unsubscription: string,
+    subscription: string,
     expected: TestObservableLike<T>
   ): void;
   equal<T = any>(
     actual: Observable<T>,
-    unsubscription: string,
+    subscription: string,
     expected: string,
     values?: { [key: string]: T },
     error?: any
@@ -141,9 +141,9 @@ export class DeprecatedContext implements Context {
     }
   }
 
-  expect<T = any>(actual: Observable<T>, unsubscription?: string): Expect<T> {
+  expect<T = any>(actual: Observable<T>, subscription?: string): Expect<T> {
     const { scheduler } = this;
-    return new Expect(actual as any, scheduler, unsubscription);
+    return new Expect(actual as any, scheduler, subscription);
   }
 
   flush(): void {
