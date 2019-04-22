@@ -410,6 +410,37 @@ describe("marbles", () => {
     );
 
     it(
+      "should support marble tests with higher-order observables",
+      marbles(m => {
+        const a = m.cold("a");
+        const b = m.cold("b");
+        const values = { a, b };
+        const source = m.cold("   --a--b");
+        const expected = m.cold(" --a--b", { a, b });
+
+        const destination = source.pipe(
+          map(value => values[value])
+        );
+        m.expect(destination).toBeObservable(expected);
+      })
+    );
+
+    it(
+      "should support marble tests with higher-order observable tuples",
+      marbles(m => {
+        const a = m.cold("a");
+        const b = m.cold("b");
+        const source = m.cold("   --x");
+        const expected = m.cold(" --x", { x: [a, b] });
+
+        const destination = source.pipe(
+          map(() => [a, b])
+        );
+        m.expect(destination).toBeObservable(expected);
+      })
+    );
+
+    it(
       "should support marble tests with errors",
       marbles(m => {
         const source = m.hot("  --^-a-b-c-#");
