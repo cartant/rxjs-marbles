@@ -1,3 +1,10 @@
+<a name="5.0.2"></a>
+## [5.0.2](https://github.com/cartant/rxjs-marbles/compare/v5.0.1...v5.0.2) (2019-04-23)
+
+### Fixes
+
+* Call `circularDeepEqual` instead of `deepEqual` so that higher-order observables are asserted correctly. ([cdb43eb](https://github.com/cartant/rxjs-marbles/commit/cdb43eb))
+
 <a name="5.0.1"></a>
 ## [5.0.1](https://github.com/cartant/rxjs-marbles/compare/v5.0.0...v5.0.1) (2019-04-01)
 
