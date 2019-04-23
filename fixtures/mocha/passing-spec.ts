@@ -14,6 +14,7 @@ import {
   fakeSchedulers,
   observe
 } from "../../dist/mocha";
+import { TestScheduler } from "rxjs/testing";
 
 describe("marbles", () => {
   describe("deprecated", () => {
@@ -409,33 +410,44 @@ describe("marbles", () => {
       })
     );
 
-    it(
+    it("should behave like the TestScheduler with higher-order observables", () => {
+      const testScheduler = new TestScheduler((actual, expected) => {
+        expect(actual).to.deep.equal(expected);
+      });
+      testScheduler.run(({ cold, expectObservable }) => {
+        const x = cold("(a|)");
+        const y = cold("(b|)");
+        const values = { x, y };
+        const source = cold(" --a--b");
+        const expected = "    --x--y";
+
+        const destination = source.pipe(map(value => of(value)));
+        expectObservable(destination).toBe(expected, values);
+      });
+    });
+
+    it.skip(
       "should support marble tests with higher-order observables",
       marbles(m => {
-        const a = m.cold("a");
-        const b = m.cold("b");
-        const values = { a, b };
+        const x = m.cold("(a|)");
+        const y = m.cold("(b|)");
         const source = m.cold("   --a--b");
-        const expected = m.cold(" --a--b", { a, b });
+        const expected = m.cold(" --x--y", { x, y });
 
-        const destination = source.pipe(
-          map(value => values[value])
-        );
+        const destination = source.pipe(map(of));
         m.expect(destination).toBeObservable(expected);
       })
     );
 
-    it(
+    it.skip(
       "should support marble tests with higher-order observable tuples",
       marbles(m => {
-        const a = m.cold("a");
-        const b = m.cold("b");
+        const a = m.cold("(a|)");
+        const b = m.cold("(b|)");
         const source = m.cold("   --x");
         const expected = m.cold(" --x", { x: [a, b] });
 
-        const destination = source.pipe(
-          map(() => [a, b])
-        );
+        const destination = source.pipe(map(() => [of("a"), of("b")]));
         m.expect(destination).toBeObservable(expected);
       })
     );
