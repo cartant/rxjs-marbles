@@ -21,7 +21,7 @@ function stringify(x: any): string {
   if (x === undefined) {
     return "undefined";
   }
-  return JSON.stringify(x, function(key: any, value: any): any {
+  return JSON.stringify(x, function(key: string, value: any): any {
     if (Array.isArray(value)) {
       return (
         "[" +
