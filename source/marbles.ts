@@ -43,10 +43,10 @@ export function configure(
     const wrapper = function(this: any, ...rest: any[]): any {
       const configuration = deriveConfiguration(...rest);
       if (configuration.run) {
-        const scheduler = new TestScheduler((a, b) =>
+        const scheduler = new TestScheduler((actual, expected) =>
           observableMatcher(
-            a,
-            b,
+            actual,
+            expected,
             configuration.assert,
             configuration.assertDeepEqual,
             configuration.frameworkMatcher

@@ -38,10 +38,10 @@ export class DeprecatedContext implements Context {
 
   get scheduler(): TestScheduler {
     if (!this.scheduler_) {
-      this.scheduler_ = new TestScheduler((a, b) =>
+      this.scheduler_ = new TestScheduler((actual, expected) =>
         observableMatcher(
-          a,
-          b,
+          actual,
+          expected,
           this.configuration_.assert,
           this.configuration_.assertDeepEqual,
           this.configuration_.frameworkMatcher
