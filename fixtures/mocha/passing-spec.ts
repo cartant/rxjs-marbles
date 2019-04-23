@@ -426,7 +426,7 @@ describe("marbles", () => {
       });
     });
 
-    it.skip(
+    it(
       "should support marble tests with higher-order observables",
       marbles(m => {
         const x = m.cold("(a|)");
@@ -434,7 +434,7 @@ describe("marbles", () => {
         const source = m.cold("   --a--b");
         const expected = m.cold(" --x--y", { x, y });
 
-        const destination = source.pipe(map(of));
+        const destination = source.pipe(map(value => of(value)));
         m.expect(destination).toBeObservable(expected);
       })
     );

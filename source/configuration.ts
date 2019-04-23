@@ -3,7 +3,7 @@
  * can be found in the LICENSE file at https://github.com/cartant/rxjs-marbles
  */
 
-import { deepEqual } from "fast-equals";
+import { circularDeepEqual } from "fast-equals";
 
 export interface Configuration {
   assert?: (value: any, message: string) => void;
@@ -31,7 +31,7 @@ function defaultAssert(value: any, message: string): void {
 }
 
 function defaultAssertDeepEqual(a: any, b: any): void {
-  if (deepEqual(a, b)) {
+  if (circularDeepEqual(a, b)) {
     return;
   }
   throw new Error(`Expected ${toString(a)} to equal ${toString(b)}.`);

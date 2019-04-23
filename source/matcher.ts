@@ -15,7 +15,7 @@
  */
 /*tslint:disable indent prefer-template quotemark*/
 
-import { deepEqual } from "fast-equals";
+import { circularDeepEqual } from "fast-equals";
 
 function stringify(x: any): string {
   if (x === undefined) {
@@ -63,7 +63,7 @@ export function observableMatcher(
     if (frameworkMatcher) {
       assertDeepEqual(actual, expected);
     } else {
-      const passed = deepEqual(actual, expected);
+      const passed = circularDeepEqual(actual, expected);
       if (passed) {
         assert(true, "");
         return;
