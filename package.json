@@ -46,6 +46,11 @@
   },
   "es2015": "./dist/esm2015/index.js",
   "homepage": "https://github.com/cartant/rxjs-marbles",
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
   "jest": {
     "testRegex": "(fixtures/jest/.*-spec)\\.jsx?$",
     "testURL": "http://localhost/",
