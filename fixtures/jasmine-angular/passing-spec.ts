@@ -14,7 +14,7 @@ import "zone.js/dist/fake-async-test";
 
 import { tick } from "@angular/core/testing";
 import { asapScheduler, of, timer } from "rxjs";
-import { delay, map, tap } from "rxjs/operators";
+import { delay } from "rxjs/operators";
 import { fakeSchedulers } from "../../dist/jasmine/angular";
 
 describe("fakeSchedulers", () => {
@@ -57,13 +57,11 @@ describe("fakeSchedulers", () => {
     })
   );
 
-  it("should not corrupt rxjs scheduler", () => {
+  it("should not corrupt schedulers", done => {
     fakeSchedulers(() => {})();
 
-    expect(() =>
-      of(undefined)
-        .pipe(delay(100))
-        .subscribe()
-    ).not.toThrowError();
+    of(undefined)
+      .pipe(delay(10))
+      .subscribe(done, done.fail);
   });
 });

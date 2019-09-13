@@ -12,12 +12,11 @@ export function fakeSchedulers(
 ): () => any {
   let fakeTime = 0;
   return _fakeSchedulers(
-    () => {
-      return fakeTest(milliseconds => {
+    () =>
+      fakeTest(milliseconds => {
         fakeTime += milliseconds;
         jest.advanceTimersByTime(milliseconds);
-      });
-    },
+      }),
     () => fakeTime
   );
 }
