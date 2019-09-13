@@ -56,4 +56,14 @@ describe("fakeSchedulers", () => {
       expect(received).toBe(1);
     })
   );
+
+  it("should not corrupt rxjs scheduler", () => {
+    fakeSchedulers(() => {})();
+
+    expect(() =>
+      of(undefined)
+        .pipe(delay(100))
+        .subscribe()
+    ).not.toThrowError();
+  });
 });
