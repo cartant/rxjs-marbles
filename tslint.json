@@ -13,6 +13,7 @@
       ],
       "severity": "error"
     },
-    "rxjs-no-ignored-subscription": { "severity": "off" }
+    "rxjs-no-ignored-subscription": { "severity": "off" },
+    "rxjs-no-unsafe-scope": { "severity": "off" }
   }
 }
