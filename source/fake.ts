@@ -5,21 +5,29 @@
 
 import { asapScheduler, asyncScheduler } from "rxjs";
 
-export function fakeSchedulers(fakeTest: () => any): () => any;
-export function fakeSchedulers<T>(fakeTest: (t: T) => any): (t: T) => any;
 export function fakeSchedulers(
-  fakeTest: (...args: any[]) => any
+  fakeTest: () => any,
+  nowImpl?: () => number
+): () => any;
+export function fakeSchedulers<T>(
+  fakeTest: (t: T) => any,
+  nowImpl?: () => number
+): (t: T) => any;
+export function fakeSchedulers(
+  fakeTest: (...args: any[]) => any,
+  nowImpl?: () => number
 ): (...args: any[]) => any {
   return (...args: any[]) => {
+    const origSchedule = asapScheduler.schedule;
+    const origNow = asyncScheduler.now;
     try {
-      asapScheduler.schedule = asyncScheduler.schedule.bind(
-        asyncScheduler
-      ) as any;
-      asyncScheduler.now = () => Date.now();
+      asapScheduler.schedule = asyncScheduler.schedule.bind(asyncScheduler);
+      asyncScheduler.now = nowImpl || (() => Date.now());
+
       return fakeTest(...args);
     } finally {
-      delete asapScheduler.schedule;
-      delete asyncScheduler.now;
+      asapScheduler.schedule = origSchedule;
+      asyncScheduler.now = origNow;
     }
   };
 }

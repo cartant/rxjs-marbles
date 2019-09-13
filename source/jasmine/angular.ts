@@ -4,14 +4,13 @@
  */
 
 import { fakeAsync, tick } from "@angular/core/testing";
-import { asyncScheduler } from "rxjs";
+import { fakeSchedulers as _fakeSchedulers } from "../fake";
 
 export function fakeSchedulers(
   fakeTest: (tick: (milliseconds: number) => void) => any
 ): () => any {
-  return fakeAsync(() => {
-    try {
-      asyncScheduler.now = () => Date.now();
+  return fakeAsync(
+    _fakeSchedulers(() => {
       return fakeTest(milliseconds => {
         /*tslint:disable-next-line:no-console*/
         console.log(
@@ -19,8 +18,6 @@ export function fakeSchedulers(
         );
         tick(milliseconds);
       });
-    } finally {
-      delete asyncScheduler.now;
-    }
-  });
+    })
+  );
 }
