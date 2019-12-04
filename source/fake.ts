@@ -28,6 +28,9 @@ export function fakeSchedulers(
     const origSchedule = asapScheduler.schedule;
     const origNow = asyncScheduler.now;
     try {
+      // This should no longer be necessary. RxJS used to capture Date.now
+      // before patching had taken place. However, that was changed/fixed in
+      // this PR: https://github.com/ReactiveX/rxjs/pull/3851
       asapScheduler.schedule = asyncScheduler.schedule.bind(asyncScheduler);
       asyncScheduler.now = now || (() => Date.now());
       return fakeTest(...args);
