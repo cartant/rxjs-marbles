@@ -33,7 +33,7 @@ npm install rxjs-marbles --save-dev
 
 ## Getting started
 
-If you're just getting started with marble testing, you might be interested in how I wasted some of my time by not carefully reading the manual: [RxJS Marble Testing: RTFM](https://medium.com/@cartant/rxjs-marble-testing-rtfm-a9a6cd3db758).
+If you're just getting started with marble testing, you might be interested in how I wasted some of my time by not carefully reading the manual: [RxJS Marble Testing: RTFM](https://ncjamieson.com/marble-testing-rtfm/).
 
 ## Usage
 
@@ -252,4 +252,4 @@ In some situations, testing asynchronous observables with marble tests can be aw
 
 See the [examples](./examples) for usage.
 
-Also, I've written an article on the `fakeSchedulers` function: [RxJS: Testing with Fake Time](https://medium.com/@cartant/rxjs-testing-with-fake-time-94114271eed2).
+Also, I've written an article on the `fakeSchedulers` function: [RxJS: Testing with Fake Time](https://ncjamieson.com/testing-with-fake-time/).
