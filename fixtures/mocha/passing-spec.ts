@@ -4,9 +4,9 @@
  */
 /*tslint:disable:no-unused-expression object-literal-sort-keys*/
 
-import { expect } from "chai";
+import { assert, expect } from "chai";
 import { asapScheduler, of, timer } from "rxjs";
-import { delay, map, tap } from "rxjs/operators";
+import { delay, finalize, map, tap } from "rxjs/operators";
 import * as sinon from "sinon";
 import {
   configure,
@@ -646,6 +646,18 @@ describe("observe", () => {
   it(
     "should support observe",
     observe(() => of("pass").pipe(tap(value => expect(value).to.equal("pass"))))
+  );
+
+  it(
+    "should handle assertions in finalize operator",
+    observe(() => {
+      let haveBeenCalled = false;
+      const mock = () => (haveBeenCalled = true);
+      return of("pass").pipe(
+        tap(() => mock()),
+        finalize(() => assert.isOk(haveBeenCalled))
+      );
+    })
   );
 });
 

@@ -4,7 +4,7 @@
  */
 
 import { of } from "rxjs";
-import { map, tap } from "rxjs/operators";
+import { finalize, map, tap } from "rxjs/operators";
 import { marbles, observe } from "../../dist/jasmine";
 
 if (process.env.FAILING !== "0") {
@@ -37,6 +37,17 @@ if (process.env.FAILING !== "0") {
       observe(() =>
         of("fail").pipe(tap(value => expect(value).not.toEqual("fail")))
       )
+    );
+
+    it(
+      "should fail on assertions in finalize operator",
+      observe(() => {
+        const mock = jasmine.createSpy();
+        return of("fail").pipe(
+          tap(() => mock()),
+          finalize(() => expect(mock).not.toHaveBeenCalled())
+        );
+      })
     );
   });
 }
