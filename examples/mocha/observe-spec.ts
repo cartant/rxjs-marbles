@@ -1,7 +1,7 @@
-import { expect } from "chai";
+import { assert, expect } from "chai";
 import { observe } from "rxjs-marbles/mocha";
 import { of } from "rxjs";
-import { map, tap } from "rxjs/operators";
+import { finalize, map, tap } from "rxjs/operators";
 
 describe("observe", () => {
   it(
@@ -10,6 +10,18 @@ describe("observe", () => {
       return of(1).pipe(
         map(value => value.toString()),
         tap(value => expect(value).to.be.a("string"))
+      );
+    })
+  );
+
+  it(
+    "should handle assertions in finalize operator",
+    observe(() => {
+      let haveBeenCalled = false;
+      const mock = () => (haveBeenCalled = true);
+      return of(1).pipe(
+        tap(() => mock()),
+        finalize(() => assert.isOk(haveBeenCalled))
       );
     })
   );

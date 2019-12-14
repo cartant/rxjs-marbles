@@ -3,9 +3,9 @@
  * can be found in the LICENSE file at https://github.com/cartant/rxjs-marbles
  */
 
-import { expect } from "chai";
+import { assert, expect } from "chai";
 import { of } from "rxjs";
-import { map, tap } from "rxjs/operators";
+import { finalize, map, tap } from "rxjs/operators";
 import { marbles, observe } from "../../dist/mocha";
 
 if (process.env.FAILING !== "0") {
@@ -38,6 +38,18 @@ if (process.env.FAILING !== "0") {
       observe(() =>
         of("fail").pipe(tap(value => expect(value).to.not.equal("fail")))
       )
+    );
+
+    it(
+      "should fail on assertions in finalize operator",
+      observe(() => {
+        let haveBeenCalled = false;
+        const mock = () => (haveBeenCalled = true);
+        return of("fail").pipe(
+          tap(() => mock()),
+          finalize(() => assert.isNotOk(haveBeenCalled))
+        );
+      })
     );
   });
 }

@@ -5,7 +5,7 @@
 /*tslint:disable:object-literal-sort-keys*/
 
 import { asapScheduler, of, timer } from "rxjs";
-import { delay, map, tap } from "rxjs/operators";
+import { delay, finalize, map, tap } from "rxjs/operators";
 import {
   cases,
   DoneFunction,
@@ -127,6 +127,17 @@ describe("observe", () => {
   it(
     "should support observe",
     observe(() => of("pass").pipe(tap(value => expect(value).toEqual("pass"))))
+  );
+
+  it(
+    "should handle assertions in finalize operator",
+    observe(() => {
+      const mock = jasmine.createSpy();
+      return of("pass").pipe(
+        tap(() => mock()),
+        finalize(() => expect(mock).toHaveBeenCalled())
+      );
+    })
   );
 });
 

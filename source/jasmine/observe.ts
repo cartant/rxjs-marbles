@@ -4,6 +4,7 @@
  */
 
 import { Observable } from "rxjs";
+import { VerboseSubscriber } from "../verbose-subscriber";
 
 export interface DoneFunction {
   (): void;
@@ -13,6 +14,8 @@ export interface DoneFunction {
 export function observe<T>(
   observableTest: () => Observable<T>
 ): (done: DoneFunction) => void {
-  return (done: DoneFunction) =>
-    observableTest().subscribe(undefined, done.fail, done);
+  return (done: DoneFunction) => {
+    const subscriber = new VerboseSubscriber(done.fail, done);
+    observableTest().subscribe(subscriber);
+  };
 }
