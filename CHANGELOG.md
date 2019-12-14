@@ -1,3 +1,17 @@
+<a name="5.0.4"></a>
+## [5.0.4](https://github.com/cartant/rxjs-marbles/compare/v5.0.3...v5.0.4) (2019-12-14)
+
+### Fixes
+
+* The `observe` helper now reports assertions that fail within `finalize` operators. ([66e4093](https://github.com/cartant/rxjs-marbles/commit/66e4093))
+
+<a name="5.0.3"></a>
+## [5.0.3](https://github.com/cartant/rxjs-marbles/compare/v5.0.2...v5.1.3) (2019-09-14)
+
+### Fixes
+
+* Fix the incorrect patching within `fakeSchedulers`. ([e1d9c83](https://github.com/cartant/rxjs-marbles/commit/e1d9c83))
+
 <a name="5.0.2"></a>
 ## [5.0.2](https://github.com/cartant/rxjs-marbles/compare/v5.0.1...v5.0.2) (2019-04-23)
 
