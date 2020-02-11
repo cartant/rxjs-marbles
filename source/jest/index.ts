@@ -40,7 +40,7 @@ export function configure(
 } {
   const { marbles } = _configure({
     ...configuration,
-    assertDeepEqual: (a, e) => expect(a).toEqual(e),
+    assertDeepEqual: (a, e) => expect(a).toStrictEqual(e),
     frameworkMatcher: true
   });
 
@@ -66,7 +66,10 @@ export function configure(
             )
           );
         } else {
-          t(c.name, marbles((m, ...rest: any[]) => func(m, c, ...rest)));
+          t(
+            c.name,
+            marbles((m, ...rest: any[]) => func(m, c, ...rest))
+          );
         }
       }, cases);
     });
