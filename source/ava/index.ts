@@ -4,7 +4,7 @@
  */
 
 import test, { ExecutionContext } from "ava";
-import { _cases, NamedCase, UnnamedCase } from "../cases";
+import { NamedCase, UnnamedCase, _cases } from "../cases";
 import { Configuration, defaults } from "../configuration";
 import { Context } from "../context";
 import { fakeSchedulers as _fakeSchedulers } from "../fake";
@@ -61,7 +61,10 @@ export function configure(
   function cases(name: string, func: any, cases: any): void {
     _cases(c => {
       const t = c.only ? test.only : c.skip ? test.skip : test;
-      t(`${name} / ${c.name}`, marbles((m, t) => func(m, c, t)));
+      t(
+        `${name} / ${c.name}`,
+        marbles((m, t) => func(m, c, t))
+      );
     }, cases);
   }
 

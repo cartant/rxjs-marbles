@@ -3,7 +3,7 @@
  * can be found in the LICENSE file at https://github.com/cartant/rxjs-marbles
  */
 
-import { _cases, NamedCase, UnnamedCase } from "../cases";
+import { NamedCase, UnnamedCase, _cases } from "../cases";
 import { Configuration, defaults } from "../configuration";
 import { Context } from "../context";
 import { configure as _configure, MarblesFunction } from "../marbles";
