@@ -1,3 +1,10 @@
+<a name="5.0.5"></a>
+## [5.0.5](https://github.com/cartant/rxjs-marbles/compare/v5.0.4...v5.0.5) (2020-03-20)
+
+### Changes
+
+* Fix links to RxJS documentation in `README.md`. ([469b780](https://github.com/cartant/rxjs-marbles/commit/469b780))
+
 <a name="5.0.4"></a>
 ## [5.0.4](https://github.com/cartant/rxjs-marbles/compare/v5.0.3...v5.0.4) (2019-12-14)
 
