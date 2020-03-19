@@ -11,7 +11,7 @@
 
 ### What is it?
 
-`rxjs-marbles` is an RxJS [marble testing](https://github.com/ReactiveX/rxjs/blob/master/doc/marble-testing.md) library that should be compatible with any test framework. It wraps the RxJS [`TestScheduler`](https://github.com/ReactiveX/rxjs/blob/5.4.2/src/testing/TestScheduler.ts) and provides methods similar to the [helper methods](https://github.com/ReactiveX/rxjs/blob/master/doc/marble-testing.md#api) used the `TestScheduler` API.
+`rxjs-marbles` is an RxJS [marble testing](https://github.com/ReactiveX/rxjs/blob/6.5.4/docs_app/content/guide/testing/marble-testing.md) library that should be compatible with any test framework. It wraps the RxJS [`TestScheduler`](https://github.com/ReactiveX/rxjs/blob/6.5.4/src/internal/testing/TestScheduler.ts) and provides methods similar to the [helper methods](https://github.com/ReactiveX/rxjs/blob/6.5.4/docs_app/content/guide/testing/marble-testing.md#api) used the `TestScheduler` API.
 
 It can be used with [AVA](https://github.com/avajs/ava), [Jasmine](https://github.com/jasmine/jasmine), [Jest](https://facebook.github.io/jest/), [Mocha](https://github.com/mochajs/mocha) or [Tape](https://github.com/substack/tape) in the browser or in Node and it supports CommonJS and ES module bundlers.
 
@@ -34,6 +34,8 @@ npm install rxjs-marbles --save-dev
 ## Getting started
 
 If you're just getting started with marble testing, you might be interested in how I wasted some of my time by not carefully reading the manual: [RxJS Marble Testing: RTFM](https://ncjamieson.com/marble-testing-rtfm/).
+
+In particular, you should read the RxJS documentation on [marble syntax](https://github.com/ReactiveX/rxjs/blob/6.5.4/docs_app/content/guide/testing/marble-testing.md#marble-syntax) and [synchronous assertion](https://github.com/ReactiveX/rxjs/blob/6.5.4/docs_app/content/guide/testing/marble-testing.md#synchronous-assertion).
 
 ## Usage
 
@@ -203,7 +205,7 @@ function marbles(test: (context: Context) => any): () => any;
 function marbles<T>(test: (context: Context, t: T) => any): (t: T) => any;
 ```
 
-`marbles` is passed the test function, which it wraps, passing the wrapper to the test framework. When the test function is called, it is passed the `Context` - which contains methods that correspond to the `TestScheduler` [helper methods](https://github.com/ReactiveX/rxjs/blob/master/doc/marble-testing.md#api):
+`marbles` is passed the test function, which it wraps, passing the wrapper to the test framework. When the test function is called, it is passed the `Context` - which contains methods that correspond to the `TestScheduler` [helper methods](https://github.com/ReactiveX/rxjs/blob/6.5.4/docs_app/content/guide/testing/marble-testing.md#api):
 
 ```ts
 interface Context {
