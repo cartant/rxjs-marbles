@@ -29,23 +29,6 @@ if (process.env.FAILING !== "0") {
         m.expect(source).toHaveSubscriptions(subs);
       })
     );
-
-    test(
-      "it should fail the strict comparison check when excess properties are present",
-      marbles(m => {
-        interface Person {
-          name: string;
-          age?: number;
-        }
-
-        const source = m.cold<Person>("a-", {
-          a: { name: "Bob", age: undefined }
-        });
-        const expected = m.cold<Person>("a-", { a: { name: "Bob" } });
-
-        m.expect(source).toBeObservable(expected);
-      })
-    );
   });
 
   describe("observe", () => {
