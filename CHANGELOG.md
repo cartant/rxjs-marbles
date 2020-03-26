@@ -1,9 +1,18 @@
+<a name="5.0.6"></a>
+## [5.0.6](https://github.com/cartant/rxjs-marbles/compare/v5.0.5...v5.0.6) (2020-03-26)
+
+### Fixes
+
+* Revert defaulting Jest to `toStrictEqual` ([c12ce82](https://github.com/cartant/rxjs-marbles/commit/c12ce82)), as it was a breaking change.
+* Allow caller-specified configurations to override default and framework-specific configurations. ([e4f5930](https://github.com/cartant/rxjs-marbles/commit/e4f5930))
+
 <a name="5.0.5"></a>
 ## [5.0.5](https://github.com/cartant/rxjs-marbles/compare/v5.0.4...v5.0.5) (2020-03-20)
 
 ### Changes
 
 * Fix links to RxJS documentation in `README.md`. ([469b780](https://github.com/cartant/rxjs-marbles/commit/469b780))
+* Use strict equality - `toStrictEqual` - by default for Jest. ([c12ce82](https://github.com/cartant/rxjs-marbles/commit/c12ce82))
 
 <a name="5.0.4"></a>
 ## [5.0.4](https://github.com/cartant/rxjs-marbles/compare/v5.0.3...v5.0.4) (2019-12-14)
