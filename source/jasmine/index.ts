@@ -43,7 +43,7 @@ export function configure(
 } {
   const { assert: defaultAssert } = defaults();
   const { marbles } = _configure({
-    ...configuration,
+    ...defaults(),
     assert: (a, m) => {
       // It seems that withContext was introduced in Jasmine 3.3.0 and,
       // prior to that, user-defined messages for failures weren't
@@ -57,7 +57,8 @@ export function configure(
         defaultAssert!(a, m);
       }
     },
-    assertDeepEqual: (a, e) => expect(a).toEqual(e)
+    assertDeepEqual: (a, e) => expect(a).toEqual(e),
+    ...configuration
   });
 
   function cases<T extends UnnamedCase>(
@@ -94,7 +95,7 @@ export function configure(
   return { cases, marbles };
 }
 
-const { cases, marbles } = configure(defaults());
+const { cases, marbles } = configure({});
 export { cases, marbles };
 
 export function fakeSchedulers(fakeTest: () => any): () => any {

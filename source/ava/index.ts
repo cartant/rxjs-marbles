@@ -43,8 +43,9 @@ export function configure(
     assertDeepEqual: t.deepEqual.bind(t)
   });
   const configured = _configure((t: ExecutionContext) => ({
-    ...configuration,
-    ...factory(t)
+    ...defaults(),
+    ...factory(t),
+    ...configuration
   }));
   const marbles: MarblesFunction = configured.marbles;
 
@@ -71,7 +72,7 @@ export function configure(
   return { cases, marbles };
 }
 
-const { cases, marbles } = configure(defaults());
+const { cases, marbles } = configure({});
 export { cases, marbles };
 
 export function fakeSchedulers(

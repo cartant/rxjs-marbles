@@ -39,9 +39,10 @@ export function configure(
   marbles: MarblesFunction;
 } {
   const { marbles } = _configure({
-    ...configuration,
+    ...defaults(),
     assertDeepEqual: (a, e) => expect(a).toEqual(e),
-    frameworkMatcher: true
+    frameworkMatcher: true,
+    ...configuration
   });
 
   function cases<T extends UnnamedCase>(
@@ -66,7 +67,10 @@ export function configure(
             )
           );
         } else {
-          t(c.name, marbles((m, ...rest: any[]) => func(m, c, ...rest)));
+          t(
+            c.name,
+            marbles((m, ...rest: any[]) => func(m, c, ...rest))
+          );
         }
       }, cases);
     });
@@ -75,5 +79,5 @@ export function configure(
   return { cases, marbles };
 }
 
-const { cases, marbles } = configure(defaults());
+const { cases, marbles } = configure({});
 export { cases, marbles };
