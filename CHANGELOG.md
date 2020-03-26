@@ -1,3 +1,10 @@
+<a name="6.0.0"></a>
+## [6.0.0](https://github.com/cartant/rxjs-marbles/compare/v5.0.6...v6.0.0) (2020-03-26)
+
+### Breaking changes
+
+* Use strict equality - `toStrictEqual` - by default for Jest. ([c12ce82](https://github.com/cartant/rxjs-marbles/commit/c12ce82))
+
 <a name="5.0.6"></a>
 ## [5.0.6](https://github.com/cartant/rxjs-marbles/compare/v5.0.5...v5.0.6) (2020-03-26)
 
