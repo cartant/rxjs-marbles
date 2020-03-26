@@ -40,7 +40,7 @@ export function configure(
 } {
   const { marbles } = _configure({
     ...defaults(),
-    assertDeepEqual: (a, e) => expect(a).toEqual(e),
+    assertDeepEqual: (a, e) => expect(a).toStrictEqual(e),
     frameworkMatcher: true,
     ...configuration
   });
