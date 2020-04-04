@@ -11,7 +11,7 @@ import {
   DoneFunction,
   fakeSchedulers,
   marbles,
-  observe
+  observe,
 } from "../../dist/jasmine";
 
 interface TestContext {
@@ -19,32 +19,32 @@ interface TestContext {
 }
 
 describe("marbles", () => {
-  beforeEach(function(this: TestContext): void {
+  beforeEach(function (this: TestContext): void {
     this.myVariable = 57;
   });
 
   it(
     "should preserve test context",
-    marbles(function(this: TestContext, m: any): void {
+    marbles(function (this: TestContext, m: any): void {
       expect(this.myVariable).toBe(57);
     })
   );
 
   it(
     "should support marble tests",
-    marbles(m => {
+    marbles((m) => {
       const values = {
         a: 1,
         b: 2,
         c: 3,
-        d: 4
+        d: 4,
       };
 
       const source = m.hot("  --^-a-b-c-|", values);
       const subs = "            ^-------!";
       const expected = m.cold(" --b-c-d-|", values);
 
-      const destination = source.pipe(map(value => value + 1));
+      const destination = source.pipe(map((value) => value + 1));
 
       m.expect(destination).toBeObservable(expected);
       m.expect(source).toHaveSubscriptions(subs);
@@ -58,14 +58,14 @@ describe("marbles", () => {
         a: 1,
         b: 2,
         c: 3,
-        d: 4
+        d: 4,
       };
 
       const source = m.hot("--^-a-b-c-|", values);
       const subs = "            ^-------!";
       const expected = m.cold(" --b-c-d-|", values);
 
-      const destination = source.pipe(map(value => value + 1));
+      const destination = source.pipe(map((value) => value + 1));
 
       m.expect(destination).toBeObservable(expected);
       m.expect(source).toHaveSubscriptions(subs);
@@ -82,24 +82,24 @@ describe("marbles", () => {
         a: 1,
         b: 2,
         c: 3,
-        d: 4
+        d: 4,
       };
 
       const source = m.hot(c.s, values);
       const expected = m.cold(c.e, values);
-      const destination = source.pipe(map(value => value + 1));
+      const destination = source.pipe(map((value) => value + 1));
 
       m.expect(destination).toBeObservable(expected);
     },
     {
       "non-empty": {
         s: "-a-b-c-|",
-        e: "-b-c-d-|"
+        e: "-b-c-d-|",
       },
       empty: {
         s: "-|",
-        e: "-|"
-      }
+        e: "-|",
+      },
     }
   );
 
@@ -118,7 +118,7 @@ describe("marbles", () => {
       callback();
     }) as any,
     {
-      unused: {}
+      unused: {},
     }
   );
 });
@@ -126,7 +126,9 @@ describe("marbles", () => {
 describe("observe", () => {
   it(
     "should support observe",
-    observe(() => of("pass").pipe(tap(value => expect(value).toEqual("pass"))))
+    observe(() =>
+      of("pass").pipe(tap((value) => expect(value).toEqual("pass")))
+    )
   );
 
   it(
@@ -151,7 +153,7 @@ describe("fakeSchedulers", () => {
     "should support a timer",
     fakeSchedulers(() => {
       let received: number | undefined;
-      timer(100).subscribe(value => (received = value));
+      timer(100).subscribe((value) => (received = value));
       jasmine.clock().tick(50);
       expect(received).not.toBeDefined();
       jasmine.clock().tick(50);
@@ -165,7 +167,7 @@ describe("fakeSchedulers", () => {
       let received: number | undefined;
       of(1)
         .pipe(delay(100))
-        .subscribe(value => (received = value));
+        .subscribe((value) => (received = value));
       jasmine.clock().tick(50);
       expect(received).not.toBeDefined();
       jasmine.clock().tick(50);
@@ -179,7 +181,7 @@ describe("fakeSchedulers", () => {
       let received: number | undefined;
       of(1)
         .pipe(delay(0, asapScheduler))
-        .subscribe(value => (received = value));
+        .subscribe((value) => (received = value));
       expect(received).not.toBeDefined();
       jasmine.clock().tick(0);
       expect(received).toBe(1);

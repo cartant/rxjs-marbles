@@ -15,7 +15,7 @@ describe("issues", () => {
     describe("issue-22", () => {
       it(
         "should fail with a useful error message",
-        marbles(m => {
+        marbles((m) => {
           expect(() => {
             const actual = of([undefined]);
             m.expect(actual).toBeObservable("--|");

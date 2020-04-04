@@ -7,7 +7,7 @@
 // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/setprototypeof#Polyfill
 const getPrototypeOf =
   Object.getPrototypeOf ||
-  function(obj: any): any {
+  function (obj: any): any {
     return obj.__proto__;
   };
 
@@ -31,7 +31,7 @@ export function _cases<T extends NamedCase>(
 ): void;
 export function _cases(adapter: (_case: NamedCase) => void, cases: any): void {
   if (getPrototypeOf(cases) !== Array.prototype) {
-    cases = Object.keys(cases).map(key => ({ ...cases[key], name: key }));
+    cases = Object.keys(cases).map((key) => ({ ...cases[key], name: key }));
   }
   cases.forEach(adapter);
 }

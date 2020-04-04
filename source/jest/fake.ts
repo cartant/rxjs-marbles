@@ -13,7 +13,7 @@ export function fakeSchedulers(
   let fakeTime = 0;
   return _fakeSchedulers(
     () =>
-      fakeTest(milliseconds => {
+      fakeTest((milliseconds) => {
         fakeTime += milliseconds;
         jest.advanceTimersByTime(milliseconds);
       }),

@@ -8,8 +8,8 @@
 const fs = require("fs");
 
 fs.readdirSync("./__tests__")
-  .filter(f => /\.js$/.test(f))
-  .forEach(f => {
+  .filter((f) => /\.js$/.test(f))
+  .forEach((f) => {
     const name = `./__tests__/${f}`;
     const content = fs.readFileSync(name).toString();
     fs.writeFileSync(name, content.replace(/\.\.\/\.\.\/dist/g, "../dist"));

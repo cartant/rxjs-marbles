@@ -42,7 +42,7 @@ export function configure(
     ...defaults(),
     assertDeepEqual: (a, e) => expect(a).toStrictEqual(e),
     frameworkMatcher: true,
-    ...configuration
+    ...configuration,
   });
 
   function cases<T extends UnnamedCase>(
@@ -57,7 +57,7 @@ export function configure(
   ): void;
   function cases(name: string, func: any, cases: any): void {
     describe(name, () => {
-      _cases(c => {
+      _cases((c) => {
         const t = c.only ? test.only : c.skip ? test.skip : test;
         if (func.length > 2) {
           t(

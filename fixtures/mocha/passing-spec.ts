@@ -12,7 +12,7 @@ import {
   configure,
   DoneFunction,
   fakeSchedulers,
-  observe
+  observe,
 } from "../../dist/mocha";
 import { TestScheduler } from "rxjs/testing";
 
@@ -22,7 +22,7 @@ describe("marbles", () => {
 
     it(
       "should support marble tests without values",
-      marbles(m => {
+      marbles((m) => {
         const source = m.hot("  --^-a-b-c-|".trim());
         const subs = "            ^-------!".trim();
         const expected = m.cold(" --a-b-c-|".trim());
@@ -36,19 +36,19 @@ describe("marbles", () => {
 
     it(
       "should support marble tests with values",
-      marbles(m => {
+      marbles((m) => {
         const values = {
           a: 1,
           b: 2,
           c: 3,
-          d: 4
+          d: 4,
         };
 
         const source = m.hot("  --^-a-b-c-|".trim(), values);
         const subs = "            ^-------!".trim();
         const expected = m.cold(" --b-c-d-|".trim(), values);
 
-        const destination = source.pipe(map(value => value + 1));
+        const destination = source.pipe(map((value) => value + 1));
 
         m.expect(destination).toBeObservable(expected);
         m.expect(source).toHaveSubscriptions(subs);
@@ -62,14 +62,14 @@ describe("marbles", () => {
           a: 1,
           b: 2,
           c: 3,
-          d: 4
+          d: 4,
         };
 
         const source = m.hot("  --^-a-b-c-|".trim(), values);
         const subs = "            ^-------!".trim();
         const expected = m.cold(" --b-c-d-|".trim(), values);
 
-        const destination = source.pipe(map(value => value + 1));
+        const destination = source.pipe(map((value) => value + 1));
 
         m.expect(destination).toBeObservable(expected);
         m.expect(source).toHaveSubscriptions(subs);
@@ -81,7 +81,7 @@ describe("marbles", () => {
 
     it(
       "should support marble tests with class-instance values",
-      marbles(m => {
+      marbles((m) => {
         class Thing {
           constructor(public value: number) {}
         }
@@ -90,7 +90,7 @@ describe("marbles", () => {
           a: new Thing(1),
           b: new Thing(2),
           c: new Thing(3),
-          d: new Thing(4)
+          d: new Thing(4),
         };
 
         const source = m.hot("  --^-a-b-c-|".trim(), values);
@@ -98,7 +98,7 @@ describe("marbles", () => {
         const expected = m.cold(" --b-c-d-|".trim(), values);
 
         const destination = source.pipe(
-          map(thing => new Thing(thing.value + 1))
+          map((thing) => new Thing(thing.value + 1))
         );
 
         m.expect(destination).toBeObservable(expected);
@@ -108,7 +108,7 @@ describe("marbles", () => {
 
     it(
       "should support marble tests with errors",
-      marbles(m => {
+      marbles((m) => {
         const source = m.hot("  --^-a-b-c-#".trim());
         const subs = "            ^-------!".trim();
         const expected = m.cold(" --a-b-c-#".trim());
@@ -144,19 +144,19 @@ describe("marbles", () => {
 
     it(
       "should support string-based assertions",
-      marbles(m => {
+      marbles((m) => {
         const values = {
           a: 1,
           b: 2,
           c: 3,
-          d: 4
+          d: 4,
         };
 
         const source = m.hot(" --^-a-b-c-|".trim(), values);
         const subs = "           ^-------!".trim();
         const expected = "       --b-c-d-|".trim();
 
-        const destination = source.pipe(map(value => value + 1));
+        const destination = source.pipe(map((value) => value + 1));
 
         m.expect(destination).toBeObservable(expected, values);
         m.expect(source).toHaveSubscriptions(subs);
@@ -165,7 +165,7 @@ describe("marbles", () => {
 
     it(
       "should support unsubscriptions",
-      marbles(m => {
+      marbles((m) => {
         const source = m.hot("  --^-a-b-c-|".trim());
         const subs = "            ^----!".trim();
         const unsubs = "          -----!".trim();
@@ -180,12 +180,12 @@ describe("marbles", () => {
 
     it(
       "should support unsubscriptions with values",
-      marbles(m => {
+      marbles((m) => {
         const values = {
           a: 1,
           b: 2,
           c: 3,
-          d: 4
+          d: 4,
         };
 
         const source = m.hot("  --^-a-b-c-|".trim(), values);
@@ -193,7 +193,7 @@ describe("marbles", () => {
         const unsubs = "          -----!".trim();
         const expected = m.cold(" --b-c-".trim(), values);
 
-        const destination = source.pipe(map(value => value + 1));
+        const destination = source.pipe(map((value) => value + 1));
 
         m.expect(destination, unsubs).toBeObservable(expected);
         m.expect(source).toHaveSubscriptions(subs);
@@ -202,7 +202,7 @@ describe("marbles", () => {
 
     it(
       "should support string-based assertions with unsubscriptions",
-      marbles(m => {
+      marbles((m) => {
         const source = m.hot(" --^-a-b-c-|".trim());
         const subs = "           ^----!".trim();
         const unsubs = "         -----!".trim();
@@ -217,12 +217,12 @@ describe("marbles", () => {
 
     it(
       "should support string-based assertions with unsubscriptions and values",
-      marbles(m => {
+      marbles((m) => {
         const values = {
           a: 1,
           b: 2,
           c: 3,
-          d: 4
+          d: 4,
         };
 
         const source = m.hot(" --^-a-b-c-|".trim(), values);
@@ -230,7 +230,7 @@ describe("marbles", () => {
         const unsubs = "         -----!".trim();
         const expected = "       --b-c-".trim();
 
-        const destination = source.pipe(map(value => value + 1));
+        const destination = source.pipe(map((value) => value + 1));
 
         m.expect(destination, unsubs).toBeObservable(expected, values);
         m.expect(source).toHaveSubscriptions(subs);
@@ -239,7 +239,7 @@ describe("marbles", () => {
 
     it(
       "should support binding non-test schedulers",
-      marbles(m => {
+      marbles((m) => {
         m.bind();
 
         const source = m.hot(" --^-a-b-c-|".trim());
@@ -260,31 +260,31 @@ describe("marbles", () => {
           a: 1,
           b: 2,
           c: 3,
-          d: 4
+          d: 4,
         };
 
         const source = m.hot(c.s, values);
         const expected = m.cold(c.e, values);
-        const destination = source.pipe(map(value => value + 1));
+        const destination = source.pipe(map((value) => value + 1));
 
         m.expect(destination).toBeObservable(expected);
       },
       {
         "non-empty": {
           s: "-a-b-c-|",
-          e: "-b-c-d-|"
+          e: "-b-c-d-|",
         },
         empty: {
           s: "-|",
-          e: "-|"
-        }
+          e: "-|",
+        },
       }
     );
 
     it(
       "should support promises",
-      marbles(m => {
-        return Promise.resolve("pass").then(value =>
+      marbles((m) => {
+        return Promise.resolve("pass").then((value) =>
           expect(value).to.equal("pass")
         );
       })
@@ -292,7 +292,7 @@ describe("marbles", () => {
 
     it(
       "should support reframing",
-      marbles(m => {
+      marbles((m) => {
         m.reframe(100, 10000);
 
         const duration = m.time("--|");
@@ -308,7 +308,7 @@ describe("marbles", () => {
 
     it(
       "should restore after reframing",
-      marbles(m => {
+      marbles((m) => {
         const duration = m.time("--|");
         expect(duration).to.equal(20);
 
@@ -326,7 +326,7 @@ describe("marbles", () => {
 
     it(
       "should support marble tests without values",
-      marbles(m => {
+      marbles((m) => {
         const source = m.hot("  --^-a-b-c-|");
         const subs = "            ^-------!";
         const expected = m.cold(" --a-b-c-|");
@@ -340,19 +340,19 @@ describe("marbles", () => {
 
     it(
       "should support marble tests with values",
-      marbles(m => {
+      marbles((m) => {
         const values = {
           a: 1,
           b: 2,
           c: 3,
-          d: 4
+          d: 4,
         };
 
         const source = m.hot("  --^-a-b-c-|", values);
         const subs = "            ^-------!";
         const expected = m.cold(" --b-c-d-|", values);
 
-        const destination = source.pipe(map(value => value + 1));
+        const destination = source.pipe(map((value) => value + 1));
 
         m.expect(destination).toBeObservable(expected);
         m.expect(source).toHaveSubscriptions(subs);
@@ -366,14 +366,14 @@ describe("marbles", () => {
           a: 1,
           b: 2,
           c: 3,
-          d: 4
+          d: 4,
         };
 
         const source = m.hot("  --^-a-b-c-|", values);
         const subs = "            ^-------!";
         const expected = m.cold(" --b-c-d-|", values);
 
-        const destination = source.pipe(map(value => value + 1));
+        const destination = source.pipe(map((value) => value + 1));
 
         m.expect(destination).toBeObservable(expected);
         m.expect(source).toHaveSubscriptions(subs);
@@ -385,7 +385,7 @@ describe("marbles", () => {
 
     it(
       "should support marble tests with class-instance values",
-      marbles(m => {
+      marbles((m) => {
         class Thing {
           constructor(public value: number) {}
         }
@@ -394,7 +394,7 @@ describe("marbles", () => {
           a: new Thing(1),
           b: new Thing(2),
           c: new Thing(3),
-          d: new Thing(4)
+          d: new Thing(4),
         };
 
         const source = m.hot("  --^-a-b-c-|", values);
@@ -402,7 +402,7 @@ describe("marbles", () => {
         const expected = m.cold(" --b-c-d-|", values);
 
         const destination = source.pipe(
-          map(thing => new Thing(thing.value + 1))
+          map((thing) => new Thing(thing.value + 1))
         );
 
         m.expect(destination).toBeObservable(expected);
@@ -421,27 +421,27 @@ describe("marbles", () => {
         const source = cold(" --a--b");
         const expected = "    --x--y";
 
-        const destination = source.pipe(map(value => of(value)));
+        const destination = source.pipe(map((value) => of(value)));
         expectObservable(destination).toBe(expected, values);
       });
     });
 
     it(
       "should support marble tests with higher-order observables",
-      marbles(m => {
+      marbles((m) => {
         const x = m.cold("(a|)");
         const y = m.cold("(b|)");
         const source = m.cold("   --a--b");
         const expected = m.cold(" --x--y", { x, y });
 
-        const destination = source.pipe(map(value => of(value)));
+        const destination = source.pipe(map((value) => of(value)));
         m.expect(destination).toBeObservable(expected);
       })
     );
 
     it(
       "should support marble tests with errors",
-      marbles(m => {
+      marbles((m) => {
         const source = m.hot("  --^-a-b-c-#");
         const subs = "            ^-------!";
         const expected = m.cold(" --a-b-c-#");
@@ -455,19 +455,19 @@ describe("marbles", () => {
 
     it(
       "should support marble tests with explicit errors",
-      marbles(m => {
+      marbles((m) => {
         const values = {
           a: 1,
           b: 2,
           c: 3,
-          d: 4
+          d: 4,
         };
 
         const source = m.hot("  --^-a-b-c-#", values, new Error("Boom!"));
         const subs = "            ^-------!";
         const expected = m.cold(" --b-c-d-#", values, new Error("Boom!"));
 
-        const destination = source.pipe(map(value => value + 1));
+        const destination = source.pipe(map((value) => value + 1));
 
         m.expect(destination).toBeObservable(expected);
         m.expect(source).toHaveSubscriptions(subs);
@@ -476,19 +476,19 @@ describe("marbles", () => {
 
     it(
       "should support string-based assertions",
-      marbles(m => {
+      marbles((m) => {
         const values = {
           a: 1,
           b: 2,
           c: 3,
-          d: 4
+          d: 4,
         };
 
         const source = m.hot(" --^-a-b-c-|", values);
         const subs = "           ^-------!";
         const expected = "       --b-c-d-|";
 
-        const destination = source.pipe(map(value => value + 1));
+        const destination = source.pipe(map((value) => value + 1));
 
         m.expect(destination).toBeObservable(expected, values);
         m.expect(source).toHaveSubscriptions(subs);
@@ -497,7 +497,7 @@ describe("marbles", () => {
 
     it(
       "should support unsubscriptions",
-      marbles(m => {
+      marbles((m) => {
         const source = m.hot("  --^-a-b-c-|");
         const subs = "            ^----!";
         const unsubs = "          -----!";
@@ -512,12 +512,12 @@ describe("marbles", () => {
 
     it(
       "should support unsubscriptions with values",
-      marbles(m => {
+      marbles((m) => {
         const values = {
           a: 1,
           b: 2,
           c: 3,
-          d: 4
+          d: 4,
         };
 
         const source = m.hot("  --^-a-b-c-|", values);
@@ -525,7 +525,7 @@ describe("marbles", () => {
         const unsubs = "          -----!";
         const expected = m.cold(" --b-c-", values);
 
-        const destination = source.pipe(map(value => value + 1));
+        const destination = source.pipe(map((value) => value + 1));
 
         m.expect(destination, unsubs).toBeObservable(expected);
         m.expect(source).toHaveSubscriptions(subs);
@@ -534,7 +534,7 @@ describe("marbles", () => {
 
     it(
       "should support string-based assertions with unsubscriptions",
-      marbles(m => {
+      marbles((m) => {
         const source = m.hot(" --^-a-b-c-|");
         const subs = "           ^----!";
         const unsubs = "         -----!";
@@ -549,12 +549,12 @@ describe("marbles", () => {
 
     it(
       "should support string-based assertions with unsubscriptions and values",
-      marbles(m => {
+      marbles((m) => {
         const values = {
           a: 1,
           b: 2,
           c: 3,
-          d: 4
+          d: 4,
         };
 
         const source = m.hot(" --^-a-b-c-|", values);
@@ -562,7 +562,7 @@ describe("marbles", () => {
         const unsubs = "         -----!";
         const expected = "       --b-c-";
 
-        const destination = source.pipe(map(value => value + 1));
+        const destination = source.pipe(map((value) => value + 1));
 
         m.expect(destination, unsubs).toBeObservable(expected, values);
         m.expect(source).toHaveSubscriptions(subs);
@@ -571,7 +571,7 @@ describe("marbles", () => {
 
     it(
       "should not support binding",
-      marbles(m => {
+      marbles((m) => {
         expect(() => m.bind()).to.throw(/not supported/);
       })
     );
@@ -583,44 +583,44 @@ describe("marbles", () => {
           a: 1,
           b: 2,
           c: 3,
-          d: 4
+          d: 4,
         };
 
         const source = m.hot(c.s, values);
         const expected = m.cold(c.e, values);
-        const destination = source.pipe(map(value => value + 1));
+        const destination = source.pipe(map((value) => value + 1));
 
         m.expect(destination).toBeObservable(expected);
       },
       {
         "non-empty": {
           s: "-a-b-c-|",
-          e: "-b-c-d-|"
+          e: "-b-c-d-|",
         },
         empty: {
           s: "-|",
-          e: "-|"
-        }
+          e: "-|",
+        },
       }
     );
 
     it(
       "should support promises",
-      marbles(m => {
+      marbles((m) => {
         return Promise.resolve().then(() => expect(m).to.be.an("object"));
       })
     );
 
     it(
       "should not support reframing",
-      marbles(m => {
+      marbles((m) => {
         expect(() => m.reframe(100, 10000)).to.throw(/not supported/);
       })
     );
 
     it(
       "should restore after reframing",
-      marbles(m => {
+      marbles((m) => {
         const duration = m.time("--|");
         expect(duration).to.equal(2);
 
@@ -634,7 +634,7 @@ describe("marbles", () => {
 
     it(
       "should support explicit durations in time",
-      marbles(m => {
+      marbles((m) => {
         const duration = m.time(" 2ms |");
         expect(duration).to.equal(2);
       })
@@ -645,7 +645,9 @@ describe("marbles", () => {
 describe("observe", () => {
   it(
     "should support observe",
-    observe(() => of("pass").pipe(tap(value => expect(value).to.equal("pass"))))
+    observe(() =>
+      of("pass").pipe(tap((value) => expect(value).to.equal("pass")))
+    )
   );
 
   it(
@@ -672,7 +674,7 @@ describe("fakeSchedulers", () => {
     "should support a timer",
     fakeSchedulers(() => {
       let received: number | undefined;
-      timer(100).subscribe(value => (received = value));
+      timer(100).subscribe((value) => (received = value));
       clock.tick(50);
       expect(received).to.be.undefined;
       clock.tick(50);
@@ -686,7 +688,7 @@ describe("fakeSchedulers", () => {
       let received: number | undefined;
       of(1)
         .pipe(delay(100))
-        .subscribe(value => (received = value));
+        .subscribe((value) => (received = value));
       clock.tick(50);
       expect(received).to.be.undefined;
       clock.tick(50);
@@ -700,7 +702,7 @@ describe("fakeSchedulers", () => {
       let received: number | undefined;
       of(1)
         .pipe(delay(0, asapScheduler))
-        .subscribe(value => (received = value));
+        .subscribe((value) => (received = value));
       expect(received).to.be.undefined;
       clock.tick(0);
       expect(received).to.equal(1);

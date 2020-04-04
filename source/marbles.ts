@@ -40,7 +40,7 @@ export function configure(
   function _marbles(
     func: (context: Context, ...rest: any[]) => any
   ): (...rest: any[]) => any {
-    const wrapper = function(this: any, ...rest: any[]): any {
+    const wrapper = function (this: any, ...rest: any[]): any {
       const configuration = deriveConfiguration(...rest);
       if (configuration.run) {
         const scheduler = new TestScheduler((actual, expected) =>
@@ -52,7 +52,7 @@ export function configure(
             configuration.frameworkMatcher
           )
         );
-        return scheduler.run(helpers =>
+        return scheduler.run((helpers) =>
           func.call(this, new RunContext(scheduler, helpers), ...rest)
         );
       }

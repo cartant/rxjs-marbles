@@ -40,12 +40,12 @@ export function configure(
 } {
   const factory = (t: ExecutionContext) => ({
     assert: t.truthy.bind(t),
-    assertDeepEqual: t.deepEqual.bind(t)
+    assertDeepEqual: t.deepEqual.bind(t),
   });
   const configured = _configure((t: ExecutionContext) => ({
     ...defaults(),
     ...factory(t),
-    ...configuration
+    ...configuration,
   }));
   const marbles: MarblesFunction = configured.marbles;
 
@@ -60,7 +60,7 @@ export function configure(
     cases: T[]
   ): void;
   function cases(name: string, func: any, cases: any): void {
-    _cases(c => {
+    _cases((c) => {
       const t = c.only ? test.only : c.skip ? test.skip : test;
       t(
         `${name} / ${c.name}`,

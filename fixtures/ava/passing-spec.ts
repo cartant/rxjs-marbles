@@ -19,14 +19,14 @@ test(
       a: 1,
       b: 2,
       c: 3,
-      d: 4
+      d: 4,
     };
 
     const source = m.hot("  --^-a-b-c-|", values);
     const subs = "            ^-------!";
     const expected = m.cold(" --b-c-d-|", values);
 
-    const destination = source.pipe(map(value => value + 1));
+    const destination = source.pipe(map((value) => value + 1));
 
     m.expect(destination).toBeObservable(expected);
     m.expect(source).toHaveSubscriptions(subs);
@@ -42,34 +42,34 @@ cases(
       a: 1,
       b: 2,
       c: 3,
-      d: 4
+      d: 4,
     };
 
     const source = m.hot(c.s, values);
     const expected = m.cold(c.e, values);
-    const destination = source.pipe(map(value => value + 1));
+    const destination = source.pipe(map((value) => value + 1));
 
     m.expect(destination).toBeObservable(expected);
   },
   {
     "non-empty": {
       s: "-a-b-c-|",
-      e: "-b-c-d-|"
+      e: "-b-c-d-|",
     },
     empty: {
       s: "-|",
-      e: "-|"
-    }
+      e: "-|",
+    },
   }
 );
 
 test(
   "it should support a timer",
-  fakeSchedulers(t => {
+  fakeSchedulers((t) => {
     t.plan(2);
     const clock: sinon.SinonFakeTimers = sinon.useFakeTimers();
     let received: number | undefined;
-    timer(100).subscribe(value => (received = value));
+    timer(100).subscribe((value) => (received = value));
     clock.tick(50);
     t.is(received, undefined);
     clock.tick(50);
@@ -80,13 +80,13 @@ test(
 
 test(
   "it should support delay",
-  fakeSchedulers(t => {
+  fakeSchedulers((t) => {
     t.plan(2);
     const clock: sinon.SinonFakeTimers = sinon.useFakeTimers();
     let received: number | undefined;
     of(1)
       .pipe(delay(100))
-      .subscribe(value => (received = value));
+      .subscribe((value) => (received = value));
     clock.tick(50);
     t.is(received, undefined);
     clock.tick(50);
@@ -97,13 +97,13 @@ test(
 
 test(
   "it should support the asapScheduler",
-  fakeSchedulers(t => {
+  fakeSchedulers((t) => {
     t.plan(2);
     const clock: sinon.SinonFakeTimers = sinon.useFakeTimers();
     let received: number | undefined;
     of(1)
       .pipe(delay(0, asapScheduler))
-      .subscribe(value => (received = value));
+      .subscribe((value) => (received = value));
     t.is(received, undefined);
     clock.tick(0);
     t.is(received, 1);

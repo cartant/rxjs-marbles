@@ -10,7 +10,7 @@ import {
   Observable,
   queueScheduler,
   SchedulerLike,
-  VirtualTimeScheduler
+  VirtualTimeScheduler,
 } from "rxjs";
 
 import { TestScheduler } from "rxjs/testing";
@@ -60,11 +60,11 @@ export class DeprecatedContext implements Context {
         animationFrameScheduler,
         asapScheduler,
         asyncScheduler,
-        queueScheduler
+        queueScheduler,
       ];
     }
 
-    this.bindings_ = schedulers.map(instance => {
+    this.bindings_ = schedulers.map((instance) => {
       const now = instance.hasOwnProperty("now") ? instance.now : undefined;
       instance.now = () => this.scheduler.now();
       const schedule = instance.hasOwnProperty("schedule")

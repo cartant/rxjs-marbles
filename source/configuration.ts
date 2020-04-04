@@ -16,7 +16,7 @@ const defaultConfiguration = {
   assert: defaultAssert,
   assertDeepEqual: defaultAssertDeepEqual,
   frameworkMatcher: false,
-  run: true
+  run: true,
 };
 
 export function defaults(): Configuration {

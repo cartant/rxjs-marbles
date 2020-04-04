@@ -50,15 +50,13 @@ export function configure(
       // possible.
       const expectation = expect(a);
       if (expectation.withContext) {
-        expect(a)
-          .withContext(m)
-          .toBeTruthy();
+        expect(a).withContext(m).toBeTruthy();
       } else {
         defaultAssert!(a, m);
       }
     },
     assertDeepEqual: (a, e) => expect(a).toEqual(e),
-    ...configuration
+    ...configuration,
   });
 
   function cases<T extends UnnamedCase>(
@@ -73,7 +71,7 @@ export function configure(
   ): void;
   function cases(name: string, func: any, cases: any): void {
     describe(name, () => {
-      _cases(c => {
+      _cases((c) => {
         const t = c.only ? fit : c.skip ? xit : it;
         if (func.length > 2) {
           t(

@@ -38,12 +38,12 @@ export function configure(
 } {
   const factory = (t: tape.Test) => ({
     assert: t.ok.bind(t),
-    assertDeepEqual: t.deepEqual.bind(t)
+    assertDeepEqual: t.deepEqual.bind(t),
   });
   const configured = _configure((t: tape.Test) => ({
     ...defaults(),
     ...factory(t),
-    ...configuration
+    ...configuration,
   }));
   const marbles: MarblesFunction = configured.marbles;
 
@@ -58,7 +58,7 @@ export function configure(
     cases: T[]
   ): void;
   function cases(name: string, func: any, cases: any): void {
-    _cases(c => {
+    _cases((c) => {
       const t = c.only ? tape.only : c.skip ? tape.skip : tape;
       t(
         `${name} / ${c.name}`,

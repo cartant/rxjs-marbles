@@ -51,7 +51,7 @@ export function configure(
   ): void;
   function cases(name: string, func: any, cases: any): void {
     describe(name, () => {
-      _cases(c => {
+      _cases((c) => {
         const t = c.only ? it.only : c.skip ? it.skip : it;
         if (func.length > 2) {
           t(
