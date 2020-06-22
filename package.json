@@ -4,7 +4,8 @@
     "url": "https://github.com/cartant/rxjs-marbles/issues"
   },
   "dependencies": {
-    "fast-equals": "^2.0.0"
+    "fast-equals": "^2.0.0",
+    "rxjs-report-usage": "^1.0.4"
   },
   "description": "An RxJS marble testing library for any test framework",
   "devDependencies": {
