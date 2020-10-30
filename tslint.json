@@ -6,6 +6,7 @@
     "@cartant/tslint-config-rxjs"
   ],
   "rules": {
+    "no-implicit-any-catch": { "severity": "off" },
     "rxjs-no-ignored-subscription": { "severity": "off" },
     "rxjs-no-unsafe-scope": { "severity": "off" },
     "trailing-comma": { "severity": "off" },
