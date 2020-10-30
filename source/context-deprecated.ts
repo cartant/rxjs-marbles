@@ -199,12 +199,12 @@ export class DeprecatedContext implements Context {
         if (now) {
           instance.now = now;
         } else {
-          delete instance.now;
+          delete (instance as any).now;
         }
         if (schedule) {
           instance.schedule = schedule;
         } else {
-          delete instance.schedule;
+          delete (instance as any).schedule;
         }
       });
 

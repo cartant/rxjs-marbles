@@ -38,7 +38,7 @@ export function fakeSchedulers(
       if (hasOwnSchedule) {
         asapScheduler.schedule = origSchedule;
       } else {
-        delete asapScheduler.schedule;
+        delete (asapScheduler as any).schedule;
       }
       asyncScheduler.now = origNow;
     }
