@@ -5,8 +5,11 @@
 /*tslint:disable:object-literal-sort-keys*/
 
 import { expect } from "chai";
-import { of } from "rxjs";
+import { of, Subject } from "rxjs";
+import { throttleTime } from "rxjs/operators";
+import * as sinon from "sinon";
 import { configure } from "../../dist/mocha";
+import { fakeSchedulers } from "../../dist/mocha";
 
 describe("issues", () => {
   describe("deprecated", () => {
@@ -26,6 +29,42 @@ describe("issues", () => {
           );
         })
       );
+    });
+  });
+
+  describe("fakeSchedulers", () => {
+    let clock: sinon.SinonFakeTimers;
+
+    beforeEach(() => {
+      clock = sinon.useFakeTimers();
+    });
+
+    describe("issue-75", () => {
+      it(
+        "should support throttleTime",
+        fakeSchedulers(() => {
+          const values: number[] = [];
+          const source = new Subject<number>();
+
+          const throttled = source.pipe(throttleTime(10_000));
+          throttled.subscribe((value) => values.push(value));
+
+          source.next(1);
+          clock.tick(4_000);
+          source.next(2);
+          clock.tick(4_000);
+          source.next(3);
+          clock.tick(4_000);
+          source.next(4);
+          clock.tick(4_000);
+
+          expect(values).to.deep.equal([1, 4]);
+        })
+      );
+    });
+
+    afterEach(() => {
+      clock.restore();
     });
   });
 });
