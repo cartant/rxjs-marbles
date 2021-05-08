@@ -1,3 +1,10 @@
+<a name="7.0.0"></a>
+## [7.0.0](https://github.com/cartant/rxjs-marbles/compare/v6.0.1...v7.0.0) (2021-05-08)
+
+### Changes
+
+* Upgrade to RxJS version 7. ([fc98cde](https://github.com/cartant/rxjs-marbles/commit/fc98cde))
+
 <a name="6.0.1"></a>
 ## [6.0.1](https://github.com/cartant/rxjs-marbles/compare/v6.0.0...v6.0.1) (2020-06-22)
 
