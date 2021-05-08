@@ -24,7 +24,7 @@
     "chai": "^4.1.2",
     "cpy-cli": "^3.0.0",
     "cross-env": "^7.0.0",
-    "husky": "^4.0.0",
+    "husky": "^6.0.0",
     "jasmine": "^3.0.0",
     "jest": "^26.0.0",
     "lint-staged": "^11.0.0",
@@ -47,11 +47,6 @@
   },
   "es2015": "./dist/esm2015/index.js",
   "homepage": "https://github.com/cartant/rxjs-marbles",
-  "husky": {
-    "hooks": {
-      "pre-commit": "lint-staged"
-    }
-  },
   "jest": {
     "testRegex": "(fixtures/jest/.*-spec)\\.jsx?$",
     "testURL": "http://localhost/",
@@ -101,6 +96,7 @@
     "dist:copy": "node scripts/pack.js && cpy CHANGELOG.md LICENSE README.md dist/",
     "lint": "tslint --project tsconfig.json source/**/*.ts",
     "pack": "node scripts/pack.js",
+    "prepare": "husky install",
     "prepublishOnly": "yarn run test",
     "prettier": "prettier --write \"./{fixtures,scripts,source}/**/*.{js,json,ts,tsx}\"",
     "prettier:ci": "prettier --check \"./{fixtures,scripts,source}/**/*.{js,json,ts,tsx}\"",
