@@ -24,9 +24,7 @@ describe("issues", () => {
             m.expect(actual).toBeObservable("--|");
             m.autoFlush = false;
             m.flush();
-          }).to.throw(
-            /\{"frame":0,"notification":\{"kind":"N","value":"\[\s*undefined\s*\]","hasValue":true\}\}/
-          );
+          }).to.throw(/"value":"\[\s*undefined\s*\]"/);
         })
       );
     });

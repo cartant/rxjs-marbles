@@ -4,11 +4,15 @@
  */
 /*tslint:disable:rxjs-no-subclass*/
 
-import { Subscriber } from "rxjs";
+import { noop, Subscriber } from "rxjs";
 
 export class DoneSubscriber<T> extends Subscriber<T> {
   constructor(private onError: (error: any) => void, onComplete: () => void) {
-    super(undefined, onError, onComplete);
+    super({
+      complete: onComplete,
+      error: onError,
+      next: noop,
+    });
   }
 
   unsubscribe(): void {

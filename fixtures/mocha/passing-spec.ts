@@ -244,7 +244,7 @@ describe("marbles", () => {
 
         const source = m.hot(" --^-a-b-c-|".trim());
         const subs = "           ^-------!".trim();
-        const expected = "       ---a-b-c-|".trim();
+        const expected = "       ---a-b-c|".trim();
 
         const destination = source.pipe(delay(m.time("-|")));
 
