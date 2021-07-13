@@ -6,16 +6,13 @@
 import { Observable } from "rxjs";
 import { DoneSubscriber } from "../done-subscriber";
 
-export interface DoneFunction {
-  (): void;
-  fail: (error: any) => void;
-}
+export type DoneFunction = (error?: Error) => void;
 
 export function observe<T>(
   observableTest: () => Observable<T>
 ): (done: DoneFunction) => void {
   return (done: DoneFunction) => {
-    const subscriber = new DoneSubscriber(done.fail, done);
+    const subscriber = new DoneSubscriber(done, done);
     observableTest().subscribe(subscriber);
   };
 }

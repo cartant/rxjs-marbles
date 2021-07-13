@@ -76,7 +76,6 @@ describe("marbles", () => {
       m.flush();
 
       expect(done).toBeInstanceOf(Function);
-      expect(done.fail).toBeInstanceOf(Function);
       setTimeout(done, 0);
     })
   );
