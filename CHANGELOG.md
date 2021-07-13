@@ -1,3 +1,10 @@
+<a name="7.0.1"></a>
+## [7.0.1](https://github.com/cartant/rxjs-marbles/compare/v7.0.0...v7.0.1) (2021-07-13)
+
+### Fixes
+
+* With Jest, pass errors to `done` in `observe`. ([8acf083](https://github.com/cartant/rxjs-marbles/commit/8acf083))
+
 <a name="7.0.0"></a>
 ## [7.0.0](https://github.com/cartant/rxjs-marbles/compare/v6.0.1...v7.0.0) (2021-05-08)
 
